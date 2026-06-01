@@ -1,0 +1,109 @@
+@use 'variables' as *;
+
+#toast-container.toast-bottom-right {
+  right: 24px;
+  bottom: 24px;
+}
+
+#toast-container.toast-bottom-right > div {
+  margin-bottom: 12px;
+}
+
+.zora-toast {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 12px;
+  width: 360px !important;
+  max-width: calc(100vw - 48px);
+  padding: 16px 18px 16px 16px !important;
+  border-radius: $radius-md !important;
+  border: 1px solid $border !important;
+  background: #fff !important;
+  color: $text !important;
+  box-shadow: $shadow-lg !important;
+  opacity: 1 !important;
+  background-image: none !important;
+
+  .toast-close-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    float: none;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: $text-light;
+    text-shadow: none;
+    opacity: 1;
+
+    &:hover {
+      color: $text;
+    }
+  }
+
+  .toast-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin: 0 0 4px;
+    padding-right: 20px;
+  }
+
+  .toast-message {
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: $text-muted;
+    word-break: break-word;
+  }
+
+  .toast-progress {
+    height: 3px;
+    opacity: 1;
+  }
+}
+
+.zora-toast-success {
+  border-left: 4px solid $success !important;
+
+  .toast-title {
+    color: #047857;
+  }
+
+  .toast-progress {
+    background: $success;
+  }
+}
+
+.zora-toast-error {
+  border-left: 4px solid $danger !important;
+
+  .toast-title {
+    color: $danger;
+  }
+
+  .toast-progress {
+    background: $danger;
+  }
+}
+
+.zora-toast-info {
+  border-left: 4px solid $info !important;
+
+  .toast-title {
+    color: $info;
+  }
+
+  .toast-progress {
+    background: $info;
+  }
+}
+
+.zora-toast-warning {
+  border-left: 4px solid $warning !important;
+
+  .toast-title {
+    color: #b45309;
+  }
+
+  .toast-progress {
+    background: $warning;
+  }
+}

@@ -1,0 +1,28 @@
+@use '../../../../../styles/variables' as *;
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba($primary, 0.15);
+}
+
+.profile-name {
+  margin: 0 0 4px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $text;
+}
+
+.profile-role {
+  margin: 0;
+  font-size: 0.9rem;
+  color: $text-muted;
+}

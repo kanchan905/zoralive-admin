@@ -1,0 +1,58 @@
+<aside class="sidebar" [class.collapsed]="collapsed">
+  <div class="sidebar-brand">
+    <div class="brand-icon">
+      <i class="bi bi-play-fill"></i>
+    </div>
+    @if (!collapsed) {
+      <span class="brand-text">ZoraLive</span>
+    }
+  </div>
+
+  <nav class="sidebar-nav">
+    @for (item of menuItems; track item.label) {
+      @if (hasChildren(item)) {
+        <div class="nav-group" [class.expanded]="isExpanded(item)">
+          <button
+            type="button"
+            class="nav-item nav-parent"
+            (click)="toggleExpand(item)"
+            [attr.title]="collapsed ? item.label : null"
+          >
+            <i class="bi" [ngClass]="item.icon"></i>
+            @if (!collapsed) {
+              <span class="nav-label">{{ item.label }}</span>
+              <i class="bi bi-chevron-down nav-chevron"></i>
+            }
+          </button>
+
+          @if (!collapsed && isExpanded(item)) {
+            <div class="nav-children">
+              @for (child of item.children; track child.route) {
+                <a
+                  class="nav-item nav-child"
+                  [routerLink]="child.route"
+                  [class.active]="isChildActive(child.route)"
+                >
+                  <span class="nav-dot"></span>
+                  <span class="nav-label">{{ child.label }}</span>
+                </a>
+              }
+            </div>
+          }
+        </div>
+      } @else {
+        <a
+          class="nav-item"
+          [routerLink]="item.route"
+          [class.active]="isFlatItemActive(item)"
+          [attr.title]="collapsed ? item.label : null"
+        >
+          <i class="bi" [ngClass]="item.icon"></i>
+          @if (!collapsed) {
+            <span class="nav-label">{{ item.label }}</span>
+          }
+        </a>
+      }
+    }
+  </nav>
+</aside>

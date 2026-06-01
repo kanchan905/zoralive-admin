@@ -1,0 +1,21 @@
+@use '../../../styles/variables' as *;
+
+.admin-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 20px 28px;
+  margin-top: auto;
+  font-size: 0.85rem;
+  color: $text-muted;
+  border-top: 1px solid $border;
+}
+
+@media (max-width: 576px) {
+  .admin-footer {
+    flex-direction: column;
+    text-align: center;
+  }
+}

@@ -1,0 +1,31 @@
+@use '../../../../styles/variables' as *;
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.page-header-title {
+  margin: 0 0 6px;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: $text;
+  letter-spacing: -0.02em;
+}
+
+.page-header-subtitle {
+  margin: 0;
+  font-size: 0.95rem;
+  color: $text-muted;
+}
+
+.page-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}

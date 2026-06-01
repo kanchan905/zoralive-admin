@@ -1,0 +1,148 @@
+<div class="agency-dialog">
+  <div class="dialog-header">
+    <div class="dialog-header-text">
+      <div class="dialog-title-row">
+        <span class="dialog-icon"><i class="bi bi-building"></i></span>
+        <h2 class="dialog-title">Add New Agency</h2>
+      </div>
+      <p class="dialog-subtitle">Fill in the details below to create a new agency.</p>
+    </div>
+    <button type="button" class="dialog-close" (click)="close()" aria-label="Close">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <form class="dialog-body" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label class="form-label" for="agency-name">
+        Name <span class="required">*</span>
+      </label>
+      <div class="input-wrap">
+        <i class="bi bi-person input-icon"></i>
+        <input
+          id="agency-name"
+          type="text"
+          class="form-control"
+          formControlName="name"
+          placeholder="Enter agency name"
+        />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Image</label>
+      <label class="upload-zone">
+        <input type="file" accept="image/png,image/jpeg,image/jpg" hidden (change)="onImageSelected($event)" />
+        @if (imagePreview()) {
+          <img [src]="imagePreview()!" alt="Preview" class="upload-preview" />
+        } @else {
+          <i class="bi bi-image upload-icon"></i>
+          <span class="upload-text">Click to upload</span>
+          <span class="upload-hint">PNG, JPG (Max. 2MB)</span>
+        }
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="agency-country">
+        Country <span class="required">*</span>
+      </label>
+      <div class="input-wrap">
+        <i class="bi bi-globe2 input-icon"></i>
+        <select id="agency-country" class="form-control" formControlName="country">
+          <option value="" disabled>Select country</option>
+          @for (country of countries; track country) {
+            <option [value]="country">{{ country }}</option>
+          }
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="agency-email">
+        Email <span class="required">*</span>
+      </label>
+      <div class="input-wrap">
+        <i class="bi bi-envelope input-icon"></i>
+        <input
+          id="agency-email"
+          type="email"
+          class="form-control"
+          formControlName="email"
+          placeholder="Enter email address"
+        />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="agency-mobile">
+        Mobile No <span class="required">*</span>
+      </label>
+      <div class="input-wrap">
+        <i class="bi bi-telephone input-icon"></i>
+        <input
+          id="agency-mobile"
+          type="tel"
+          class="form-control"
+          formControlName="mobile"
+          placeholder="Enter mobile number"
+        />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="agency-password">
+        Password <span class="required">*</span>
+      </label>
+      <div class="input-with-action">
+        <div class="input-wrap input-wrap--flex">
+          <i class="bi bi-lock input-icon"></i>
+          <input
+            id="agency-password"
+            [type]="showPassword() ? 'text' : 'password'"
+            class="form-control"
+            formControlName="password"
+            placeholder="Enter password"
+          />
+          <button type="button" class="input-suffix-btn" (click)="togglePasswordVisibility()" aria-label="Toggle password">
+            <i class="bi" [ngClass]="showPassword() ? 'bi-eye-slash' : 'bi-eye'"></i>
+          </button>
+        </div>
+        <button type="button" class="btn-auto" (click)="autoGeneratePassword()">
+          <i class="bi bi-magic"></i>
+          Auto Generate
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="agency-code">
+        Agency Code <span class="required">*</span>
+      </label>
+      <div class="input-with-action">
+        <div class="input-wrap input-wrap--flex">
+          <i class="bi bi-hash input-icon"></i>
+          <input
+            id="agency-code"
+            type="text"
+            class="form-control"
+            formControlName="code"
+            placeholder="Enter agency code"
+          />
+        </div>
+        <button type="button" class="btn-auto" (click)="autoGenerateCode()">
+          <i class="bi bi-magic"></i>
+          Auto Generate
+        </button>
+      </div>
+    </div>
+
+    <div class="dialog-footer">
+      <button type="button" class="btn-cancel" (click)="close()">Cancel</button>
+      <button type="submit" class="btn-submit">
+        <i class="bi bi-save"></i>
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

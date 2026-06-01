@@ -1,0 +1,11 @@
+<div class="search-box">
+  <i class="bi bi-search search-box-icon" aria-hidden="true"></i>
+  <input
+    type="search"
+    class="search-box-input"
+    [placeholder]="placeholder()"
+    [ngModel]="value()"
+    (ngModelChange)="onInput($event)"
+    aria-label="Search"
+  />
+</div>

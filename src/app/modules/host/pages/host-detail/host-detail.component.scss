@@ -1,0 +1,120 @@
+@use '../../../../../styles/variables' as *;
+
+.host-filters-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.host-filters-left {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 140px;
+}
+
+.filter-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.filter-select,
+.filter-date {
+  height: 42px;
+  padding: 0 14px;
+  border: 1px solid $border;
+  border-radius: $radius-md;
+  background: #fff;
+  font-size: 0.875rem;
+  color: $text;
+  outline: none;
+  transition: border-color $transition;
+  font-family: inherit;
+
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba($primary, 0.12);
+  }
+}
+
+.filter-date {
+  min-width: 150px;
+  cursor: pointer;
+
+  &::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.6;
+  }
+}
+
+.filter-date-sep {
+  align-self: center;
+  padding-bottom: 10px;
+  color: $text-light;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.btn-filter-apply {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 20px;
+  border: none;
+  border-radius: $radius-md;
+  background: $primary;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background $transition;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  &:hover {
+    background: $primary-dark;
+  }
+}
+
+@media (max-width: 768px) {
+  .host-filters-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .host-filters-left {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-date-sep {
+    display: none;
+  }
+
+  .filter-field {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .btn-filter-apply,
+  .btn-export {
+    width: 100%;
+    justify-content: center;
+  }
+}

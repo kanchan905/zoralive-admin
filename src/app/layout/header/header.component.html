@@ -1,0 +1,52 @@
+<header class="admin-header">
+  <button type="button" class="btn-menu" (click)="menuToggle.emit()" aria-label="Toggle sidebar">
+    <i class="bi bi-list"></i>
+  </button>
+
+  <div class="search-wrap">
+    <i class="bi bi-search search-icon"></i>
+    <input type="search" class="search-input" placeholder="Search anything..." />
+    <kbd class="search-kbd">Ctrl + K</kbd>
+  </div>
+
+  <div class="header-actions">
+    <button type="button" class="icon-btn" aria-label="Push notification" (click)="openNotificationOne()">
+      <i class="bi bi-bell"></i>
+    </button>
+
+    <button type="button" class="icon-btn" aria-label="Message to users" (click)="openNotificationTwo()">
+      <i class="bi bi-bell"></i>
+    </button>
+
+    <div class="profile-wrap" (click)="$event.stopPropagation()">
+      <button
+        type="button"
+        class="user-profile"
+        (click)="toggleProfileMenu($event)"
+        [attr.aria-expanded]="profileMenuOpen()"
+        aria-haspopup="true"
+      >
+        <img class="avatar" [src]="avatarUrl" alt="Admin" />
+        <div class="user-info">
+          <span class="user-greeting">Hello, Admin</span>
+          <span class="user-role">Super Admin</span>
+        </div>
+        <i class="bi bi-chevron-down profile-chevron" [class.open]="profileMenuOpen()"></i>
+      </button>
+
+      @if (profileMenuOpen()) {
+        <div class="profile-dropdown" role="menu">
+          <a
+            routerLink="/profile"
+            class="profile-dropdown-item"
+            role="menuitem"
+            (click)="closeProfileMenu()"
+          >
+            <i class="bi bi-person-circle"></i>
+            Profile
+          </a>
+        </div>
+      }
+    </div>
+  </div>
+</header>

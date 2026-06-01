@@ -1,0 +1,74 @@
+<div class="page-container">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+
+  <app-page-header
+    title="Host Detail"
+    subtitle="Manage host performance and activity"
+  ></app-page-header>
+
+  <div class="page-card">
+    <div class="host-filters-bar">
+      <div class="host-filters-left">
+        <div class="filter-field">
+          <label class="filter-label" for="host-status">Status</label>
+          <select id="host-status" class="filter-select" [(ngModel)]="statusFilter">
+            @for (opt of statusOptions; track opt.value) {
+              <option [value]="opt.value">{{ opt.label }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="filter-field">
+          <label class="filter-label" for="host-from-date">From Date</label>
+          <input
+            id="host-from-date"
+            type="date"
+            class="filter-date"
+            [(ngModel)]="fromDate"
+          />
+        </div>
+
+        <span class="filter-date-sep" aria-hidden="true">→</span>
+
+        <div class="filter-field">
+          <label class="filter-label" for="host-to-date">To Date</label>
+          <input
+            id="host-to-date"
+            type="date"
+            class="filter-date"
+            [(ngModel)]="toDate"
+            [min]="fromDate || null"
+          />
+        </div>
+
+        <button type="button" class="btn-filter-apply" (click)="applyFilters()">
+          <i class="bi bi-funnel"></i>
+          Filter
+        </button>
+      </div>
+
+      <button type="button" class="btn-export" (click)="exportToExcel()">
+        <i class="bi bi-download"></i>
+        Export To Excel
+      </button>
+    </div>
+
+    <app-data-table
+      [columns]="columns"
+      [rows]="rows()"
+      [loading]="loading()"
+      [page]="page()"
+      [pageSize]="pageSize()"
+      [total]="total()"
+      [pageSizeOptions]="pageSizeOptions"
+      [stickyHeader]="true"
+      [zebraRows]="true"
+      rowTrackKey="id"
+      emptyTitle="No Host Records Found"
+      emptyMessage="Try changing filters or date range."
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+      (rowAction)="onRowAction($event)"
+    ></app-data-table>
+  </div>
+</div>

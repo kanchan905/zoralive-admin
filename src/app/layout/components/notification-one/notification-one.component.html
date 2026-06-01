@@ -1,0 +1,62 @@
+<div class="notification-modal">
+  <div class="dialog-header">
+    <h2 class="dialog-title">Notification</h2>
+    <button type="button" class="dialog-close" (click)="close()" aria-label="Close">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <form class="dialog-body" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label class="form-label" for="notif-one-title">Title</label>
+      <input
+        id="notif-one-title"
+        type="text"
+        class="form-control"
+        formControlName="title"
+        placeholder="Title"
+      />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="notif-one-description">Description</label>
+      <input
+        id="notif-one-description"
+        type="text"
+        class="form-control"
+        formControlName="description"
+        placeholder="Description"
+      />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="notif-one-image">Image</label>
+      <div class="file-input-wrap">
+        <input
+          id="notif-one-image"
+          type="file"
+          class="file-input"
+          accept="image/png,image/jpeg,image/jpg"
+          (change)="onImageSelected($event)"
+        />
+        <span class="file-name">{{ selectedFileName() }}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="notif-one-which-user">Which User</label>
+      <select id="notif-one-which-user" class="form-control" formControlName="whichUser">
+        @for (opt of userOptions; track opt.value) {
+          <option [value]="opt.value">{{ opt.label }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="dialog-footer">
+      <button type="submit" class="btn-send">
+        <i class="bi bi-send"></i>
+        Send
+      </button>
+    </div>
+  </form>
+</div>

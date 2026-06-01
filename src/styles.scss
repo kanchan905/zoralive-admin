@@ -1,0 +1,78 @@
+@use 'styles/variables' as *;
+@use 'styles/page';
+@use 'styles/toastr';
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+html {
+  @include mat.theme(
+    (
+      color: (
+        theme-type: light,
+        primary: mat.$violet-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: (
+        plain-family: (
+          'Inter',
+          system-ui,
+          sans-serif,
+        ),
+      ),
+      density: 0,
+    )
+  );
+}
+
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+@import 'ngx-toastr/toastr';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  font-size: 14px;
+  color: $text;
+  background: $bg;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+.agency-dialog-panel .mat-mdc-dialog-surface {
+  border-radius: 16px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.notification-dialog-panel .mat-mdc-dialog-surface {
+  border-radius: 12px;
+  padding: 0;
+  overflow: hidden;
+}
+

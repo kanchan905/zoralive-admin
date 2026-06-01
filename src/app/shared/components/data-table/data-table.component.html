@@ -1,0 +1,181 @@
+<div
+  class="data-table-wrap"
+  [class.data-table-wrap--sticky]="stickyHeader()"
+  [class.data-table-wrap--zebra]="zebraRows()"
+>
+  <div class="table-responsive">
+    <table class="data-table">
+      <thead>
+        <tr>
+          @for (col of columns(); track col.key) {
+            <th [style.width]="col.width || null">{{ col.label }}</th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @if (loading()) {
+          <tr class="table-state-row">
+            <td [attr.colspan]="columns().length">
+              <div class="table-loading">
+                <span class="table-loading-spinner"></span>
+                Loading...
+              </div>
+            </td>
+          </tr>
+        } @else if (isEmpty()) {
+          <tr class="table-state-row">
+            <td [attr.colspan]="columns().length">
+              @if (emptyDisplay() === 'text') {
+                <p class="empty-text-only">{{ emptyTitle() }}</p>
+              } @else {
+                <div class="empty-state">
+                  <img [src]="emptyImage()" alt="" class="empty-state-img" />
+                  <h3 class="empty-state-title">{{ emptyTitle() }}</h3>
+                  @if (emptyMessage()) {
+                    <p class="empty-state-message">{{ emptyMessage() }}</p>
+                  }
+                  @if (emptyActionLabel()) {
+                    <button type="button" class="btn-empty-action" (click)="onEmptyAction()">
+                      <i class="bi bi-plus-lg"></i>
+                      {{ emptyActionLabel() }}
+                    </button>
+                  }
+                </div>
+              }
+            </td>
+          </tr>
+        } @else {
+          @for (row of rows(); track trackRow($index, row)) {
+            <tr>
+              @for (col of columns(); track col.key) {
+                <td>
+                  @switch (col.type ?? 'text') {
+                    @case ('image') {
+                      @if (getCellValue(row, col.key)) {
+                        <img
+                          class="table-avatar"
+                          [src]="$any(getCellValue(row, col.key))"
+                          alt=""
+                        />
+                      } @else {
+                        <span class="table-avatar table-avatar--placeholder">
+                          <i class="bi bi-person"></i>
+                        </span>
+                      }
+                    }
+                    @case ('toggle') {
+                      <label class="table-toggle">
+                        <input
+                          type="checkbox"
+                          [checked]="!!getCellValue(row, col.key)"
+                          (change)="onToggle(col.key, row, $event)"
+                        />
+                        <span class="table-toggle-slider"></span>
+                      </label>
+                    }
+                    @case ('link') {
+                      <button type="button" class="table-link-btn" (click)="onRowLink(col.key, row)">
+                        {{ getCellValue(row, col.key) || 'View' }}
+                      </button>
+                    }
+                    @case ('badge') {
+                      <span
+                        class="status-badge"
+                        [attr.data-status]="statusVariant(getCellValue(row, col.key))"
+                      >
+                        <span class="status-dot" aria-hidden="true"></span>
+                        {{ statusLabel(getCellValue(row, col.key)) }}
+                      </span>
+                    }
+                    @case ('actions') {
+                      <div class="table-actions">
+                        <button
+                          type="button"
+                          class="table-action-btn"
+                          title="Edit"
+                          (click)="onRowAction('edit', row)"
+                        >
+                          <i class="bi bi-pencil"></i>
+                        </button>
+                        <button
+                          type="button"
+                          class="table-action-btn table-action-btn--danger"
+                          title="Delete"
+                          (click)="onRowAction('delete', row)"
+                        >
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </div>
+                    }
+                    @default {
+                      {{ getCellValue(row, col.key) }}
+                    }
+                  }
+                </td>
+              }
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+
+  @if (showPagination()) {
+    <div class="table-pagination">
+      <div class="pagination-left">
+        <span class="pagination-label">Rows per page:</span>
+        <select
+          class="pagination-select"
+          [ngModel]="pageSize()"
+          (ngModelChange)="onPageSizeChange($event)"
+          [disabled]="loading()"
+        >
+          @for (size of pageSizeOptions(); track size) {
+            <option [value]="size">{{ size }}</option>
+          }
+        </select>
+      </div>
+      <div class="pagination-right">
+        <span class="pagination-range">{{ rangeStart() }}-{{ rangeEnd() }} of {{ total() }}</span>
+        <div class="pagination-nav">
+          <button
+            type="button"
+            class="pagination-btn"
+            [disabled]="loading() || page() <= 1"
+            (click)="goToPage(1)"
+            aria-label="First page"
+          >
+            <i class="bi bi-chevron-double-left"></i>
+          </button>
+          <button
+            type="button"
+            class="pagination-btn"
+            [disabled]="loading() || page() <= 1"
+            (click)="goToPage(page() - 1)"
+            aria-label="Previous page"
+          >
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button
+            type="button"
+            class="pagination-btn"
+            [disabled]="loading() || page() >= totalPages()"
+            (click)="goToPage(page() + 1)"
+            aria-label="Next page"
+          >
+            <i class="bi bi-chevron-right"></i>
+          </button>
+          <button
+            type="button"
+            class="pagination-btn"
+            [disabled]="loading() || page() >= totalPages()"
+            (click)="goToPage(totalPages())"
+            aria-label="Last page"
+          >
+            <i class="bi bi-chevron-double-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,153 @@
+@use '../../../styles/variables' as *;
+
+.notification-modal {
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 8px;
+}
+
+.dialog-title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: $text;
+}
+
+.dialog-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: $primary;
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background $transition;
+  flex-shrink: 0;
+
+  &:hover {
+    background: $primary-dark;
+  }
+}
+
+.dialog-body {
+  padding: 12px 24px 24px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $text;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid $border;
+  border-radius: $radius-sm;
+  background: #fff;
+  font-size: 0.875rem;
+  color: $text;
+  outline: none;
+  transition: border-color $transition;
+  font-family: inherit;
+
+  &::placeholder {
+    color: $text-light;
+  }
+
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba($primary, 0.12);
+  }
+
+  &.ng-touched.ng-invalid {
+    border-color: $danger;
+  }
+}
+
+select.form-control {
+  appearance: none;
+  cursor: pointer;
+  padding-right: 36px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236b7280' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+
+.file-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 14px;
+  border: 1px solid $border;
+  border-radius: $radius-sm;
+  background: #fff;
+}
+
+.file-input {
+  font-size: 0.875rem;
+  color: $text-muted;
+  cursor: pointer;
+
+  &::file-selector-button {
+    margin-right: 12px;
+    padding: 6px 14px;
+    border: 1px solid $border;
+    border-radius: $radius-sm;
+    background: #f9fafb;
+    color: $text;
+    font-size: 0.8rem;
+    font-family: inherit;
+    cursor: pointer;
+
+    &:hover {
+      background: $border-light;
+    }
+  }
+}
+
+.file-name {
+  font-size: 0.875rem;
+  color: $text-muted;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 4px;
+}
+
+.btn-send {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border: none;
+  border-radius: $radius-sm;
+  background: $primary;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background $transition;
+
+  &:hover {
+    background: $primary-dark;
+  }
+}

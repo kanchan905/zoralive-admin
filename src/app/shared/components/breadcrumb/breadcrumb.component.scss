@@ -1,0 +1,30 @@
+@use '../../../../styles/variables' as *;
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+  font-size: 0.875rem;
+}
+
+.breadcrumb-link {
+  color: $text-muted;
+  text-decoration: none;
+  transition: color $transition;
+
+  &:hover {
+    color: $primary;
+  }
+}
+
+.breadcrumb-current {
+  color: $primary;
+  font-weight: 600;
+}
+
+.breadcrumb-sep {
+  font-size: 0.65rem;
+  color: $text-light;
+}

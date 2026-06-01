@@ -1,0 +1,29 @@
+@use '../../../styles/variables' as *;
+
+.admin-layout {
+  min-height: 100vh;
+  background: $bg;
+
+  .main-content {
+    margin-left: $sidebar-width;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: margin-left $transition;
+  }
+
+  &.sidebar-collapsed .main-content {
+    margin-left: $sidebar-collapsed-width;
+  }
+}
+
+.page-wrapper {
+  flex: 1;
+  padding: 28px;
+}
+
+@media (max-width: 992px) {
+  .admin-layout .main-content {
+    margin-left: $sidebar-collapsed-width;
+  }
+}
