@@ -1,4 +1,5 @@
 export type TableColumnType =
+  | 'checkbox'
   | 'image'
   | 'text'
   | 'date'
@@ -12,6 +13,7 @@ export interface TableColumn {
   label: string;
   type?: TableColumnType;
   width?: string;
+  linkLabel?: string;
 }
 
 export interface TablePaginationState {

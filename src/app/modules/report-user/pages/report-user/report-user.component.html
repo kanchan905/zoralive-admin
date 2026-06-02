@@ -1,0 +1,46 @@
+<div class="page-container">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+
+  <app-page-header title="User Report" subtitle="Review reported users and manage blocks."></app-page-header>
+
+  <div class="page-card report-user-card">
+    <div class="report-user-filters-bar">
+      <div class="filter-field">
+        <label class="filter-label" for="report-user-agency">Agency</label>
+        <select
+          id="report-user-agency"
+          class="filter-select"
+          [ngModel]="agencyFilter()"
+          (ngModelChange)="onAgencyChange($event)"
+        >
+          @for (opt of agencyOptions; track opt.value) {
+            <option [value]="opt.value">{{ opt.label }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="search-wrap">
+        <app-search-box
+          placeholder="What're you searching for?"
+          (searchChange)="onSearch($event)"
+        ></app-search-box>
+      </div>
+    </div>
+
+    <app-data-table
+      [columns]="columns"
+      [rows]="rows()"
+      [loading]="loading()"
+      [page]="page()"
+      [pageSize]="pageSize()"
+      [total]="total()"
+      rowTrackKey="id"
+      emptyTitle="Nothing to show!!"
+      emptyMessage="No reported users found."
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+      (rowToggleChange)="onRowToggle($event)"
+      (rowAction)="onRowAction($event)"
+    ></app-data-table>
+  </div>
+</div>

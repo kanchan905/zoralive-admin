@@ -13,3 +13,8 @@ export interface TableRowToggleEvent<T = Record<string, unknown>> {
   row: T;
   value: boolean;
 }
+
+export interface TableRowSelectEvent<T = Record<string, unknown>> {
+  row: T;
+  selected: boolean;
+}

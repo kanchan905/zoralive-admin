@@ -1,0 +1,36 @@
+<div class="agency-dialog">
+  <div class="dialog-header">
+    <h2 class="dialog-title">User Level</h2>
+    <button type="button" class="dialog-close" (click)="close()" aria-label="Close">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <form class="dialog-body" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label class="form-label" for="user-level-name">Name</label>
+      <input
+        id="user-level-name"
+        type="text"
+        class="form-control"
+        formControlName="name"
+        placeholder="Level Name"
+      />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="user-level-coin">Coin</label>
+      <input
+        id="user-level-coin"
+        type="number"
+        min="0"
+        step="1"
+        class="form-control"
+        formControlName="coin"
+        placeholder="0"
+      />
+    </div>
+
+    <button type="submit" class="btn-submit-full">Submit</button>
+  </form>
+</div>

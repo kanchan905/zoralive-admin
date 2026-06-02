@@ -1,0 +1,43 @@
+<div class="page-container">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+
+  <app-page-header title="Sticker" subtitle="Manage sticker assets for the platform."></app-page-header>
+
+  <div class="page-card sticker-card">
+    <div class="sticker-actions-top">
+      <button type="button" class="btn-sticker-delete" (click)="deleteSelected()">
+        <i class="bi bi-trash3-fill"></i>
+        Delete Selected ({{ selectedIds().length }})
+      </button>
+
+      <button type="button" class="btn-primary btn-sticker-new" (click)="openNew()">
+        <i class="bi bi-plus-lg"></i>
+        New
+      </button>
+    </div>
+
+    <div class="table-toolbar table-toolbar--search-end">
+      <app-search-box
+        placeholder="What're you searching for?"
+        (searchChange)="onSearch($event)"
+      ></app-search-box>
+    </div>
+
+    <app-data-table
+      [columns]="columns"
+      [rows]="rows()"
+      [loading]="loading()"
+      [page]="page()"
+      [pageSize]="pageSize()"
+      [total]="total()"
+      [selectedRowIds]="selectedIds()"
+      rowTrackKey="id"
+      emptyTitle="Nothing to show!!"
+      emptyMessage="No stickers found."
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+      (rowAction)="onRowAction($event)"
+      (rowSelectChange)="onRowSelect($event)"
+    ></app-data-table>
+  </div>
+</div>

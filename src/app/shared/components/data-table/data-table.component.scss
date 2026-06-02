@@ -243,6 +243,20 @@
   }
 }
 
+.table-row-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: $primary;
+  cursor: pointer;
+}
+
+.table-header-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: $primary;
+  cursor: pointer;
+}
+
 .table-toggle {
   position: relative;
   display: inline-block;

@@ -1,0 +1,68 @@
+@use '../../../../../styles/variables' as *;
+
+.ad-network-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.btn-save-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: $radius-md;
+  background: $primary;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background $transition;
+  white-space: nowrap;
+
+  &:hover:not(:disabled) {
+    background: $primary-dark;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.ad-settings-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: $radius-md;
+  background: rgba($primary, 0.08);
+  border: 1px solid rgba($primary, 0.15);
+
+  i {
+    color: $primary;
+    font-size: 1.15rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: $text-muted;
+    line-height: 1.5;
+
+    strong {
+      color: $text;
+    }
+  }
+}
+
+@media (min-width: 1100px) {
+  .ad-network-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}

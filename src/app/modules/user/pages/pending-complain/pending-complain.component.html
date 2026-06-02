@@ -1,0 +1,32 @@
+<div class="page-container">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+
+  <app-page-header
+    title="Pending Complain"
+    subtitle="Manage and review user pending complaints."
+  ></app-page-header>
+
+  <div class="page-card">
+    <div class="table-toolbar table-toolbar--search-end">
+      <app-search-box
+        placeholder="What're you searching for?"
+        (searchChange)="onSearch($event)"
+      ></app-search-box>
+    </div>
+
+    <app-data-table
+      [columns]="columns"
+      [rows]="rows()"
+      [loading]="loading()"
+      [page]="page()"
+      [pageSize]="pageSize()"
+      [total]="total()"
+      rowTrackKey="id"
+      emptyTitle="Nothing to show!!"
+      emptyMessage="No pending complaints found."
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+      (rowLinkClick)="onViewDetail($event)"
+    ></app-data-table>
+  </div>
+</div>

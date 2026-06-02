@@ -1,0 +1,65 @@
+<div class="page-container">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+
+  <app-page-header
+    title="Purchase Coin History"
+    subtitle="Track coin purchases with date-wise filtering."
+  ></app-page-header>
+
+  <div class="page-card purchase-history-card">
+    <div class="purchase-history-filters-bar">
+      <div class="purchase-history-filters-left">
+        <div class="filter-field">
+          <label class="filter-label" for="purchase-history-from">From Date</label>
+          <input
+            id="purchase-history-from"
+            type="date"
+            class="filter-date"
+            [value]="fromDate()"
+            (change)="onFromDateChange($any($event.target).value)"
+          />
+        </div>
+
+        <span class="filter-date-sep" aria-hidden="true">→</span>
+
+        <div class="filter-field">
+          <label class="filter-label" for="purchase-history-to">To Date</label>
+          <input
+            id="purchase-history-to"
+            type="date"
+            class="filter-date"
+            [value]="toDate()"
+            [min]="fromDate() || null"
+            (change)="onToDateChange($any($event.target).value)"
+          />
+        </div>
+
+        <button type="button" class="btn-filter-apply" (click)="applyDateFilters()">
+          <i class="bi bi-funnel"></i>
+          Filter
+        </button>
+      </div>
+
+      <div class="search-wrap">
+        <app-search-box
+          placeholder="What're you searching for?"
+          (searchChange)="onSearch($event)"
+        ></app-search-box>
+      </div>
+    </div>
+
+    <app-data-table
+      [columns]="columns"
+      [rows]="rows()"
+      [loading]="loading()"
+      [page]="page()"
+      [pageSize]="pageSize()"
+      [total]="total()"
+      rowTrackKey="id"
+      emptyTitle="Nothing to show!!"
+      emptyMessage="No purchase history found."
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+    ></app-data-table>
+  </div>
+</div>

@@ -36,6 +36,15 @@
   margin-left: auto;
 }
 
+.table-toolbar--search-end {
+  justify-content: flex-end;
+
+  app-search-box {
+    max-width: 320px;
+    width: 100%;
+  }
+}
+
 .btn-primary {
   display: inline-flex;
   align-items: center;

@@ -1,13 +1,220 @@
-<div class="page-container">
-  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+<div class="page-container profile-page">
+  <section class="profile-hero">
+    <div class="profile-hero__pattern" aria-hidden="true"></div>
 
-  <app-page-header title="Profile" subtitle="Manage your account settings."></app-page-header>
+    <div class="profile-hero__content">
+      <app-breadcrumb [items]="breadcrumbs" class="profile-hero__breadcrumb"></app-breadcrumb>
 
-  <div class="page-card profile-card">
-    <img class="profile-avatar" [src]="avatarUrl" alt="Admin profile" />
-    <div>
-      <h2 class="profile-name">Admin</h2>
-      <p class="profile-role">Super Admin</p>
+      <div class="profile-hero__main">
+        <div class="profile-hero__identity">
+          <div class="profile-avatar-wrap">
+            <img class="profile-avatar" [src]="avatarUrl()" alt="Profile photo" />
+            <label class="profile-avatar-edit" aria-label="Change profile photo">
+              <input type="file" accept="image/*" hidden (change)="onAvatarSelected($event)" />
+              <i class="bi bi-camera"></i>
+            </label>
+          </div>
+
+          <div class="profile-hero__text">
+            <h1 class="profile-hero__title">My Profile</h1>
+            <p class="profile-hero__subtitle">
+              Manage your personal information and account settings
+            </p>
+          </div>
+        </div>
+
+        <div class="profile-hero__stats">
+          <div class="profile-stat">
+            <span class="profile-stat__icon"><i class="bi bi-calendar-check"></i></span>
+            <div>
+              <strong>{{ stats.daysActive }}</strong>
+              <span>Days Active</span>
+            </div>
+          </div>
+          <div class="profile-stat">
+            <span class="profile-stat__icon"><i class="bi bi-shield-check"></i></span>
+            <div>
+              <strong>{{ stats.role }}</strong>
+              <span>Role</span>
+            </div>
+          </div>
+          <div class="profile-stat">
+            <span class="profile-stat__icon"><i class="bi bi-clock-history"></i></span>
+            <div>
+              <strong>{{ stats.lastLogin }}</strong>
+              <span>Last Login</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
+
+  <div class="profile-layout">
+    <div class="profile-main">
+      <article id="user-info-card" class="profile-card">
+        <header class="profile-card__header">
+          <h2 class="profile-card__title">
+            <span class="profile-card__accent"></span>
+            User Information
+          </h2>
+          <button type="button" class="btn-edit-profile" (click)="toggleEditProfile()">
+            <i class="bi bi-pencil"></i>
+            {{ editingProfile() ? 'Cancel' : 'Edit Profile' }}
+          </button>
+        </header>
+
+        <form class="profile-card__body" [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+          <div class="field-grid">
+            <div class="field">
+              <label class="field__label" for="full-name">Full Name</label>
+              <input
+                id="full-name"
+                type="text"
+                class="field__input"
+                formControlName="fullName"
+                [readonly]="!editingProfile()"
+              />
+            </div>
+            <div class="field">
+              <label class="field__label" for="email">Email Address</label>
+              <input
+                id="email"
+                type="email"
+                class="field__input"
+                formControlName="email"
+                [readonly]="!editingProfile()"
+              />
+            </div>
+          </div>
+
+          @if (editingProfile()) {
+            <div class="profile-card__actions">
+              <button type="submit" class="btn-primary-inline">Save Changes</button>
+            </div>
+          }
+        </form>
+      </article>
+
+      <article id="change-password-card" class="profile-card">
+        <header class="profile-card__header">
+          <h2 class="profile-card__title">
+            <span class="profile-card__accent"></span>
+            Change Password
+          </h2>
+        </header>
+
+        <form class="profile-card__body" [formGroup]="passwordForm" (ngSubmit)="updatePassword()">
+          <div class="field field--password">
+            <label class="field__label" for="current-password">Current Password</label>
+            <div class="password-input-wrap">
+              <i class="bi bi-lock password-input-wrap__prefix"></i>
+              <input
+                id="current-password"
+                [type]="showCurrentPassword() ? 'text' : 'password'"
+                class="field__input field__input--password"
+                formControlName="currentPassword"
+                placeholder="Enter current password"
+              />
+              <button
+                type="button"
+                class="password-input-wrap__toggle"
+                (click)="togglePasswordVisibility('current')"
+                aria-label="Toggle password visibility"
+              >
+                <i class="bi" [class.bi-eye]="!showCurrentPassword()" [class.bi-eye-slash]="showCurrentPassword()"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="field field--password">
+            <label class="field__label" for="new-password">New Password</label>
+            <div class="password-input-wrap">
+              <i class="bi bi-lock password-input-wrap__prefix"></i>
+              <input
+                id="new-password"
+                [type]="showNewPassword() ? 'text' : 'password'"
+                class="field__input field__input--password"
+                formControlName="newPassword"
+                placeholder="Enter new password"
+              />
+              <button
+                type="button"
+                class="password-input-wrap__toggle"
+                (click)="togglePasswordVisibility('new')"
+                aria-label="Toggle password visibility"
+              >
+                <i class="bi" [class.bi-eye]="!showNewPassword()" [class.bi-eye-slash]="showNewPassword()"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="field field--password">
+            <label class="field__label" for="confirm-password">Confirm New Password</label>
+            <div class="password-input-wrap">
+              <i class="bi bi-lock password-input-wrap__prefix"></i>
+              <input
+                id="confirm-password"
+                [type]="showConfirmPassword() ? 'text' : 'password'"
+                class="field__input field__input--password"
+                formControlName="confirmPassword"
+                placeholder="Confirm new password"
+              />
+              <button
+                type="button"
+                class="password-input-wrap__toggle"
+                (click)="togglePasswordVisibility('confirm')"
+                aria-label="Toggle password visibility"
+              >
+                <i class="bi" [class.bi-eye]="!showConfirmPassword()" [class.bi-eye-slash]="showConfirmPassword()"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="profile-card__actions profile-card__actions--end">
+            <button type="submit" class="btn-update-password">
+              <i class="bi bi-lock-fill"></i>
+              Update Password
+            </button>
+          </div>
+        </form>
+      </article>
+    </div>
+
+    <aside class="profile-side">
+      <article class="profile-card profile-preview-card">
+        <header class="profile-card__header profile-card__header--simple">
+          <h2 class="profile-card__title profile-card__title--plain">Profile Preview</h2>
+        </header>
+
+        <div class="profile-preview">
+          <div class="profile-preview__banner"></div>
+          <img class="profile-preview__avatar" [src]="avatarUrl()" alt="" />
+          <h3 class="profile-preview__name">{{ profileForm.controls.fullName.value }}</h3>
+          <p class="profile-preview__email">{{ profileForm.controls.email.value }}</p>
+          <span class="profile-preview__badge">{{ stats.role }}</span>
+        </div>
+      </article>
+
+      <article class="profile-card">
+        <header class="profile-card__header profile-card__header--simple">
+          <h2 class="profile-card__title profile-card__title--plain">Account Options</h2>
+        </header>
+
+        <ul class="account-options">
+          @for (opt of accountOptions; track opt.label) {
+            <li>
+              <button type="button" class="account-options__item" (click)="onAccountOption(opt.action)">
+                <span class="account-options__left">
+                  <i [class]="opt.icon"></i>
+                  {{ opt.label }}
+                </span>
+                <i class="bi bi-chevron-right"></i>
+              </button>
+            </li>
+          }
+        </ul>
+      </article>
+    </aside>
   </div>
 </div>

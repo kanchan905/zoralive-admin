@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter } from 'rxjs';
+import { AuthService } from '../../core/services/auth.service';
 import { SIDEBAR_MENU } from './sidebar-menu.constants';
 import { SidebarMenuItem } from './sidebar-menu.model';
 
@@ -17,6 +18,7 @@ export class SidebarComponent implements OnInit {
 
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly auth = inject(AuthService);
 
   readonly menuItems = SIDEBAR_MENU;
   /** Sirf ek parent menu expand — accordion */
@@ -47,6 +49,14 @@ export class SidebarComponent implements OnInit {
 
   hasChildren(item: SidebarMenuItem): boolean {
     return !!item.children?.length;
+  }
+
+  isLogoutItem(item: SidebarMenuItem): boolean {
+    return item.action === 'logout';
+  }
+
+  onLogoutClick(): void {
+    void this.auth.logoutWithConfirm();
   }
 
   /** Top-level link (Dashboard, etc.) — solid active sirf jab route match ho aur koi menu open na ho */

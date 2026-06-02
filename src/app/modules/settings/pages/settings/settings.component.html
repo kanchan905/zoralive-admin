@@ -1,0 +1,326 @@
+<div class="page-container">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+
+  <app-page-header
+    title="Settings"
+    subtitle="Manage all platform settings and configurations."
+  >
+    <button
+      actions
+      type="button"
+      class="btn-save-all"
+      [disabled]="savingAll() || loading()"
+      (click)="saveAll()"
+    >
+      <i class="bi bi-save"></i>
+      Save All Changes
+    </button>
+  </app-page-header>
+
+  <form class="settings-grid" [formGroup]="form">
+    <app-setting-card
+      title="Set Id & Certificate"
+      icon="bi bi-shield-lock"
+      theme="purple"
+      (save)="saveSection('Set Id & Certificate saved')"
+    >
+      <div class="field-grid">
+        <div class="field">
+          <label class="field__label" for="zego-sign-in">Zego Sign In</label>
+          <input id="zego-sign-in" type="text" class="field__input" formControlName="zegoSignIn" />
+        </div>
+        <div class="field">
+          <label class="field__label" for="zego-app-id">Zego App Id</label>
+          <input id="zego-app-id" type="text" class="field__input" formControlName="zegoAppId" />
+        </div>
+        <div class="field">
+          <label class="field__label" for="privacy-policy">Privacy policy link</label>
+          <input
+            id="privacy-policy"
+            type="text"
+            class="field__input"
+            formControlName="privacyPolicyLink"
+          />
+        </div>
+        <div class="field">
+          <label class="field__label" for="terms-of-service">Term Of Service</label>
+          <input
+            id="terms-of-service"
+            type="text"
+            class="field__input"
+            formControlName="termsOfServiceLink"
+          />
+        </div>
+      </div>
+    </app-setting-card>
+
+    <app-setting-card
+      title="Login Bonus"
+      icon="bi bi-gift"
+      theme="orange"
+      (save)="saveSection('Login Bonus saved')"
+    >
+      <div class="field-grid field-grid--3">
+        <div class="field">
+          <label class="field__label" for="login-coin">Coin</label>
+          <input id="login-coin" type="text" class="field__input" formControlName="loginCoin" />
+        </div>
+        <div class="field">
+          <label class="field__label" for="login-bonus-admin">Bonus (Admin to host)</label>
+          <input
+            id="login-bonus-admin"
+            type="text"
+            class="field__input"
+            formControlName="loginBonusAdmin"
+          />
+        </div>
+        <div class="field field--full">
+          <label class="field__label" for="login-message">Login Message</label>
+          <textarea
+            id="login-message"
+            class="field__input field__textarea"
+            rows="3"
+            formControlName="loginMessage"
+          ></textarea>
+        </div>
+      </div>
+    </app-setting-card>
+
+    <app-setting-card
+      title="Daily Task Limit"
+      icon="bi bi-calendar-check"
+      theme="cyan"
+      (save)="saveSection('Daily Task Limit saved')"
+    >
+      <div class="field-grid">
+        <div class="field">
+          <label class="field__label" for="daily-min">Minimum Value</label>
+          <input id="daily-min" type="text" class="field__input" formControlName="dailyTaskMin" />
+        </div>
+        <div class="field">
+          <label class="field__label" for="daily-max">Maximum Value</label>
+          <input id="daily-max" type="text" class="field__input" formControlName="dailyTaskMax" />
+        </div>
+      </div>
+    </app-setting-card>
+
+    <app-setting-card
+      title="Charges for User & Host"
+      icon="bi bi-currency-dollar"
+      theme="green"
+      (save)="saveSection('Charges saved')"
+    >
+      <div class="field-grid">
+        <div class="field">
+          <label class="field__label" for="video-call-charge">Video call charge from User</label>
+          <input
+            id="video-call-charge"
+            type="text"
+            class="field__input"
+            formControlName="videoCallCharge"
+          />
+        </div>
+        <div class="field">
+          <label class="field__label" for="add-coin-host">Add Coin Host(second)</label>
+          <input id="add-coin-host" type="text" class="field__input" formControlName="addCoinHost" />
+        </div>
+      </div>
+    </app-setting-card>
+
+    <app-setting-card
+      title="Redeem Gateway"
+      icon="bi bi-wallet2"
+      theme="pink"
+      (save)="saveSection('Redeem Gateway saved')"
+    >
+      <div class="field-grid">
+        <div class="field">
+          <label class="field__label" for="redeem-gateway">Redeem Gateway</label>
+          <select id="redeem-gateway" class="field__input field__select" formControlName="redeemGateway">
+            @for (opt of redeemGatewayOptions; track opt) {
+              <option [value]="opt">{{ opt }}</option>
+            }
+          </select>
+        </div>
+        <div class="field">
+          <label class="field__label" for="redeem-currency">Choose your currency</label>
+          <select id="redeem-currency" class="field__input field__select" formControlName="redeemCurrency">
+            @for (opt of currencyOptions; track opt) {
+              <option [value]="opt">{{ opt }}</option>
+            }
+          </select>
+        </div>
+        <div class="field">
+          <label class="field__label" for="redeem-day">Redeem Day</label>
+          <select id="redeem-day" class="field__input field__select" formControlName="redeemDay">
+            @for (opt of redeemDayOptions; track opt) {
+              <option [value]="opt">{{ opt }}</option>
+            }
+          </select>
+        </div>
+        <div class="field">
+          <label class="field__label" for="redeem-min">Min. points to redeem</label>
+          <input
+            id="redeem-min"
+            type="text"
+            class="field__input"
+            formControlName="redeemMinPoints"
+          />
+        </div>
+        <div class="field field--full">
+          <label class="field__label" for="redeem-coins">How Many Coins</label>
+          <input id="redeem-coins" type="text" class="field__input" formControlName="redeemCoins" />
+        </div>
+      </div>
+    </app-setting-card>
+
+    <app-setting-card
+      title="Payment Gateway"
+      icon="bi bi-credit-card"
+      theme="purple"
+      (save)="saveSection('Payment Gateway saved')"
+    >
+      <div class="gateway-list">
+        <div class="gateway-item">
+          <div class="gateway-item__head">
+            <span class="gateway-item__name">Stripe</span>
+            <label class="ad-toggle">
+              <input type="checkbox" formControlName="stripeEnabled" />
+              <span class="ad-toggle__slider"></span>
+            </label>
+          </div>
+          @if (form.controls.stripeEnabled.value) {
+            <div class="gateway-item__fields">
+              <div class="field">
+                <label class="field__label" for="stripe-secret">Stripe Secret key</label>
+                <input
+                  id="stripe-secret"
+                  type="text"
+                  class="field__input"
+                  formControlName="stripeSecretKey"
+                />
+              </div>
+              <div class="field">
+                <label class="field__label" for="stripe-publishable">Stripe Publishable key</label>
+                <input
+                  id="stripe-publishable"
+                  type="text"
+                  class="field__input"
+                  formControlName="stripePublishableKey"
+                />
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="gateway-item">
+          <div class="gateway-item__head">
+            <span class="gateway-item__name">phone pay id</span>
+            <label class="ad-toggle">
+              <input type="checkbox" formControlName="phonePayEnabled" />
+              <span class="ad-toggle__slider"></span>
+            </label>
+          </div>
+          @if (form.controls.phonePayEnabled.value) {
+            <div class="gateway-item__fields">
+              <div class="field">
+                <label class="field__label" for="phone-pay-id">phone pay id</label>
+                <input id="phone-pay-id" type="text" class="field__input" formControlName="phonePayId" />
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="gateway-item">
+          <div class="gateway-item__head">
+            <span class="gateway-item__name">razor pay id</span>
+            <label class="ad-toggle">
+              <input type="checkbox" formControlName="razorpayEnabled" />
+              <span class="ad-toggle__slider"></span>
+            </label>
+          </div>
+          @if (form.controls.razorpayEnabled.value) {
+            <div class="gateway-item__fields">
+              <div class="field">
+                <label class="field__label" for="razorpay-id">razor pay id</label>
+                <input id="razorpay-id" type="text" class="field__input" formControlName="razorpayId" />
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="gateway-item">
+          <div class="gateway-item__head">
+            <span class="gateway-item__name">Google Pay Id</span>
+            <label class="ad-toggle">
+              <input type="checkbox" formControlName="googlePayEnabled" />
+              <span class="ad-toggle__slider"></span>
+            </label>
+          </div>
+          @if (form.controls.googlePayEnabled.value) {
+            <div class="gateway-item__fields">
+              <div class="field">
+                <label class="field__label" for="google-pay-id">Google Pay Id</label>
+                <input id="google-pay-id" type="text" class="field__input" formControlName="googlePayId" />
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </app-setting-card>
+
+    <app-setting-card
+      title="Call Bonus Setting"
+      icon="bi bi-telephone"
+      theme="blue"
+      (save)="saveSection('Call Bonus Setting saved')"
+    >
+      <div class="list-fields" formArrayName="callBonuses">
+        @for (ctrl of callBonuses.controls; track $index) {
+          <div class="list-field">
+            <label class="list-field__label" [for]="'call-bonus-' + $index">
+              Call Bonus{{ $index + 1 }}
+            </label>
+            <input
+              [id]="'call-bonus-' + $index"
+              type="text"
+              class="list-field__input"
+              [formControlName]="$index"
+            />
+          </div>
+        }
+      </div>
+    </app-setting-card>
+
+    <app-setting-card
+      title="Call Duration Setting"
+      icon="bi bi-clock"
+      theme="yellow"
+      (save)="saveSection('Call Duration Setting saved')"
+    >
+      <div class="list-fields" formArrayName="callDurations">
+        @for (ctrl of callDurations.controls; track $index) {
+          <div class="list-field">
+            <label class="list-field__label" [for]="'call-duration-' + $index">
+              Call Duration{{ $index + 1 }}
+            </label>
+            <input
+              [id]="'call-duration-' + $index"
+              type="text"
+              class="list-field__input"
+              [formControlName]="$index"
+            />
+          </div>
+        }
+      </div>
+    </app-setting-card>
+  </form>
+
+  <div class="settings-note">
+    <i class="bi bi-info-circle"></i>
+    <p>
+      <strong>Note:</strong> Changes are saved per section or use "Save All Changes" to update
+      everything at once.
+    </p>
+  </div>
+</div>

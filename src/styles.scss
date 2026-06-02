@@ -1,5 +1,6 @@
 @use 'styles/variables' as *;
 @use 'styles/page';
+@use 'styles/modal';
 @use 'styles/toastr';
 @use '@angular/material' as mat;
 
@@ -27,6 +28,7 @@ html {
 
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons.css';
+@import 'sweetalert2/dist/sweetalert2.min.css';
 @import 'ngx-toastr/toastr';
 
 *,
@@ -64,7 +66,9 @@ button {
   font-family: inherit;
 }
 
-.agency-dialog-panel .mat-mdc-dialog-surface {
+.agency-dialog-panel .mat-mdc-dialog-surface,
+.host-dialog-panel .mat-mdc-dialog-surface,
+.host-level-dialog-panel .mat-mdc-dialog-surface {
   border-radius: 16px;
   padding: 0;
   overflow: hidden;

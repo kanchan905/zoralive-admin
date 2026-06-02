@@ -40,6 +40,18 @@
             </div>
           }
         </div>
+      } @else if (isLogoutItem(item)) {
+        <button
+          type="button"
+          class="nav-item nav-item--logout"
+          (click)="onLogoutClick()"
+          [attr.title]="collapsed ? item.label : null"
+        >
+          <i class="bi" [ngClass]="item.icon"></i>
+          @if (!collapsed) {
+            <span class="nav-label">{{ item.label }}</span>
+          }
+        </button>
       } @else {
         <a
           class="nav-item"

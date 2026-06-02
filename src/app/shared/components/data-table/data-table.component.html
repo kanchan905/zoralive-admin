@@ -8,7 +8,21 @@
       <thead>
         <tr>
           @for (col of columns(); track col.key) {
-            <th [style.width]="col.width || null">{{ col.label }}</th>
+            <th [style.width]="col.width || null">
+              @if ((col.type ?? 'text') === 'checkbox') {
+                <input
+                  type="checkbox"
+                  class="table-header-checkbox"
+                  [checked]="areAllRowsSelected()"
+                  [indeterminate]="isSomeRowsSelected()"
+                  [disabled]="!hasSelectableRows()"
+                  (change)="onSelectAllRows($event)"
+                  aria-label="Select all rows"
+                />
+              } @else {
+                {{ col.label }}
+              }
+            </th>
           }
         </tr>
       </thead>
@@ -50,6 +64,15 @@
               @for (col of columns(); track col.key) {
                 <td>
                   @switch (col.type ?? 'text') {
+                    @case ('checkbox') {
+                      <input
+                        type="checkbox"
+                        class="table-row-checkbox"
+                        [checked]="isRowSelected(row)"
+                        (change)="onRowSelect(row, $event)"
+                        aria-label="Select row"
+                      />
+                    }
                     @case ('image') {
                       @if (getCellValue(row, col.key)) {
                         <img
@@ -75,7 +98,7 @@
                     }
                     @case ('link') {
                       <button type="button" class="table-link-btn" (click)="onRowLink(col.key, row)">
-                        {{ getCellValue(row, col.key) || 'View' }}
+                        {{ getCellValue(row, col.key) || col.linkLabel || 'View' }}
                       </button>
                     }
                     @case ('badge') {

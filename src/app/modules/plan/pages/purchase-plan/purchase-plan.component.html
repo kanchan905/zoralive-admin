@@ -1,0 +1,36 @@
+<div class="page-container">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+
+  <app-page-header title="Plan" subtitle="Manage purchase plans for the platform."></app-page-header>
+
+  <div class="page-card purchase-plan-card">
+    <div class="purchase-plan-actions-top">
+      <button type="button" class="btn-primary btn-purchase-plan-new" (click)="openNew()">
+        <i class="bi bi-plus-lg"></i>
+        New
+      </button>
+    </div>
+
+    <div class="table-toolbar table-toolbar--search-end">
+      <app-search-box
+        placeholder="What're you searching for?"
+        (searchChange)="onSearch($event)"
+      ></app-search-box>
+    </div>
+
+    <app-data-table
+      [columns]="columns"
+      [rows]="rows()"
+      [loading]="loading()"
+      [page]="page()"
+      [pageSize]="pageSize()"
+      [total]="total()"
+      rowTrackKey="id"
+      emptyTitle="Nothing to show!!"
+      emptyMessage="No purchase plans found."
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+      (rowAction)="onRowAction($event)"
+    ></app-data-table>
+  </div>
+</div>

@@ -5,6 +5,7 @@ import { TableColumn } from '../../models/table-column.model';
 import {
   TableRowActionEvent,
   TableRowLinkEvent,
+  TableRowSelectEvent,
   TableRowToggleEvent,
 } from '../../models/table-events.model';
 
@@ -23,6 +24,7 @@ export class DataTableComponent {
   readonly rows = input<Record<string, unknown>[]>([]);
   readonly loading = input(false);
   readonly rowTrackKey = input('id');
+  readonly selectedRowIds = input<unknown[]>([]);
 
   readonly emptyTitle = input('No data found');
   readonly emptyMessage = input('');
@@ -44,6 +46,7 @@ export class DataTableComponent {
   readonly rowAction = output<TableRowActionEvent>();
   readonly rowLinkClick = output<TableRowLinkEvent>();
   readonly rowToggleChange = output<TableRowToggleEvent>();
+  readonly rowSelectChange = output<TableRowSelectEvent>();
 
   readonly isEmpty = computed(() => !this.loading() && this.rows().length === 0);
   readonly rangeStart = computed(() => {
@@ -107,5 +110,49 @@ export class DataTableComponent {
   onToggle(columnKey: string, row: Record<string, unknown>, event: Event): void {
     const checked = (event.target as HTMLInputElement).checked;
     this.rowToggleChange.emit({ columnKey, row, value: checked });
+  }
+
+  isRowSelected(row: Record<string, unknown>): boolean {
+    const rowId = row[this.rowTrackKey()];
+    return rowId !== undefined && this.selectedRowIds().includes(rowId);
+  }
+
+  onRowSelect(row: Record<string, unknown>, event: Event): void {
+    const selected = (event.target as HTMLInputElement).checked;
+    this.rowSelectChange.emit({ row, selected });
+  }
+
+  hasSelectableRows(): boolean {
+    return this.rows().some((row) => this.getRowId(row) !== undefined && this.getRowId(row) !== null);
+  }
+
+  areAllRowsSelected(): boolean {
+    const selectableIds = this.rows()
+      .map((row) => this.getRowId(row))
+      .filter((id): id is unknown => id !== undefined && id !== null);
+    if (selectableIds.length === 0) return false;
+    return selectableIds.every((id) => this.selectedRowIds().includes(id));
+  }
+
+  isSomeRowsSelected(): boolean {
+    const selectableIds = this.rows()
+      .map((row) => this.getRowId(row))
+      .filter((id): id is unknown => id !== undefined && id !== null);
+    if (selectableIds.length === 0) return false;
+    const selectedCount = selectableIds.filter((id) => this.selectedRowIds().includes(id)).length;
+    return selectedCount > 0 && selectedCount < selectableIds.length;
+  }
+
+  onSelectAllRows(event: Event): void {
+    const selected = (event.target as HTMLInputElement).checked;
+    this.rows().forEach((row) => {
+      const rowId = this.getRowId(row);
+      if (rowId === undefined || rowId === null) return;
+      this.rowSelectChange.emit({ row, selected });
+    });
+  }
+
+  private getRowId(row: Record<string, unknown>): unknown {
+    return row[this.rowTrackKey()];
   }
 }

@@ -1,0 +1,34 @@
+@use '../../../../../styles/variables' as *;
+
+.gifts-actions-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.btn-gifts-new {
+  padding: 7px 12px;
+  font-size: 0.78rem;
+  border-radius: 6px;
+}
+
+.btn-gifts-delete {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border: none;
+  border-radius: 6px;
+  background: #ff4d79;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background $transition;
+
+  &:hover {
+    background: #e63d68;
+  }
+}

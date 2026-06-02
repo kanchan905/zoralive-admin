@@ -1,0 +1,46 @@
+<div class="page-container">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+
+  <app-page-header
+    title="Offline Recharge"
+    subtitle="Add coin recharge manually for a user."
+  ></app-page-header>
+
+  <div class="page-card offline-recharge-card">
+    <div class="form-card-header">
+      <h3>Offline Recharge to User</h3>
+    </div>
+
+    <form class="recharge-form" [formGroup]="form" (ngSubmit)="submit()">
+      <div class="form-field">
+        <label for="offline-user-name">User Name</label>
+        <input
+          id="offline-user-name"
+          class="form-control"
+          type="text"
+          placeholder="Enter user name"
+          formControlName="userName"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="offline-coin">Coin</label>
+        <input
+          id="offline-coin"
+          class="form-control"
+          type="number"
+          min="1"
+          step="1"
+          placeholder="Enter coin amount"
+          formControlName="coin"
+        />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary btn-submit" [disabled]="submitting()">
+          {{ submitting() ? 'Submitting...' : 'Submit' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

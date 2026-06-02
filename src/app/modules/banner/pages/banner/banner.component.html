@@ -1,0 +1,29 @@
+<div class="page-container">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+
+  <app-page-header title="Banner" subtitle="Manage homepage banners and links."></app-page-header>
+
+  <div class="page-card banner-card">
+    <div class="banner-actions-top">
+      <button type="button" class="btn-primary btn-banner-new" (click)="openNew()">
+        <i class="bi bi-plus-lg"></i>
+        New
+      </button>
+    </div>
+
+    <app-data-table
+      [columns]="columns"
+      [rows]="rows()"
+      [loading]="loading()"
+      [page]="page()"
+      [pageSize]="pageSize()"
+      [total]="total()"
+      rowTrackKey="id"
+      emptyTitle="Nothing to show!!"
+      emptyMessage="No banners found."
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+      (rowAction)="onRowAction($event)"
+    ></app-data-table>
+  </div>
+</div>

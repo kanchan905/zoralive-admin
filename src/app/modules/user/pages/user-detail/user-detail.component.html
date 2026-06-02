@@ -1,0 +1,37 @@
+<div class="page-container">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+
+  <app-page-header title="User" subtitle="View and manage all users on the platform.">
+    <button actions type="button" class="btn-export" (click)="exportToExcel()">
+      <i class="bi bi-download"></i>
+      Export To Excel
+    </button>
+  </app-page-header>
+
+  <div class="page-card">
+    <div class="table-toolbar table-toolbar--search-end">
+      <app-search-box
+        placeholder="What're you searching for?"
+        (searchChange)="onSearch($event)"
+      ></app-search-box>
+    </div>
+
+    <app-data-table
+      [columns]="columns"
+      [rows]="rows()"
+      [loading]="loading()"
+      [page]="page()"
+      [pageSize]="pageSize()"
+      [total]="total()"
+      [stickyHeader]="true"
+      [zebraRows]="true"
+      rowTrackKey="id"
+      emptyTitle="Nothing to show"
+      emptyMessage="No user records found. Try a different search term."
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+      (rowAction)="onRowAction($event)"
+      (rowToggleChange)="onToggleChange($event)"
+    ></app-data-table>
+  </div>
+</div>

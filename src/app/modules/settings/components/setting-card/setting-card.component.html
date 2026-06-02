@@ -1,0 +1,18 @@
+<article class="setting-card" [attr.data-theme]="theme()">
+  <header class="setting-card__header">
+    <span class="setting-card__icon" aria-hidden="true">
+      <i [class]="icon()"></i>
+    </span>
+    <h3 class="setting-card__title">{{ title() }}</h3>
+  </header>
+
+  <div class="setting-card__body">
+    <ng-content />
+  </div>
+
+  <footer class="setting-card__footer">
+    <button type="button" class="setting-card__save" [disabled]="saving()" (click)="save.emit()">
+      Save
+    </button>
+  </footer>
+</article>

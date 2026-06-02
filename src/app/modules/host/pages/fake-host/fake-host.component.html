@@ -1,0 +1,44 @@
+<div class="page-container">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+
+  <app-page-header
+    title="Fake Host"
+    subtitle="Manage fake hosts in the platform."
+  ></app-page-header>
+
+  <div class="page-card">
+    <div class="table-toolbar">
+      <div class="table-toolbar-left">
+        <button type="button" class="btn-primary" (click)="openNewFakeHost()">
+          <i class="bi bi-plus-lg"></i>
+          New
+        </button>
+      </div>
+
+      <div class="table-toolbar-right">
+        <app-search-box
+          placeholder="What're you searching for?"
+          (searchChange)="onSearch($event)"
+        ></app-search-box>
+      </div>
+    </div>
+
+    <app-data-table
+      [columns]="columns"
+      [rows]="rows()"
+      [loading]="loading()"
+      [page]="page()"
+      [pageSize]="pageSize()"
+      [total]="total()"
+      rowTrackKey="id"
+      emptyTitle="No fake hosts found"
+      emptyMessage="Try adjusting your search or add a new fake host."
+      emptyActionLabel="Add New Fake Host"
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+      (emptyAction)="openNewFakeHost()"
+      (rowAction)="onRowAction($event)"
+      (rowToggleChange)="onToggleChange($event)"
+    ></app-data-table>
+  </div>
+</div>

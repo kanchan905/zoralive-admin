@@ -1,0 +1,55 @@
+<div class="page-container">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+
+  <app-page-header
+    title="Advertisement Settings"
+    subtitle="Manage ad networks and monetization IDs."
+  >
+    <button
+      actions
+      type="button"
+      class="btn-save-all"
+      [disabled]="saving() || loading()"
+      (click)="saveAll()"
+    >
+      <i class="bi bi-save"></i>
+      Save Changes
+    </button>
+  </app-page-header>
+
+  <div class="ad-network-grid">
+    <app-ad-network-card
+      network="google"
+      title="Google AdMob"
+      subtitle="Manage your Google AdMob monetization IDs."
+      [config]="googleConfig()"
+      [editing]="googleEditing()"
+      (editStart)="googleEditing.set(true)"
+      (editCancel)="googleEditing.set(false)"
+      (editSave)="onGoogleSave($event)"
+      (enabledChange)="onGoogleEnabledChange($event)"
+      (copyId)="copyId($event)"
+    />
+
+    <app-ad-network-card
+      network="facebook"
+      title="Facebook Audience Network"
+      subtitle="Manage your Facebook monetization IDs."
+      [config]="facebookConfig()"
+      [editing]="facebookEditing()"
+      (editStart)="facebookEditing.set(true)"
+      (editCancel)="facebookEditing.set(false)"
+      (editSave)="onFacebookSave($event)"
+      (enabledChange)="onFacebookEnabledChange($event)"
+      (copyId)="copyId($event)"
+    />
+  </div>
+
+  <div class="ad-settings-note">
+    <i class="bi bi-info-circle"></i>
+    <p>
+      <strong>Note:</strong> Make sure to enter valid ad unit IDs from your respective ad network
+      dashboards.
+    </p>
+  </div>
+</div>

@@ -1,0 +1,192 @@
+<div class="agency-dialog">
+  <div class="dialog-header">
+    <h2 class="dialog-title">Host</h2>
+    <button type="button" class="dialog-close" (click)="close()" aria-label="Close">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <div class="host-mode-tabs">
+    <button
+      type="button"
+      class="host-mode-tab"
+      [class.active]="isSingle()"
+      (click)="setHostMode('single')"
+    >
+      Single Host
+    </button>
+    <button
+      type="button"
+      class="host-mode-tab"
+      [class.active]="!isSingle()"
+      (click)="setHostMode('multiple')"
+    >
+      Multiple Host
+    </button>
+  </div>
+
+  @if (isSingle()) {
+    <form class="dialog-body" [formGroup]="singleForm" (ngSubmit)="submit()">
+      <div class="form-group">
+        <label class="form-label" for="host-name">Name</label>
+        <input
+          id="host-name"
+          type="text"
+          class="form-control"
+          formControlName="name"
+          placeholder="Enter Name"
+        />
+      </div>
+
+      <div class="form-row form-row--2">
+        <div class="form-group">
+          <label class="form-label" for="host-image">Image</label>
+          <div class="file-input-wrap">
+            <input
+              id="host-image"
+              type="file"
+              class="file-input"
+              accept="image/png,image/jpeg,image/jpg"
+              (change)="onImageSelected($event)"
+            />
+            <span class="file-name">{{ imageFileName() }}</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="host-video">
+            Video <span class="label-hint">( File Limit 100MB )</span>
+          </label>
+          <div class="file-input-wrap">
+            <input
+              id="host-video"
+              type="file"
+              class="file-input"
+              accept="video/*"
+              (change)="onVideoSelected($event)"
+            />
+            <span class="file-name">{{ videoFileName() }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row form-row--2">
+        <div class="form-group">
+          <label class="form-label" for="host-agency">Agency</label>
+          <select id="host-agency" class="form-control" formControlName="agency">
+            @for (opt of agencyOptions; track opt.value) {
+              <option [value]="opt.value" [disabled]="!opt.value">{{ opt.label }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="host-country">Country</label>
+          <input
+            id="host-country"
+            type="text"
+            class="form-control"
+            formControlName="country"
+            placeholder="Enter Country"
+          />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="host-bio">Bio</label>
+        <input
+          id="host-bio"
+          type="text"
+          class="form-control"
+          formControlName="bio"
+          placeholder="Enter bio"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="host-password">Password</label>
+        <div class="input-wrap input-wrap--password">
+          <button
+            type="button"
+            class="input-prefix-btn"
+            (click)="togglePasswordVisibility()"
+            aria-label="Toggle password visibility"
+          >
+            <i class="bi" [class.bi-eye]="showPassword()" [class.bi-eye-slash]="!showPassword()"></i>
+          </button>
+          <input
+            id="host-password"
+            [type]="showPassword() ? 'text' : 'password'"
+            class="form-control form-control--with-prefix"
+            formControlName="password"
+            placeholder="Enter Password"
+          />
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit-full">Submit</button>
+    </form>
+  } @else {
+    <form class="dialog-body" [formGroup]="multipleForm" (ngSubmit)="submit()">
+      <div class="form-row form-row--2">
+        <div class="form-group">
+          <label class="form-label" for="host-multi-image">Image</label>
+          <div class="file-input-wrap">
+            <input
+              id="host-multi-image"
+              type="file"
+              class="file-input"
+              accept="image/png,image/jpeg,image/jpg"
+              multiple
+              (change)="onImageSelected($event)"
+            />
+            <span class="file-name">{{ imageFileName() }}</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="host-multi-video">
+            Video <span class="label-hint">( File Limit 100MB )</span>
+          </label>
+          <div class="file-input-wrap">
+            <input
+              id="host-multi-video"
+              type="file"
+              class="file-input"
+              accept="video/*"
+              multiple
+              (change)="onVideoSelected($event)"
+            />
+            <span class="file-name">{{ videoFileName() }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row form-row--2">
+        <div class="form-group">
+          <label class="form-label" for="host-multi-agency">Agency</label>
+          <select id="host-multi-agency" class="form-control" formControlName="agency">
+            @for (opt of agencyOptions; track opt.value) {
+              <option [value]="opt.value" [disabled]="!opt.value">{{ opt.label }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="host-multi-country">Country</label>
+          <input
+            id="host-multi-country"
+            type="text"
+            class="form-control"
+            formControlName="country"
+            placeholder="Enter Country"
+          />
+        </div>
+      </div>
+
+      <p class="form-hint">Upload multiple image and video files for bulk fake host creation.</p>
+
+      <button type="submit" class="btn-submit-full">Submit</button>
+    </form>
+  }
+</div>

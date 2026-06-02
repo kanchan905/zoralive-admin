@@ -1,0 +1,41 @@
+<div class="page-container">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+
+  <app-page-header
+    title="User Level"
+    subtitle="Manage user levels and coin criteria."
+  ></app-page-header>
+
+  <div class="page-card">
+    <div class="table-toolbar">
+      <div class="table-toolbar-left">
+        <button type="button" class="btn-primary btn-new-level" (click)="openNewLevel()">
+          <i class="bi bi-plus-lg"></i>
+          New
+        </button>
+      </div>
+
+      <div class="table-toolbar-right">
+        <app-search-box
+          placeholder="What're you searching for?"
+          (searchChange)="onSearch($event)"
+        ></app-search-box>
+      </div>
+    </div>
+
+    <app-data-table
+      [columns]="columns"
+      [rows]="rows()"
+      [loading]="loading()"
+      [page]="page()"
+      [pageSize]="pageSize()"
+      [total]="total()"
+      rowTrackKey="id"
+      emptyTitle="Nothing to show!!"
+      emptyMessage="No user levels found."
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+      (rowAction)="onRowAction($event)"
+    ></app-data-table>
+  </div>
+</div>

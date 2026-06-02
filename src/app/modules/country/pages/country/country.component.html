@@ -1,0 +1,43 @@
+<div class="page-container">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+
+  <app-page-header title="Country" subtitle="Manage countries for platform-wide usage."></app-page-header>
+
+  <div class="page-card country-card">
+    <div class="country-actions-top">
+      <button type="button" class="btn-country-delete-all" (click)="deleteAll()">
+        <i class="bi bi-trash3-fill"></i>
+        Delete Selected ({{ selectedCountryIds().length }})
+      </button>
+
+      <button type="button" class="btn-primary btn-country-new" (click)="openNewCountry()">
+        <i class="bi bi-plus-lg"></i>
+        New
+      </button>
+    </div>
+
+    <div class="table-toolbar table-toolbar--search-end">
+      <app-search-box
+        placeholder="What're you searching for?"
+        (searchChange)="onSearch($event)"
+      ></app-search-box>
+    </div>
+
+    <app-data-table
+      [columns]="columns"
+      [rows]="rows()"
+      [loading]="loading()"
+      [page]="page()"
+      [pageSize]="pageSize()"
+      [total]="total()"
+      [selectedRowIds]="selectedCountryIds()"
+      rowTrackKey="id"
+      emptyTitle="Nothing to show!!"
+      emptyMessage="No countries found."
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+      (rowAction)="onRowAction($event)"
+      (rowSelectChange)="onRowSelect($event)"
+    ></app-data-table>
+  </div>
+</div>

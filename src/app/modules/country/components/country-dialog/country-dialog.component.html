@@ -1,0 +1,23 @@
+<div class="agency-dialog">
+  <div class="dialog-header">
+    <h2 class="dialog-title">Country</h2>
+    <button type="button" class="dialog-close" (click)="close()" aria-label="Close">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <form class="dialog-body" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label class="form-label" for="country-name">Name</label>
+      <input
+        id="country-name"
+        type="text"
+        class="form-control"
+        formControlName="name"
+        placeholder="Country Name"
+      />
+    </div>
+
+    <button type="submit" class="btn-submit-full">Submit</button>
+  </form>
+</div>

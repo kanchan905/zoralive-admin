@@ -1,0 +1,85 @@
+<div class="page-container">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+
+  <app-page-header
+    title="Host Image"
+    subtitle="Manage host profile and image approval requests."
+  ></app-page-header>
+
+  <div class="page-card">
+    <div class="host-image-tabs">
+      <button
+        type="button"
+        class="host-image-tab"
+        [class.active]="isProfileTab()"
+        (click)="setTab('profile')"
+      >
+        Host Profile
+      </button>
+      <button
+        type="button"
+        class="host-image-tab"
+        [class.active]="!isProfileTab()"
+        (click)="setTab('image')"
+      >
+        Image
+      </button>
+    </div>
+
+    @if (isProfileTab()) {
+      <section class="image-section">
+        <div class="section-header">
+          <app-search-box
+            placeholder="What're you searching for?"
+            (searchChange)="onProfileSearch($event)"
+          ></app-search-box>
+        </div>
+
+        <app-data-table
+          [columns]="profileColumns"
+          [rows]="profileRows()"
+          [loading]="profileLoading()"
+          [page]="profilePage()"
+          [pageSize]="profilePageSize()"
+          [total]="profileTotal()"
+          [stickyHeader]="true"
+          [zebraRows]="true"
+          rowTrackKey="id"
+          emptyTitle="Nothing to show!!"
+          emptyMessage="No host profile image records found."
+          (pageChange)="onProfilePageChange($event)"
+          (pageSizeChange)="onProfilePageSizeChange($event)"
+          (rowLinkClick)="onProfileDelete($event)"
+          (rowToggleChange)="onProfileToggle($event)"
+        ></app-data-table>
+      </section>
+    } @else {
+      <section class="image-section">
+        <div class="section-header">
+          <app-search-box
+            placeholder="What're you searching for?"
+            (searchChange)="onImageSearch($event)"
+          ></app-search-box>
+        </div>
+
+        <app-data-table
+          [columns]="imageColumns"
+          [rows]="imageRows()"
+          [loading]="imageLoading()"
+          [page]="imagePage()"
+          [pageSize]="imagePageSize()"
+          [total]="imageTotal()"
+          [stickyHeader]="true"
+          [zebraRows]="true"
+          rowTrackKey="id"
+          emptyTitle="Nothing to show!!"
+          emptyMessage="No host images found."
+          (pageChange)="onImagePageChange($event)"
+          (pageSizeChange)="onImagePageSizeChange($event)"
+          (rowLinkClick)="onImageDelete($event)"
+          (rowToggleChange)="onImageToggle($event)"
+        ></app-data-table>
+      </section>
+    }
+  </div>
+</div>

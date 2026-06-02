@@ -16,8 +16,8 @@ export const SIDEBAR_MENU: SidebarMenuItem[] = [
     icon: 'bi-person-video2',
     children: [
       { label: 'Host Detail', route: '/host/detail' },
-      { label: 'Pending Complaint', route: '/host/pending-complaint' },
-      { label: 'Solved Complaint', route: '/host/solved-complaint' },
+      { label: 'Pending Complain', route: '/host/pending-complain' },
+      { label: 'Solved Complain', route: '/host/solved-complain' },
       { label: 'Fake Host', route: '/host/fake' },
     ],
   },
@@ -25,8 +25,11 @@ export const SIDEBAR_MENU: SidebarMenuItem[] = [
     label: 'User',
     icon: 'bi-people',
     children: [
-      { label: 'User List', route: '/user/list' },
-      { label: 'Reported Users', route: '/user/reported' },
+      { label: 'User Detail', route: '/user/detail' },
+      { label: 'Offline Recharge', route: '/user/offline-recharge' },
+      { label: 'Offline History', route: '/user/offline-history' },
+      { label: 'Pending Complain', route: '/user/pending-complain' },
+      { label: 'Solved Complain', route: '/user/solved-complain' },
     ],
   },
   { label: 'Host Request', icon: 'bi-inbox', route: '/host-request' },
@@ -35,8 +38,8 @@ export const SIDEBAR_MENU: SidebarMenuItem[] = [
     label: 'Level',
     icon: 'bi-bar-chart-steps',
     children: [
-      { label: 'User Level', route: '/level/user' },
       { label: 'Host Level', route: '/level/host' },
+      { label: 'User Level', route: '/level/user' },
     ],
   },
   { label: 'Country', icon: 'bi-globe2', route: '/country' },
@@ -44,8 +47,8 @@ export const SIDEBAR_MENU: SidebarMenuItem[] = [
     label: 'Gift',
     icon: 'bi-gift',
     children: [
-      { label: 'Gift List', route: '/gift/list' },
-      { label: 'Gift Category', route: '/gift/category' },
+      { label: 'Category', route: '/gift/category' },
+      { label: 'Gift', route: '/gift/gifts' },
     ],
   },
   {
@@ -70,5 +73,5 @@ export const SIDEBAR_MENU: SidebarMenuItem[] = [
   { label: 'Advertisement', icon: 'bi-megaphone', route: '/advertisement' },
   { label: 'Setting', icon: 'bi-gear', route: '/settings' },
   { label: 'Profile', icon: 'bi-person-circle', route: '/profile' },
-  { label: 'Logout', icon: 'bi-box-arrow-right', route: '/logout' },
+  { label: 'Logout', icon: 'bi-box-arrow-right', action: 'logout' },
 ];

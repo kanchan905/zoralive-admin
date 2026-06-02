@@ -1,0 +1,30 @@
+<div class="page-container">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+
+  <app-page-header title="VIP Plan" subtitle="Manage VIP plan configuration."></app-page-header>
+
+  <div class="page-card vip-plan-card">
+    <div class="vip-plan-actions-top">
+      <button type="button" class="btn-primary btn-vip-plan-new" (click)="openNew()">
+        <i class="bi bi-plus-lg"></i>
+        New
+      </button>
+    </div>
+
+    <app-data-table
+      [columns]="columns"
+      [rows]="rows()"
+      [loading]="loading()"
+      [page]="page()"
+      [pageSize]="pageSize()"
+      [total]="total()"
+      rowTrackKey="id"
+      emptyTitle="Nothing to show!!"
+      emptyMessage="No VIP plans found."
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+      (rowToggleChange)="onRowToggle($event)"
+      (rowAction)="onRowAction($event)"
+    ></app-data-table>
+  </div>
+</div>

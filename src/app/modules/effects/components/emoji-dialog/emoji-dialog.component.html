@@ -1,0 +1,26 @@
+<div class="agency-dialog">
+  <div class="dialog-header">
+    <h2 class="dialog-title">Emoji</h2>
+    <button type="button" class="dialog-close" (click)="close()" aria-label="Close">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <form class="dialog-body" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label class="form-label" for="emoji-icon">Icon</label>
+      <div class="file-input-wrap">
+        <input
+          id="emoji-icon"
+          type="file"
+          class="file-input"
+          accept="image/*"
+          (change)="onFileSelected($event)"
+        />
+        <span class="file-name">{{ fileName() }}</span>
+      </div>
+    </div>
+
+    <button type="submit" class="btn-submit-full">Submit</button>
+  </form>
+</div>

@@ -1,0 +1,151 @@
+<article class="ad-network-card">
+  <header class="ad-network-card__header">
+    <div class="ad-network-card__brand">
+      @if (network() === 'google') {
+        <div class="ad-network-card__logo ad-network-card__logo--google" aria-hidden="true">
+          <span>G</span>
+        </div>
+      } @else {
+        <div class="ad-network-card__logo ad-network-card__logo--facebook" aria-hidden="true">
+          <span>f</span>
+        </div>
+      }
+
+      <div class="ad-network-card__titles">
+        <h3 class="ad-network-card__title">{{ title() }}</h3>
+        <p class="ad-network-card__subtitle">{{ subtitle() }}</p>
+      </div>
+    </div>
+
+    <div class="ad-network-card__header-actions">
+      <span class="status-badge" [class.status-badge--active]="isActive()">
+        <span class="status-dot" aria-hidden="true"></span>
+        {{ isActive() ? 'Active' : 'Disabled' }}
+      </span>
+
+      @if (!editing()) {
+        <button type="button" class="btn-edit-config" (click)="editStart.emit()">
+          <i class="bi bi-pencil"></i>
+          Edit Configuration
+        </button>
+      }
+    </div>
+  </header>
+
+  <div class="ad-network-card__body">
+    <div class="status-row">
+      <span class="status-row__label">Status</span>
+      <div class="status-row__control">
+        @if (editing()) {
+          <label class="ad-toggle">
+            <input
+              type="checkbox"
+              [checked]="draft().enabled"
+              (change)="onDraftToggle($event)"
+            />
+            <span class="ad-toggle__slider"></span>
+          </label>
+          <span class="status-row__state" [class.status-row__state--on]="draft().enabled">
+            {{ draft().enabled ? 'Enabled' : 'Disabled' }}
+          </span>
+        } @else {
+          <label class="ad-toggle">
+            <input type="checkbox" [checked]="config().enabled" (change)="onToggle($event)" />
+            <span class="ad-toggle__slider"></span>
+          </label>
+          <span class="status-row__state" [class.status-row__state--on]="config().enabled">
+            {{ config().enabled ? 'Enabled' : 'Disabled' }}
+          </span>
+        }
+      </div>
+    </div>
+
+    @if (editing()) {
+      <div class="id-field id-field--edit">
+        <label class="id-field__label" for="{{ network() }}-interstitial">Interstitial ID</label>
+        <input
+          id="{{ network() }}-interstitial"
+          type="text"
+          class="id-field__input"
+          [ngModel]="draft().interstitialId"
+          (ngModelChange)="updateDraftField('interstitialId', $event)"
+        />
+      </div>
+
+      <div class="id-field id-field--edit">
+        <label class="id-field__label" for="{{ network() }}-reward">Reward ID</label>
+        <input
+          id="{{ network() }}-reward"
+          type="text"
+          class="id-field__input"
+          [ngModel]="draft().rewardId"
+          (ngModelChange)="updateDraftField('rewardId', $event)"
+        />
+      </div>
+
+      <div class="id-field id-field--edit">
+        <label class="id-field__label" for="{{ network() }}-native">Native ID</label>
+        <input
+          id="{{ network() }}-native"
+          type="text"
+          class="id-field__input"
+          [ngModel]="draft().nativeId"
+          (ngModelChange)="updateDraftField('nativeId', $event)"
+        />
+      </div>
+
+      <div class="edit-actions">
+        <button type="button" class="btn-save-card" (click)="saveDraft()">Save</button>
+        <button type="button" class="btn-cancel-card" (click)="editCancel.emit()">Cancel</button>
+      </div>
+    } @else {
+      <div class="id-field">
+        <div class="id-field__icon"><i class="bi bi-phone"></i></div>
+        <div class="id-field__content">
+          <span class="id-field__label">Interstitial ID</span>
+          <span class="id-field__value">{{ config().interstitialId || '—' }}</span>
+        </div>
+        <button
+          type="button"
+          class="id-field__copy"
+          title="Copy"
+          (click)="copyId.emit(config().interstitialId)"
+        >
+          <i class="bi bi-copy"></i>
+        </button>
+      </div>
+
+      <div class="id-field">
+        <div class="id-field__icon"><i class="bi bi-gift"></i></div>
+        <div class="id-field__content">
+          <span class="id-field__label">Reward ID</span>
+          <span class="id-field__value">{{ config().rewardId || '—' }}</span>
+        </div>
+        <button
+          type="button"
+          class="id-field__copy"
+          title="Copy"
+          (click)="copyId.emit(config().rewardId)"
+        >
+          <i class="bi bi-copy"></i>
+        </button>
+      </div>
+
+      <div class="id-field">
+        <div class="id-field__icon"><i class="bi bi-credit-card"></i></div>
+        <div class="id-field__content">
+          <span class="id-field__label">Native ID</span>
+          <span class="id-field__value">{{ config().nativeId || '—' }}</span>
+        </div>
+        <button
+          type="button"
+          class="id-field__copy"
+          title="Copy"
+          (click)="copyId.emit(config().nativeId)"
+        >
+          <i class="bi bi-copy"></i>
+        </button>
+      </div>
+    }
+  </div>
+</article>

@@ -1,0 +1,72 @@
+<div class="agency-dialog">
+  <div class="dialog-header">
+    <h2 class="dialog-title">VIP Plan</h2>
+    <button type="button" class="dialog-close" (click)="close()" aria-label="Close">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <form class="dialog-body" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-row form-row--2">
+      <div class="form-group">
+        <label class="form-label" for="vip-plan-time">Time</label>
+        <input
+          id="vip-plan-time"
+          type="number"
+          min="1"
+          class="form-control"
+          formControlName="time"
+          placeholder="1"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="vip-plan-option">Select Option</label>
+        <select id="vip-plan-option" class="form-control" formControlName="option">
+          @for (opt of optionList; track opt.value) {
+            <option [value]="opt.value" [disabled]="!opt.value">{{ opt.label }}</option>
+          }
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row form-row--2">
+      <div class="form-group">
+        <label class="form-label" for="vip-plan-price">Price</label>
+        <input
+          id="vip-plan-price"
+          type="number"
+          min="0"
+          class="form-control"
+          formControlName="price"
+          placeholder="0"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="vip-plan-discount">Discount</label>
+        <input
+          id="vip-plan-discount"
+          type="number"
+          min="0"
+          class="form-control"
+          formControlName="discount"
+          placeholder="0"
+        />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="vip-plan-product-id">Product Id</label>
+      <input
+        id="vip-plan-product-id"
+        type="text"
+        class="form-control"
+        formControlName="productId"
+        placeholder="com.android.test"
+      />
+    </div>
+
+    <button type="submit" class="btn-submit-full">Submit</button>
+  </form>
+</div>
