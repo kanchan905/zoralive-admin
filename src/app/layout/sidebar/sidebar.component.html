@@ -1,15 +1,20 @@
 <aside class="sidebar" [class.collapsed]="collapsed">
   <div class="sidebar-brand">
     <div class="brand-icon">
-      <i class="bi bi-play-fill"></i>
+      <img src="assets/logo.fb24ee40.png" alt="ZoraLive" class="brand-logo" />
     </div>
     @if (!collapsed) {
-      <span class="brand-text">ZoraLive</span>
+      <div class="brand-text-wrap">
+        <span class="brand-text">ZoraLive</span>
+        @if (user()?.role === 'agency' && user()?.agencyCode) {
+          <span class="agency-code">{{ user()!.agencyCode }}</span>
+        }
+      </div>
     }
   </div>
 
   <nav class="sidebar-nav">
-    @for (item of menuItems; track item.label) {
+    @for (item of menuItems(); track item.label) {
       @if (hasChildren(item)) {
         <div class="nav-group" [class.expanded]="isExpanded(item)">
           <button

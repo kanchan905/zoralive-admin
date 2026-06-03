@@ -5,19 +5,21 @@
 
   <div class="page-card report-user-card">
     <div class="report-user-filters-bar">
-      <div class="filter-field">
-        <label class="filter-label" for="report-user-agency">Agency</label>
-        <select
-          id="report-user-agency"
-          class="filter-select"
-          [ngModel]="agencyFilter()"
-          (ngModelChange)="onAgencyChange($event)"
-        >
-          @for (opt of agencyOptions; track opt.value) {
-            <option [value]="opt.value">{{ opt.label }}</option>
-          }
-        </select>
-      </div>
+      @if (!isAgencyView) {
+        <div class="filter-field">
+          <label class="filter-label" for="report-user-agency">Agency</label>
+          <select
+            id="report-user-agency"
+            class="filter-select"
+            [ngModel]="agencyFilter()"
+            (ngModelChange)="onAgencyChange($event)"
+          >
+            @for (opt of agencyOptions; track opt.value) {
+              <option [value]="opt.value">{{ opt.label }}</option>
+            }
+          </select>
+        </div>
+      }
 
       <div class="search-wrap">
         <app-search-box

@@ -10,13 +10,15 @@
   </div>
 
   <div class="header-actions">
-    <button type="button" class="icon-btn" aria-label="Push notification" (click)="openNotificationOne()">
-      <i class="bi bi-bell"></i>
-    </button>
+    @if (!isAgency()) {
+      <button type="button" class="icon-btn" aria-label="Push notification" (click)="openNotificationOne()">
+        <i class="bi bi-bell"></i>
+      </button>
 
-    <button type="button" class="icon-btn" aria-label="Message to users" (click)="openNotificationTwo()">
-      <i class="bi bi-bell"></i>
-    </button>
+      <button type="button" class="icon-btn" aria-label="Message to users" (click)="openNotificationTwo()">
+        <i class="bi bi-bell"></i>
+      </button>
+    }
 
     <div class="profile-wrap" (click)="$event.stopPropagation()">
       <button
@@ -28,8 +30,8 @@
       >
         <img class="avatar" [src]="avatarUrl" alt="Admin" />
         <div class="user-info">
-          <span class="user-greeting">Hello, Admin</span>
-          <span class="user-role">Super Admin</span>
+          <span class="user-greeting">Hello, {{ user()?.name ?? 'Admin' }}</span>
+          <span class="user-role">{{ user()?.role === 'agency' ? 'Agency' : 'Super Admin' }}</span>
         </div>
         <i class="bi bi-chevron-down profile-chevron" [class.open]="profileMenuOpen()"></i>
       </button>

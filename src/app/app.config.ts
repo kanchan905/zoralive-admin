@@ -1,7 +1,8 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { agencyScopeInterceptor } from './core/interceptors/agency-scope.interceptor';
 import { provideToastr } from 'ngx-toastr';
 
 import { routes } from './app.routes';
@@ -11,7 +12,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimations(),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([agencyScopeInterceptor])),
     provideToastr({
       timeOut: 4000,
       positionClass: 'toast-bottom-right',

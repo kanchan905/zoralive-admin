@@ -1,10 +1,19 @@
 import { Routes } from '@angular/router';
+import { adminGuard } from './core/guards/admin.guard';
+import { loginGuard } from './core/guards/login.guard';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 
 export const routes: Routes = [
   {
+    path: 'login',
+    canActivate: [loginGuard],
+    loadComponent: () =>
+      import('./modules/auth/pages/login/login.component').then((m) => m.LoginComponent),
+  },
+  {
     path: '',
     component: MainLayoutComponent,
+    canActivate: [adminGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
@@ -103,6 +112,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./modules/host-request/pages/host-request/host-request.component').then(
             (m) => m.HostRequestComponent
+          ),
+      },
+      {
+        path: 'host-income',
+        loadComponent: () =>
+          import('./modules/host-income/pages/host-income/host-income.component').then(
+            (m) => m.HostIncomeComponent
           ),
       },
       {
@@ -212,4 +228,5 @@ export const routes: Routes = [
       { path: '**', redirectTo: 'dashboard' },
     ],
   },
+  { path: '**', redirectTo: 'login' },
 ];

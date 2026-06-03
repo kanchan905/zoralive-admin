@@ -75,3 +75,15 @@ export const SIDEBAR_MENU: SidebarMenuItem[] = [
   { label: 'Profile', icon: 'bi-person-circle', route: '/profile' },
   { label: 'Logout', icon: 'bi-box-arrow-right', action: 'logout' },
 ];
+
+
+export const AGENCY_SIDEBAR_MENU: SidebarMenuItem[] = [
+  { label: 'Dashboard', icon: 'bi-house-door', route: '/dashboard' },
+  { label: 'Host', icon: 'bi-emoji-smile', route: '/host/detail' },
+  { label: 'Host Request', icon: 'bi-arrow-left-right', route: '/host-request' },
+  { label: 'Host Income', icon: 'bi-clipboard-data', route: '/host-income' },
+  { label: 'Country', icon: 'bi-globe2', route: '/country' },
+  { label: 'Report User', icon: 'bi-person-vcard', route: '/report-user' },
+  { label: 'Profile', icon: 'bi-person', route: '/profile' },
+  { label: 'Logout', icon: 'bi-box-arrow-right', action: 'logout' },
+];

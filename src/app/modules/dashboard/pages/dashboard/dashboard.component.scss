@@ -177,6 +177,24 @@
   }
 }
 
+.stat-card[data-theme='orange'] {
+  color: #f97316;
+
+  .stat-icon {
+    background: rgba(#f97316, 0.12);
+    color: #f97316;
+  }
+}
+
+.stat-card[data-theme='amber'] {
+  color: #f59e0b;
+
+  .stat-icon {
+    background: rgba(#f59e0b, 0.12);
+    color: #f59e0b;
+  }
+}
+
 @media (max-width: 1200px) {
   .stats-grid {
     grid-template-columns: repeat(3, 1fr);

@@ -1,12 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-export interface StatCard {
-  label: string;
-  value: number;
-  icon: string;
-  theme: 'purple' | 'blue' | 'green' | 'yellow' | 'pink' | 'teal';
-}
+import { finalize } from 'rxjs';
+import { AuthService } from '../../../../core/services/auth.service';
+import { StatCard } from '../../models/stat-card.model';
+import { DashboardService } from '../../services/dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,22 +11,42 @@ export interface StatCard {
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
-export class DashboardComponent {
-  readonly dateRange = 'May 21 - Jun 21, 2024';
+export class DashboardComponent implements OnInit {
+  private readonly dashboardService = inject(DashboardService);
+  private readonly auth = inject(AuthService);
 
-  readonly statCards: StatCard[] = [
-    { label: 'User', value: 15420, icon: 'bi-people', theme: 'purple' },
-    { label: 'Country', value: 120, icon: 'bi-globe2', theme: 'blue' },
-    { label: 'Purchase Plan', value: 520, icon: 'bi-cart-check', theme: 'green' },
-    { label: 'VIP Plan', value: 210, icon: 'bi-star', theme: 'yellow' },
-    { label: 'Category', value: 56, icon: 'bi-grid', theme: 'pink' },
-    { label: 'Gift', value: 325, icon: 'bi-gift', theme: 'purple' },
-    { label: 'Emoji', value: 1250, icon: 'bi-emoji-smile', theme: 'yellow' },
-    { label: 'Sticker', value: 740, icon: 'bi-sticky', theme: 'green' },
-    { label: 'Online Host', value: 85, icon: 'bi-broadcast', theme: 'teal' },
-    { label: 'Live Host', value: 42, icon: 'bi-camera-video', theme: 'pink' },
-    { label: 'Total Host', value: 1240, icon: 'bi-person-video2', theme: 'blue' },
-    { label: 'Total Agency', value: 320, icon: 'bi-building', theme: 'purple' },
-    { label: 'Online User', value: 620, icon: 'bi-person-check', theme: 'blue' },
-  ];
+  readonly dateRange = 'May 21 - Jun 21, 2024';
+  readonly statCards = signal<StatCard[]>([]);
+  readonly loading = signal(true);
+
+  ngOnInit(): void {
+    this.loadStats();
+  }
+
+  isAgency(): boolean {
+    return this.auth.isAgency();
+  }
+
+  welcomeTitle(): string {
+    return this.auth.isAgency() ? 'Welcome' : 'Welcome back, Admin! 👋';
+  }
+
+  welcomeSubtitle(): string {
+    return this.auth.isAgency()
+      ? 'Dashboard'
+      : "Here's what's happening with your platform today.";
+  }
+
+  hasCardValue(card: StatCard): boolean {
+    return card.value !== null && card.value !== undefined;
+  }
+
+  private loadStats(): void {
+    this.loading.set(true);
+
+    this.dashboardService
+      .getStats()
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe((cards) => this.statCards.set(cards));
+  }
 }

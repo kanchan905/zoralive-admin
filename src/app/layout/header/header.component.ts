@@ -1,6 +1,7 @@
 import { Component, EventEmitter, HostListener, inject, Output, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from '../../core/services/auth.service';
 import { NotificationOneComponent } from '../components/notification-one/notification-one.component';
 import { NotificationTwoComponent } from '../components/notification-two/notification-two.component';
 
@@ -14,9 +15,15 @@ export class HeaderComponent {
   @Output() menuToggle = new EventEmitter<void>();
 
   private readonly dialog = inject(MatDialog);
+  private readonly auth = inject(AuthService);
 
   readonly profileMenuOpen = signal(false);
+  readonly user = this.auth.user();
   readonly avatarUrl = 'assets/admin-avatar.png';
+
+  isAgency(): boolean {
+    return this.auth.isAgency();
+  }
 
   @HostListener('document:click')
   closeProfileMenuOnOutsideClick(): void {

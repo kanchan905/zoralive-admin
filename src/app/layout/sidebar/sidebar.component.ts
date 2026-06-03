@@ -1,10 +1,10 @@
-import { Component, DestroyRef, Input, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, Input, computed, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter } from 'rxjs';
 import { AuthService } from '../../core/services/auth.service';
-import { SIDEBAR_MENU } from './sidebar-menu.constants';
+import { AGENCY_SIDEBAR_MENU, SIDEBAR_MENU } from './sidebar-menu.constants';
 import { SidebarMenuItem } from './sidebar-menu.model';
 
 @Component({
@@ -20,7 +20,11 @@ export class SidebarComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly auth = inject(AuthService);
 
-  readonly menuItems = SIDEBAR_MENU;
+  readonly user = this.auth.user();
+
+  readonly menuItems = computed(() =>
+    this.user()?.role === 'agency' ? AGENCY_SIDEBAR_MENU : SIDEBAR_MENU
+  );
   /** Sirf ek parent menu expand — accordion */
   readonly expandedLabel = signal<string | null>(null);
 
@@ -97,7 +101,7 @@ export class SidebarComponent implements OnInit {
   private syncExpandedFromRoute(): void {
     const url = this.currentUrl();
 
-    for (const item of this.menuItems) {
+    for (const item of this.menuItems()) {
       if (!item.children?.length) {
         continue;
       }
