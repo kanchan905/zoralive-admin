@@ -1,22 +1,24 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { NotificationService } from '../../../../core/services/notification.service';
+import { ToastService } from '../../../../core/services/toast.service';
 import {
   FAKE_HOST_AGENCY_OPTIONS,
   HostAddMode,
 } from '../../constants/fake-host-dialog.constants';
+import { AppButtonComponent } from '../../../../layout/components/button/button.component';
+import { AppSelectComponent } from '../../../../layout/components/select/select.component';
 
 @Component({
   selector: 'app-fake-host-dialog',
-  imports: [ReactiveFormsModule, MatDialogModule],
+  imports: [ReactiveFormsModule, MatDialogModule, AppButtonComponent, AppSelectComponent],
   templateUrl: './fake-host-dialog.component.html',
   styleUrl: './fake-host-dialog.component.scss',
 })
 export class FakeHostDialogComponent {
   private readonly dialogRef = inject(MatDialogRef<FakeHostDialogComponent>);
   private readonly fb = inject(FormBuilder);
-  private readonly notify = inject(NotificationService);
+  private readonly toast = inject(ToastService);
 
   readonly agencyOptions = FAKE_HOST_AGENCY_OPTIONS;
   readonly hostMode = signal<HostAddMode>('single');
@@ -84,7 +86,7 @@ export class FakeHostDialogComponent {
 
     if (form.invalid) {
       form.markAllAsTouched();
-      this.notify.warning('Please fill out all required fields');
+      this.toast.warning('Please fill out all required fields');
       return;
     }
 
@@ -92,7 +94,7 @@ export class FakeHostDialogComponent {
       ? 'Fake host added successfully'
       : 'Fake hosts uploaded successfully';
 
-    this.notify.success(message);
+    this.toast.success(message);
     this.dialogRef.close({
       mode: this.hostMode(),
       ...form.getRawValue(),

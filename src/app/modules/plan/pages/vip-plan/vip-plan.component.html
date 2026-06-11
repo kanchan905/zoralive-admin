@@ -5,10 +5,7 @@
 
   <div class="page-card vip-plan-card">
     <div class="vip-plan-actions-top">
-      <button type="button" class="btn-primary btn-vip-plan-new" (click)="openNew()">
-        <i class="bi bi-plus-lg"></i>
-        New
-      </button>
+      <app-button preset="new" icon="bi bi-plus-lg" (clicked)="openNew()">New</app-button>
     </div>
 
     <app-data-table

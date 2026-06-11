@@ -5,10 +5,7 @@
 
   <div class="page-card banner-card">
     <div class="banner-actions-top">
-      <button type="button" class="btn-primary btn-banner-new" (click)="openNew()">
-        <i class="bi bi-plus-lg"></i>
-        New
-      </button>
+      <app-button preset="new" icon="bi bi-plus-lg" (clicked)="openNew()">New</app-button>
     </div>
 
     <app-data-table

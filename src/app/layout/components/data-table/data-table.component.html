@@ -49,10 +49,9 @@
                     <p class="empty-state-message">{{ emptyMessage() }}</p>
                   }
                   @if (emptyActionLabel()) {
-                    <button type="button" class="btn-empty-action" (click)="onEmptyAction()">
-                      <i class="bi bi-plus-lg"></i>
+                    <app-button preset="empty" icon="bi bi-plus-lg" (clicked)="onEmptyAction()">
                       {{ emptyActionLabel() }}
-                    </button>
+                    </app-button>
                   }
                 </div>
               }
@@ -102,32 +101,27 @@
                       </button>
                     }
                     @case ('badge') {
-                      <span
-                        class="status-badge"
-                        [attr.data-status]="statusVariant(getCellValue(row, col.key))"
+                      <app-badge
+                        size="chip"
+                        [variant]="statusVariant(getCellValue(row, col.key))"
                       >
-                        <span class="status-dot" aria-hidden="true"></span>
                         {{ statusLabel(getCellValue(row, col.key)) }}
-                      </span>
+                      </app-badge>
                     }
                     @case ('actions') {
                       <div class="table-actions">
-                        <button
-                          type="button"
-                          class="table-action-btn"
+                        <app-button
+                          preset="table-action"
+                          icon="bi bi-pencil"
                           title="Edit"
-                          (click)="onRowAction('edit', row)"
-                        >
-                          <i class="bi bi-pencil"></i>
-                        </button>
-                        <button
-                          type="button"
-                          class="table-action-btn table-action-btn--danger"
+                          (clicked)="onRowAction('edit', row)"
+                        />
+                        <app-button
+                          preset="table-action-danger"
+                          icon="bi bi-trash"
                           title="Delete"
-                          (click)="onRowAction('delete', row)"
-                        >
-                          <i class="bi bi-trash"></i>
-                        </button>
+                          (clicked)="onRowAction('delete', row)"
+                        />
                       </div>
                     }
                     @default {
@@ -147,56 +141,46 @@
     <div class="table-pagination">
       <div class="pagination-left">
         <span class="pagination-label">Rows per page:</span>
-        <select
-          class="pagination-select"
-          [ngModel]="pageSize()"
+        <app-select
+          triggerClass="pagination-select"
+          [dropUp]="true"
+          [options]="pageSizeOptions()"
+          [ngModel]="pageSizeString()"
           (ngModelChange)="onPageSizeChange($event)"
           [disabled]="loading()"
-        >
-          @for (size of pageSizeOptions(); track size) {
-            <option [value]="size">{{ size }}</option>
-          }
-        </select>
+        />
       </div>
       <div class="pagination-right">
         <span class="pagination-range">{{ rangeStart() }}-{{ rangeEnd() }} of {{ total() }}</span>
         <div class="pagination-nav">
-          <button
-            type="button"
-            class="pagination-btn"
+          <app-button
+            preset="pagination"
+            icon="bi bi-chevron-double-left"
+            ariaLabel="First page"
             [disabled]="loading() || page() <= 1"
-            (click)="goToPage(1)"
-            aria-label="First page"
-          >
-            <i class="bi bi-chevron-double-left"></i>
-          </button>
-          <button
-            type="button"
-            class="pagination-btn"
+            (clicked)="goToPage(1)"
+          />
+          <app-button
+            preset="pagination"
+            icon="bi bi-chevron-left"
+            ariaLabel="Previous page"
             [disabled]="loading() || page() <= 1"
-            (click)="goToPage(page() - 1)"
-            aria-label="Previous page"
-          >
-            <i class="bi bi-chevron-left"></i>
-          </button>
-          <button
-            type="button"
-            class="pagination-btn"
+            (clicked)="goToPage(page() - 1)"
+          />
+          <app-button
+            preset="pagination"
+            icon="bi bi-chevron-right"
+            ariaLabel="Next page"
             [disabled]="loading() || page() >= totalPages()"
-            (click)="goToPage(page() + 1)"
-            aria-label="Next page"
-          >
-            <i class="bi bi-chevron-right"></i>
-          </button>
-          <button
-            type="button"
-            class="pagination-btn"
+            (clicked)="goToPage(page() + 1)"
+          />
+          <app-button
+            preset="pagination"
+            icon="bi bi-chevron-double-right"
+            ariaLabel="Last page"
             [disabled]="loading() || page() >= totalPages()"
-            (click)="goToPage(totalPages())"
-            aria-label="Last page"
-          >
-            <i class="bi bi-chevron-double-right"></i>
-          </button>
+            (clicked)="goToPage(totalPages())"
+          />
         </div>
       </div>
     </div>

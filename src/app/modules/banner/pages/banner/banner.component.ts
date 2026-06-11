@@ -1,24 +1,25 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { finalize } from 'rxjs';
-import { BreadcrumbComponent } from '../../../../shared/components/breadcrumb/breadcrumb.component';
-import { PageHeaderComponent } from '../../../../shared/components/page-header/page-header.component';
-import { DataTableComponent } from '../../../../shared/components/data-table/data-table.component';
-import { BreadcrumbItem } from '../../../../shared/models/breadcrumb.model';
-import { NotificationService } from '../../../../core/services/notification.service';
+import { BreadcrumbComponent } from '../../../../layout/components/breadcrumb/breadcrumb.component';
+import { PageHeaderComponent } from '../../../../layout/components/page-header/page-header.component';
+import { DataTableComponent } from '../../../../layout/components/data-table/data-table.component';
+import { BreadcrumbItem } from '../../../../core/models/breadcrumb.model';
+import { ToastService } from '../../../../core/services/toast.service';
 import { BANNER_TABLE_COLUMNS } from '../../constants/banner-table.columns';
 import { BannerService } from '../../services/banner.service';
 import { BannerDialogComponent } from '../../components/banner-dialog/banner-dialog.component';
+import { AppButtonComponent } from '../../../../layout/components/button/button.component';
 
 @Component({
   selector: 'app-banner',
-  imports: [BreadcrumbComponent, PageHeaderComponent, DataTableComponent],
+  imports: [BreadcrumbComponent, PageHeaderComponent, DataTableComponent, AppButtonComponent],
   templateUrl: './banner.component.html',
   styleUrl: './banner.component.scss',
 })
 export class BannerComponent implements OnInit {
   private readonly bannerService = inject(BannerService);
-  private readonly notify = inject(NotificationService);
+  private readonly toast = inject(ToastService);
   private readonly dialog = inject(MatDialog);
 
   readonly columns = BANNER_TABLE_COLUMNS;
@@ -54,7 +55,6 @@ export class BannerComponent implements OnInit {
         error: () => {
           this.rows.set([]);
           this.total.set(0);
-          this.notify.error('Failed to load banners');
         },
       });
   }

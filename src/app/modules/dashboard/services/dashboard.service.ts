@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, catchError, of } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../core/services/auth.service';
@@ -30,15 +30,30 @@ const AGENCY_STATS: StatCard[] = [
   { label: 'Net Worth', icon: 'bi-layers-fill', theme: 'amber' },
 ];
 
+export interface DashboardStatsParams {
+  fromDate?: string;
+  toDate?: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class DashboardService {
   private readonly http = inject(HttpClient);
   private readonly auth = inject(AuthService);
   private readonly baseUrl = `${environment.apiUrl}/dashboard/stats`;
 
-  getStats(): Observable<StatCard[]> {
+  getStats(params: DashboardStatsParams = {}): Observable<StatCard[]> {
     const fallback = this.auth.isAgency() ? AGENCY_STATS : ADMIN_STATS;
+    let httpParams = new HttpParams();
 
-    return this.http.get<StatCard[]>(this.baseUrl).pipe(catchError(() => of(fallback)));
+    if (params.fromDate) {
+      httpParams = httpParams.set('fromDate', params.fromDate);
+    }
+    if (params.toDate) {
+      httpParams = httpParams.set('toDate', params.toDate);
+    }
+
+    return this.http
+      .get<StatCard[]>(this.baseUrl, { params: httpParams })
+      .pipe(catchError(() => of(fallback)));
   }
 }

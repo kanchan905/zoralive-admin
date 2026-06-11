@@ -1,25 +1,26 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { finalize } from 'rxjs';
-import { BreadcrumbComponent } from '../../../../shared/components/breadcrumb/breadcrumb.component';
-import { PageHeaderComponent } from '../../../../shared/components/page-header/page-header.component';
-import { SearchBoxComponent } from '../../../../shared/components/search-box/search-box.component';
-import { DataTableComponent } from '../../../../shared/components/data-table/data-table.component';
-import { BreadcrumbItem } from '../../../../shared/models/breadcrumb.model';
-import { NotificationService } from '../../../../core/services/notification.service';
+import { BreadcrumbComponent } from '../../../../layout/components/breadcrumb/breadcrumb.component';
+import { PageHeaderComponent } from '../../../../layout/components/page-header/page-header.component';
+import { SearchBoxComponent } from '../../../../layout/components/search-box/search-box.component';
+import { DataTableComponent } from '../../../../layout/components/data-table/data-table.component';
+import { BreadcrumbItem } from '../../../../core/models/breadcrumb.model';
+import { ToastService } from '../../../../core/services/toast.service';
 import { STICKER_TABLE_COLUMNS } from '../../constants/sticker-table.columns';
 import { StickerService } from '../../services/sticker.service';
 import { StickerDialogComponent } from '../../components/sticker-dialog/sticker-dialog.component';
+import { AppButtonComponent } from '../../../../layout/components/button/button.component';
 
 @Component({
   selector: 'app-sticker',
-  imports: [BreadcrumbComponent, PageHeaderComponent, SearchBoxComponent, DataTableComponent],
+  imports: [BreadcrumbComponent, PageHeaderComponent, SearchBoxComponent, DataTableComponent, AppButtonComponent],
   templateUrl: './sticker.component.html',
   styleUrl: './sticker.component.scss',
 })
 export class StickerComponent implements OnInit {
   private readonly stickerService = inject(StickerService);
-  private readonly notify = inject(NotificationService);
+  private readonly toast = inject(ToastService);
   private readonly dialog = inject(MatDialog);
 
   readonly columns = STICKER_TABLE_COLUMNS;
@@ -58,7 +59,6 @@ export class StickerComponent implements OnInit {
         error: () => {
           this.rows.set([]);
           this.total.set(0);
-          this.notify.error('Failed to load stickers');
         },
       });
   }
@@ -95,11 +95,11 @@ export class StickerComponent implements OnInit {
 
   deleteSelected(): void {
     if (this.selectedIds().length === 0) {
-      this.notify.info('Select at least one row to delete');
+      this.toast.info('Select at least one row to delete');
       return;
     }
     // TODO: API bulk delete
-    this.notify.warning('Delete selected will be available when API is connected');
+    this.toast.warning('Delete selected will be available when API is connected');
   }
 
   onRowAction(_event: { action: string; row: Record<string, unknown> }): void {

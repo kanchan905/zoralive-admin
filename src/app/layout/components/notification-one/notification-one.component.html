@@ -1,9 +1,7 @@
 <div class="notification-modal">
   <div class="dialog-header">
     <h2 class="dialog-title">Notification</h2>
-    <button type="button" class="dialog-close" (click)="close()" aria-label="Close">
-      <i class="bi bi-x-lg"></i>
-    </button>
+    <app-button preset="close" icon="bi bi-x-lg" ariaLabel="Close" (clicked)="close()" />
   </div>
 
   <form class="dialog-body" [formGroup]="form" (ngSubmit)="submit()">
@@ -45,18 +43,16 @@
 
     <div class="form-group">
       <label class="form-label" for="notif-one-which-user">Which User</label>
-      <select id="notif-one-which-user" class="form-control" formControlName="whichUser">
-        @for (opt of userOptions; track opt.value) {
-          <option [value]="opt.value">{{ opt.label }}</option>
-        }
-      </select>
+      <app-select
+        id="notif-one-which-user"
+        formControlName="whichUser"
+        placeholder="Select user"
+        [options]="userOptions"
+      />
     </div>
 
     <div class="dialog-footer">
-      <button type="submit" class="btn-send">
-        <i class="bi bi-send"></i>
-        Send
-      </button>
+      <app-button preset="send" type="submit" icon="bi bi-send">Send</app-button>
     </div>
   </form>
 </div>

@@ -1,37 +1,15 @@
-@use '../../../styles/variables' as *;
 
 .admin-header {
   display: flex;
   align-items: center;
   gap: 20px;
-  height: $header-height;
+  height: var(--header-height);
   padding: 0 28px;
-  background: $sidebar-bg;
-  border-bottom: 1px solid $border;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
   z-index: 100;
-}
-
-.btn-menu {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  border: 1px solid $border;
-  border-radius: $radius-md;
-  background: #fff;
-  color: $text;
-  font-size: 1.35rem;
-  cursor: pointer;
-  transition: all $transition;
-  flex-shrink: 0;
-
-  &:hover {
-    border-color: $primary;
-    color: $primary;
-  }
 }
 
 .search-wrap {
@@ -45,7 +23,7 @@
 .search-icon {
   position: absolute;
   left: 16px;
-  color: $text-light;
+  color: var(--text-light);
   font-size: 1rem;
   pointer-events: none;
 }
@@ -53,33 +31,18 @@
 .search-input {
   width: 100%;
   padding: 12px 100px 12px 44px;
-  border: 1px solid $border;
-  border-radius: $radius-md;
-  background: $bg;
   font-size: 0.9rem;
-  color: $text;
-  outline: none;
-  transition: border-color $transition;
-
-  &::placeholder {
-    color: $text-light;
-  }
-
-  &:focus {
-    border-color: $primary;
-    background: #fff;
-  }
 }
 
 .search-kbd {
   position: absolute;
   right: 12px;
   padding: 4px 8px;
-  border: 1px solid $border;
+  border: 1px solid var(--border);
   border-radius: 6px;
-  background: #fff;
+  background: var(--card);
   font-size: 0.7rem;
-  color: $text-muted;
+  color: var(--text-muted);
   font-family: inherit;
 }
 
@@ -88,26 +51,6 @@
   align-items: center;
   gap: 12px;
   margin-left: auto;
-}
-
-.icon-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  border: 1px solid $border;
-  border-radius: $radius-md;
-  background: #fff;
-  color: $text-muted;
-  font-size: 1.15rem;
-  cursor: pointer;
-  transition: all $transition;
-
-  &:hover {
-    border-color: $primary;
-    color: $primary;
-  }
 }
 
 .profile-wrap {
@@ -120,15 +63,15 @@
   gap: 12px;
   padding: 6px 10px 6px 6px;
   border: 1px solid transparent;
-  border-radius: $radius-md;
+  border-radius: var(--radius-md);
   background: transparent;
   cursor: pointer;
-  transition: all $transition;
+  transition: all var(--transition);
   font-family: inherit;
 
   &:hover,
   &[aria-expanded='true'] {
-    background: rgba($primary, 0.04);
+    background: rgba(255, 77, 157, 0.04);
   }
 }
 
@@ -147,20 +90,19 @@
 
 .user-greeting {
   font-size: 0.875rem;
-  font-weight: 600;
-  color: $text;
+  color: var(--purple);
 }
 
 .user-role {
   font-size: 0.75rem;
-  color: $text-muted;
+  color: var(--text-muted);
 }
 
 .profile-chevron {
   font-size: 0.75rem;
-  color: $text-muted;
+  color: var(--text-muted);
   margin-left: 4px;
-  transition: transform $transition;
+  transition: transform var(--transition);
 
   &.open {
     transform: rotate(180deg);
@@ -173,10 +115,11 @@
   right: 0;
   min-width: 180px;
   padding: 6px;
-  border: 1px solid $border;
-  border-radius: $radius-md;
-  background: #fff;
-  box-shadow: $shadow-lg;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--card);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border);
   z-index: 200;
 }
 
@@ -185,24 +128,23 @@
   align-items: center;
   gap: 10px;
   padding: 10px 12px;
-  border-radius: $radius-sm;
-  color: $text;
+  border-radius: var(--radius-sm);
+  color: var(--purple);
   font-size: 0.875rem;
-  font-weight: 500;
   text-decoration: none;
-  transition: background $transition;
+  transition: background var(--transition);
 
   .bi {
     font-size: 1.1rem;
-    color: $text-muted;
+    color: var(--text-muted);
   }
 
   &:hover {
-    background: rgba($primary, 0.08);
-    color: $primary;
+    background: rgba(255, 77, 157, 0.08);
+    color: var(--pink);
 
     .bi {
-      color: $primary;
+      color: var(--pink);
     }
   }
 }

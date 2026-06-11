@@ -5,19 +5,17 @@
     title="Accepted Redeem"
     subtitle="Manage and view all accepted redeem requests."
   >
-    <button actions type="button" class="btn-export" (click)="exportToExcel()">
-      <i class="bi bi-download"></i>
+    <app-button actions preset="export" icon="bi bi-download" (clicked)="exportToExcel()">
       Export To Excel
-    </button>
+    </app-button>
   </app-page-header>
 
   <div class="page-card">
     <div class="table-toolbar">
       <div class="table-toolbar-left">
-        <button type="button" class="btn-filter-labeled" (click)="openFilter()">
-          <i class="bi bi-funnel"></i>
+        <app-button preset="filter-apply" icon="bi bi-funnel" (clicked)="openFilter()">
           Filter
-        </button>
+        </app-button>
       </div>
 
       <div class="table-toolbar-right">

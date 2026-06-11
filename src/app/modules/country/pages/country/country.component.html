@@ -5,15 +5,11 @@
 
   <div class="page-card country-card">
     <div class="country-actions-top">
-      <button type="button" class="btn-country-delete-all" (click)="deleteAll()">
-        <i class="bi bi-trash3-fill"></i>
+      <app-button preset="delete" icon="bi bi-trash3-fill" (clicked)="deleteAll()">
         Delete Selected ({{ selectedCountryIds().length }})
-      </button>
+      </app-button>
 
-      <button type="button" class="btn-primary btn-country-new" (click)="openNewCountry()">
-        <i class="bi bi-plus-lg"></i>
-        New
-      </button>
+      <app-button preset="new" icon="bi bi-plus-lg" (clicked)="openNewCountry()">New</app-button>
     </div>
 
     <div class="table-toolbar table-toolbar--search-end">

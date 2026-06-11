@@ -1,4 +1,4 @@
-import { TableColumn } from '../../../shared/models/table-column.model';
+import { TableColumn } from '../../../core/models/table-column.model';
 
 export const STICKER_TABLE_COLUMNS: TableColumn[] = [
   { key: 'select', label: '', type: 'checkbox', width: '56px' },

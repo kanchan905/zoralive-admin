@@ -1,0 +1,201 @@
+// --- Badges & status (single source) -----------------------
+
+@mixin badge-text {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: var(--text-label-size);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+@mixin badge-base {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  @include badge-text;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+@mixin badge-live {
+  @include badge-base;
+  background: var(--grad);
+  color: var(--navy);
+  box-shadow: 0 4px 12px rgba(255, 77, 157, 0.3);
+}
+
+@mixin badge-vip {
+  @include badge-base;
+  background: linear-gradient(135deg, var(--gold), rgba(255, 140, 50, 0.85));
+  color: var(--navy);
+  box-shadow: 0 4px 12px rgba(255, 209, 102, 0.35);
+}
+
+@mixin badge-outlined($color) {
+  @include badge-base;
+  background: var(--card);
+  border: 1px solid $color;
+  color: $color;
+}
+
+@mixin status-bar-text {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--text-subheading-size);
+  line-height: 1.4;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+@mixin status-bar($color) {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: var(--radius-lg);
+  background: var(--card);
+  border: 1px solid $color;
+  color: $color;
+  @include status-bar-text;
+}
+
+@mixin status-chip-base {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px 4px 8px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  text-transform: none;
+  letter-spacing: normal;
+  white-space: nowrap;
+}
+
+@mixin global-badges {
+  // Small badges
+  .badge-live { @include badge-live; }
+  .badge-vip { @include badge-vip; }
+  .badge-verified { @include badge-outlined(var(--green)); }
+  .badge-hot { @include badge-outlined(var(--red)); }
+  .badge-new { @include badge-outlined(var(--purple)); }
+  .badge-top { @include badge-outlined(var(--pink)); }
+
+  .badge-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
+  }
+
+  .badge-live .badge-dot {
+    background: var(--red);
+    box-shadow: 0 0 6px rgba(255, 92, 122, 0.8);
+  }
+
+  .badge-icon {
+    font-size: 0.75rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  // Wide status bars
+  .status-online {
+    @include status-bar(var(--green));
+
+    .status-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 10px var(--green);
+      flex-shrink: 0;
+    }
+  }
+
+  .status-offline {
+    @include status-bar(rgba(201, 75, 255, 0.35));
+    color: var(--text-muted);
+
+    .status-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--text-light);
+      flex-shrink: 0;
+    }
+  }
+
+  // Compact status chips (tables, cards)
+  .status-chip,
+  .status-badge {
+    @include status-chip-base;
+    background: var(--card);
+    color: var(--text-muted);
+    border: 1px solid var(--border-light);
+
+    &[data-variant='online'],
+    &[data-variant='active'] {
+      background: rgba(79, 255, 176, 0.12);
+      color: var(--green);
+      border-color: rgba(79, 255, 176, 0.35);
+    }
+
+    &[data-variant='live'] {
+      background: rgba(255, 77, 157, 0.15);
+      color: var(--pink);
+      border-color: rgba(255, 77, 157, 0.35);
+    }
+
+    &[data-variant='offline'],
+    &[data-variant='disabled'] {
+      background: var(--card);
+      color: var(--text-muted);
+      border-color: var(--border-light);
+    }
+
+    &[data-variant='default'] {
+      background: var(--border-light);
+      color: var(--text-muted);
+      border-color: transparent;
+    }
+  }
+
+  .status-chip .status-dot,
+  .status-badge .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--text-light);
+  }
+
+  .status-chip[data-variant='online'] .status-dot,
+  .status-chip[data-variant='active'] .status-dot,
+  .status-badge[data-variant='online'] .status-dot,
+  .status-badge[data-variant='active'] .status-dot {
+    background: var(--green);
+    box-shadow: 0 0 6px rgba(79, 255, 176, 0.6);
+  }
+
+  .status-chip[data-variant='live'] .status-dot,
+  .status-badge[data-variant='live'] .status-dot {
+    background: var(--pink);
+    box-shadow: 0 0 6px rgba(255, 77, 157, 0.6);
+  }
+
+  .status-chip[data-variant='offline'] .status-dot,
+  .status-chip[data-variant='disabled'] .status-dot,
+  .status-chip[data-variant='default'] .status-dot,
+  .status-badge[data-variant='offline'] .status-dot,
+  .status-badge[data-variant='disabled'] .status-dot,
+  .status-badge[data-variant='default'] .status-dot {
+    background: var(--text-light);
+  }
+}

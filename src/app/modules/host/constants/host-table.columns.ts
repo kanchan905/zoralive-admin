@@ -1,4 +1,4 @@
-import { TableColumn } from '../../../shared/models/table-column.model';
+import { TableColumn } from '../../../core/models/table-column.model';
 
 export const HOST_TABLE_COLUMNS: TableColumn[] = [
   { key: 'image', label: 'Image', type: 'image', width: '80px' },

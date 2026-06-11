@@ -1,8 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { NotificationService } from '../../../../core/services/notification.service';
+import { ToastService } from '../../../../core/services/toast.service';
 import { CommonModule } from '@angular/common';
+import { AppButtonComponent } from '../../../../layout/components/button/button.component';
+import { AppSelectComponent } from '../../../../layout/components/select/select.component';
 
 const COUNTRIES = [
   'India',
@@ -19,14 +21,14 @@ const COUNTRIES = [
 
 @Component({
   selector: 'app-agency-dialog',
-  imports: [CommonModule, ReactiveFormsModule, MatDialogModule],
+  imports: [CommonModule, ReactiveFormsModule, MatDialogModule, AppButtonComponent, AppSelectComponent],
   templateUrl: './agency-dialog.component.html',
   styleUrl: './agency-dialog.component.scss',
 })
 export class AgencyDialogComponent {
   private readonly dialogRef = inject(MatDialogRef<AgencyDialogComponent>);
   private readonly fb = inject(FormBuilder);
-  private readonly notify = inject(NotificationService);
+  private readonly toast = inject(ToastService);
 
   readonly countries = COUNTRIES;
   readonly showPassword = signal(false);
@@ -73,7 +75,7 @@ export class AgencyDialogComponent {
       return;
     }
 
-    this.notify.success('Agency created successfully');
+    this.toast.success('Agency created successfully');
     this.dialogRef.close(this.form.getRawValue());
   }
 

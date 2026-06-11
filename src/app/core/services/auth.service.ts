@@ -1,14 +1,17 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
 import { MOCK_USERS } from '../constants/mock-users.constants';
-import { AuthUser, LoginCredentials, LoginResult, UserRole } from '../models/auth-user.model';
+import { AuthUser, LoginCredentials, LoginResult } from '../models/auth-user.model';
+import { ConfirmDialogService } from './confirm-dialog.service';
+import { ToastService } from './toast.service';
 
 const SESSION_KEY = 'zora_auth_user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly router = inject(Router);
+  private readonly confirmDialog = inject(ConfirmDialogService);
+  private readonly toast = inject(ToastService);
   private readonly currentUser = signal<AuthUser | null>(this.readStoredUser());
 
   constructor() {
@@ -76,20 +79,13 @@ export class AuthService {
   }
 
   async confirmLogout(): Promise<boolean> {
-    const result = await Swal.fire({
+    return this.confirmDialog.confirm({
       title: 'Are you sure?',
-      text: 'Do you want to logout?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'Cancel',
-      confirmButtonColor: '#6d5df6',
-      cancelButtonColor: '#9ca3af',
-      reverseButtons: true,
-      focusCancel: true,
+      message: 'Do you want to logout?',
+      type: 'warning',
+      confirmText: 'Yes',
+      cancelText: 'Cancel',
     });
-
-    return result.isConfirmed;
   }
 
   async logoutWithConfirm(): Promise<void> {
@@ -103,16 +99,7 @@ export class AuthService {
 
   async logout(): Promise<void> {
     this.clearSession();
-
-    await Swal.fire({
-      title: 'Logged out',
-      text: 'You have been logged out successfully.',
-      icon: 'success',
-      confirmButtonColor: '#6d5df6',
-      timer: 1200,
-      showConfirmButton: false,
-    });
-
+    this.toast.success('You have been logged out successfully.', 'Logged out');
     await this.router.navigateByUrl('/login', { replaceUrl: true });
   }
 

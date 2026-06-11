@@ -1,4 +1,3 @@
-@use '../../../../../styles/variables' as *;
 
 .settings-grid {
   display: grid;
@@ -11,31 +10,6 @@
   .settings-grid {
     grid-template-columns: repeat(2, 1fr);
     align-items: start;
-  }
-}
-
-.btn-save-all {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: $radius-md;
-  background: $primary;
-  color: #fff;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background $transition;
-  white-space: nowrap;
-
-  &:hover:not(:disabled) {
-    background: $primary-dark;
-  }
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
   }
 }
 
@@ -65,47 +39,7 @@
 
 .field__label {
   font-size: 0.75rem;
-  font-weight: 600;
-  color: $text-muted;
-}
-
-.field__input {
-  width: 100%;
-  height: 42px;
-  padding: 0 14px;
-  border: 1px solid $border;
-  border-radius: $radius-md;
-  background: #fff;
-  font-size: 0.875rem;
-  color: $text;
-  outline: none;
-  font-family: inherit;
-  transition: border-color $transition, box-shadow $transition;
-
-  &:focus {
-    border-color: $primary;
-    box-shadow: 0 0 0 3px rgba($primary, 0.12);
-  }
-
-  &::placeholder {
-    color: $text-light;
-  }
-}
-
-.field__textarea {
-  height: auto;
-  min-height: 80px;
-  padding: 10px 14px;
-  resize: vertical;
-}
-
-.field__select {
-  appearance: none;
-  cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 16 16'%3E%3Cpath fill='%236b7280' d='M4.427 6.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 6H4.604a.25.25 0 00-.177.427z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  padding-right: 36px;
+  color: var(--text-muted);
 }
 
 .list-fields {
@@ -123,26 +57,13 @@
 
 .list-field__label {
   font-size: 0.875rem;
-  font-weight: 500;
-  color: $text;
+  color: var(--purple);
   flex-shrink: 0;
   min-width: 120px;
 }
 
 .list-field__input {
   flex: 1;
-  max-width: 140px;
-  height: 38px;
-  padding: 0 12px;
-  border: 1px solid $border;
-  border-radius: $radius-md;
-  font-size: 0.875rem;
-  outline: none;
-
-  &:focus {
-    border-color: $primary;
-    box-shadow: 0 0 0 3px rgba($primary, 0.12);
-  }
 }
 
 .gateway-list {
@@ -153,7 +74,7 @@
 
 .gateway-item {
   padding-bottom: 16px;
-  border-bottom: 1px solid $border-light;
+  border-bottom: 1px solid var(--border-light);
 
   &:last-child {
     padding-bottom: 0;
@@ -171,8 +92,7 @@
 
 .gateway-item__name {
   font-size: 0.9rem;
-  font-weight: 600;
-  color: $text;
+  color: var(--purple);
 }
 
 .gateway-item__fields {
@@ -198,10 +118,10 @@
 .ad-toggle__slider {
   position: absolute;
   inset: 0;
-  background: #d1d5db;
+  background: rgba(201, 75, 255, 0.25);
   border-radius: 999px;
   cursor: pointer;
-  transition: background $transition;
+  transition: background var(--transition);
 
   &::before {
     content: '';
@@ -210,15 +130,15 @@
     width: 20px;
     left: 3px;
     bottom: 3px;
-    background: #fff;
+    background: var(--purple);
     border-radius: 50%;
-    transition: transform $transition;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    transition: transform var(--transition);
+    box-shadow: 0 1px 3px rgba(19, 21, 43, 0.25);
   }
 }
 
 .ad-toggle input:checked + .ad-toggle__slider {
-  background: $primary;
+  background: var(--pink);
 
   &::before {
     transform: translateX(22px);
@@ -230,12 +150,12 @@
   align-items: flex-start;
   gap: 12px;
   padding: 16px 20px;
-  border-radius: $radius-md;
-  background: rgba($primary, 0.08);
-  border: 1px solid rgba($primary, 0.15);
+  border-radius: var(--radius-md);
+  background: rgba(255, 77, 157, 0.08);
+  border: 1px solid rgba(255, 77, 157, 0.15);
 
   i {
-    color: $primary;
+    color: var(--pink);
     font-size: 1.15rem;
     flex-shrink: 0;
     margin-top: 2px;
@@ -244,11 +164,11 @@
   p {
     margin: 0;
     font-size: 0.875rem;
-    color: $text-muted;
+    color: var(--text-muted);
     line-height: 1.5;
 
     strong {
-      color: $text;
+      color: var(--purple);
     }
   }
 }

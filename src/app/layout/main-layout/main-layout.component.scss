@@ -1,19 +1,18 @@
-@use '../../../styles/variables' as *;
 
 .admin-layout {
   min-height: 100vh;
-  background: $bg;
+  background: var(--navy);
 
   .main-content {
-    margin-left: $sidebar-width;
+    margin-left: var(--sidebar-width);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    transition: margin-left $transition;
+    transition: margin-left var(--transition);
   }
 
   &.sidebar-collapsed .main-content {
-    margin-left: $sidebar-collapsed-width;
+    margin-left: var(--sidebar-collapsed-width);
   }
 }
 
@@ -24,6 +23,6 @@
 
 @media (max-width: 992px) {
   .admin-layout .main-content {
-    margin-left: $sidebar-collapsed-width;
+    margin-left: var(--sidebar-collapsed-width);
   }
 }

@@ -4,10 +4,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../core/services/auth.service';
 import { NotificationOneComponent } from '../components/notification-one/notification-one.component';
 import { NotificationTwoComponent } from '../components/notification-two/notification-two.component';
+import { AppButtonComponent } from '../../layout/components/button/button.component';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink],
+  imports: [RouterLink, AppButtonComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })

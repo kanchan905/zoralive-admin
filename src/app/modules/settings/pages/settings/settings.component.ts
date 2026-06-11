@@ -1,24 +1,33 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormArray, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
-import { BreadcrumbComponent } from '../../../../shared/components/breadcrumb/breadcrumb.component';
-import { PageHeaderComponent } from '../../../../shared/components/page-header/page-header.component';
-import { BreadcrumbItem } from '../../../../shared/models/breadcrumb.model';
-import { NotificationService } from '../../../../core/services/notification.service';
+import { BreadcrumbComponent } from '../../../../layout/components/breadcrumb/breadcrumb.component';
+import { PageHeaderComponent } from '../../../../layout/components/page-header/page-header.component';
+import { BreadcrumbItem } from '../../../../core/models/breadcrumb.model';
+import { ToastService } from '../../../../core/services/toast.service';
 import { SettingCardComponent } from '../../components/setting-card/setting-card.component';
 import { PlatformSettings } from '../../models/platform-settings.model';
 import { SettingsService } from '../../services/settings.service';
+import { AppButtonComponent } from '../../../../layout/components/button/button.component';
+import { AppSelectComponent } from '../../../../layout/components/select/select.component';
 
 @Component({
   selector: 'app-settings',
-  imports: [ReactiveFormsModule, BreadcrumbComponent, PageHeaderComponent, SettingCardComponent],
+  imports: [
+    ReactiveFormsModule,
+    BreadcrumbComponent,
+    PageHeaderComponent,
+    SettingCardComponent,
+    AppButtonComponent,
+    AppSelectComponent,
+  ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
 })
 export class SettingsComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly settingsService = inject(SettingsService);
-  private readonly notify = inject(NotificationService);
+  private readonly toast = inject(ToastService);
 
   readonly breadcrumbs: BreadcrumbItem[] = [
     { label: 'Home', route: '/dashboard' },
@@ -115,10 +124,10 @@ export class SettingsComponent implements OnInit {
       .subscribe({
         next: (settings) => {
           this.patchForm(settings);
-          this.notify.success(successMessage);
+          this.toast.apiSuccess(settings, successMessage);
         },
         error: () => {
-          this.notify.warning('Save will be available when API is connected');
+          this.toast.warning('Save will be available when API is connected');
           onEnd?.();
         },
       });

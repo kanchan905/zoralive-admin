@@ -1,19 +1,21 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { NotificationService } from '../../../core/services/notification.service';
+import { ToastService } from '../../../core/services/toast.service';
 import { NOTIFICATION_USER_OPTIONS } from '../notification-user-options.constants';
+import { AppButtonComponent } from '../../../layout/components/button/button.component';
+import { AppSelectComponent } from '../../../layout/components/select/select.component';
 
 @Component({
   selector: 'app-notification-one',
-  imports: [ReactiveFormsModule, MatDialogModule],
+  imports: [ReactiveFormsModule, MatDialogModule, AppButtonComponent, AppSelectComponent],
   templateUrl: './notification-one.component.html',
   styleUrl: './notification-one.component.scss',
 })
 export class NotificationOneComponent {
   private readonly dialogRef = inject(MatDialogRef<NotificationOneComponent>);
   private readonly fb = inject(FormBuilder);
-  private readonly notify = inject(NotificationService);
+  private readonly toast = inject(ToastService);
 
   readonly userOptions = NOTIFICATION_USER_OPTIONS;
   readonly selectedFileName = signal('No file chosen');
@@ -36,12 +38,12 @@ export class NotificationOneComponent {
   submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      this.notify.warning('Please fill out all required fields');
+      this.toast.warning('Please fill out all required fields');
       return;
     }
 
     // TODO: POST push notification API
-    this.notify.success('Notification sent successfully');
+    this.toast.success('Notification sent successfully');
     this.dialogRef.close(this.form.getRawValue());
   }
 }

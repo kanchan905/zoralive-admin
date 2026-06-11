@@ -11,12 +11,10 @@
       <div class="purchase-history-filters-left">
         <div class="filter-field">
           <label class="filter-label" for="purchase-history-from">From Date</label>
-          <input
+          <app-date-picker
             id="purchase-history-from"
-            type="date"
-            class="filter-date"
-            [value]="fromDate()"
-            (change)="onFromDateChange($any($event.target).value)"
+            [ngModel]="fromDate()"
+            (ngModelChange)="onFromDateChange($event)"
           />
         </div>
 
@@ -24,20 +22,17 @@
 
         <div class="filter-field">
           <label class="filter-label" for="purchase-history-to">To Date</label>
-          <input
+          <app-date-picker
             id="purchase-history-to"
-            type="date"
-            class="filter-date"
-            [value]="toDate()"
-            [min]="fromDate() || null"
-            (change)="onToDateChange($any($event.target).value)"
+            [ngModel]="toDate()"
+            (ngModelChange)="onToDateChange($event)"
+            [min]="fromDate()"
           />
         </div>
 
-        <button type="button" class="btn-filter-apply" (click)="applyDateFilters()">
-          <i class="bi bi-funnel"></i>
+        <app-button preset="filter-apply" icon="bi bi-funnel" (clicked)="applyDateFilters()">
           Filter
-        </button>
+        </app-button>
       </div>
 
       <div class="search-wrap">

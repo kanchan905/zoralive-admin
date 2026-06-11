@@ -5,19 +5,18 @@
     title="Agency Detail"
     subtitle="Manage and view all agencies in the platform."
   >
-    <button actions type="button" class="btn-export" (click)="exportToExcel()">
-      <i class="bi bi-download"></i>
+    <app-button actions preset="export" icon="bi bi-download" (clicked)="exportToExcel()">
       Export To Excel
-    </button>
+    </app-button>
   </app-page-header>
 
   <div class="page-card">
     <div class="table-toolbar">
       <div class="table-toolbar-left">
-        <button type="button" class="btn-primary" (click)="openAgencyModal()">
+        <app-button preset="primary" (clicked)="openAgencyModal()">
           <i class="bi bi-plus-lg"></i>
           New
-        </button>
+        </app-button>
       </div>
 
       <div class="table-toolbar-right">
@@ -25,9 +24,7 @@
           placeholder="What're you searching for?"
           (searchChange)="onSearch($event)"
         ></app-search-box>
-        <button type="button" class="btn-filter" aria-label="Filter">
-          <i class="bi bi-funnel"></i>
-        </button>
+        <app-button preset="filter" icon="bi bi-funnel" ariaLabel="Filter" />
       </div>
     </div>
 

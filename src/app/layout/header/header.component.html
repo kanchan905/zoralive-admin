@@ -1,7 +1,5 @@
 <header class="admin-header">
-  <button type="button" class="btn-menu" (click)="menuToggle.emit()" aria-label="Toggle sidebar">
-    <i class="bi bi-list"></i>
-  </button>
+  <app-button preset="menu" icon="bi bi-list" ariaLabel="Toggle sidebar" (clicked)="menuToggle.emit()" />
 
   <div class="search-wrap">
     <i class="bi bi-search search-icon"></i>
@@ -11,13 +9,8 @@
 
   <div class="header-actions">
     @if (!isAgency()) {
-      <button type="button" class="icon-btn" aria-label="Push notification" (click)="openNotificationOne()">
-        <i class="bi bi-bell"></i>
-      </button>
-
-      <button type="button" class="icon-btn" aria-label="Message to users" (click)="openNotificationTwo()">
-        <i class="bi bi-bell"></i>
-      </button>
+      <app-button preset="icon" icon="bi bi-bell" ariaLabel="Push notification" (clicked)="openNotificationOne()" />
+      <app-button preset="icon" icon="bi bi-bell" ariaLabel="Message to users" (clicked)="openNotificationTwo()" />
     }
 
     <div class="profile-wrap" (click)="$event.stopPropagation()">

@@ -1,23 +1,34 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NotificationService } from '../../../../core/services/notification.service';
+import { ToastService } from '../../../../core/services/toast.service';
 import { finalize } from 'rxjs';
-import { BreadcrumbComponent } from '../../../../shared/components/breadcrumb/breadcrumb.component';
-import { PageHeaderComponent } from '../../../../shared/components/page-header/page-header.component';
-import { DataTableComponent } from '../../../../shared/components/data-table/data-table.component';
-import { BreadcrumbItem } from '../../../../shared/models/breadcrumb.model';
+import { BreadcrumbComponent } from '../../../../layout/components/breadcrumb/breadcrumb.component';
+import { PageHeaderComponent } from '../../../../layout/components/page-header/page-header.component';
+import { DataTableComponent } from '../../../../layout/components/data-table/data-table.component';
+import { BreadcrumbItem } from '../../../../core/models/breadcrumb.model';
 import { HOST_STATUS_OPTIONS, HOST_TABLE_COLUMNS } from '../../constants/host-table.columns';
 import { HostService } from '../../services/host.service';
+import { AppButtonComponent } from '../../../../layout/components/button/button.component';
+import { AppSelectComponent } from '../../../../layout/components/select/select.component';
+import { AppDatePickerComponent } from '../../../../layout/components/date-picker/date-picker.component';
 
 @Component({
   selector: 'app-host-detail',
-  imports: [FormsModule, BreadcrumbComponent, PageHeaderComponent, DataTableComponent],
+  imports: [
+    FormsModule,
+    BreadcrumbComponent,
+    PageHeaderComponent,
+    DataTableComponent,
+    AppButtonComponent,
+    AppSelectComponent,
+    AppDatePickerComponent,
+  ],
   templateUrl: './host-detail.component.html',
   styleUrl: './host-detail.component.scss',
 })
 export class HostDetailComponent implements OnInit {
   private readonly hostService = inject(HostService);
-  private readonly notify = inject(NotificationService);
+  private readonly toast = inject(ToastService);
 
   readonly statusOptions = HOST_STATUS_OPTIONS;
   readonly columns = HOST_TABLE_COLUMNS;
@@ -77,7 +88,6 @@ export class HostDetailComponent implements OnInit {
         error: () => {
           this.rows.set([]);
           this.total.set(0);
-          this.notify.error('Failed to load hosts');
         },
       });
   }

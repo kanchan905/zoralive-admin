@@ -5,10 +5,7 @@
 
   <div class="page-card purchase-plan-card">
     <div class="purchase-plan-actions-top">
-      <button type="button" class="btn-primary btn-purchase-plan-new" (click)="openNew()">
-        <i class="bi bi-plus-lg"></i>
-        New
-      </button>
+      <app-button preset="new" icon="bi bi-plus-lg" (clicked)="openNew()">New</app-button>
     </div>
 
     <div class="table-toolbar table-toolbar--search-end">

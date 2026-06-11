@@ -3,7 +3,7 @@ import { AuthUser } from '../models/auth-user.model';
 export const MOCK_USERS: Array<AuthUser & { password: string }> = [
   {
     id: '1',
-    email: 'admin@zoralive.com',
+    email: 'admin@bolnet.com',
     password: 'admin123',
     name: 'Admin',
     role: 'admin',
@@ -11,9 +11,9 @@ export const MOCK_USERS: Array<AuthUser & { password: string }> = [
   },
   {
     id: '2',
-    email: 'agency@zora.com',
+    email: 'agency@bolnet.com',
     password: 'agency123',
-    name: 'Zora Agency',
+    name: 'BolNet Agency',
     role: 'agency',
     agencyId: '2',
     agencyCode: 'AG-1024',

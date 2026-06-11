@@ -1,9 +1,7 @@
 <div class="agency-dialog">
   <div class="dialog-header">
     <h2 class="dialog-title">Host</h2>
-    <button type="button" class="dialog-close" (click)="close()" aria-label="Close">
-      <i class="bi bi-x-lg"></i>
-    </button>
+    <app-button preset="close" icon="bi bi-x-lg" ariaLabel="Close" (clicked)="close()" />
   </div>
 
   <div class="host-mode-tabs">
@@ -73,11 +71,12 @@
       <div class="form-row form-row--2">
         <div class="form-group">
           <label class="form-label" for="host-agency">Agency</label>
-          <select id="host-agency" class="form-control" formControlName="agency">
-            @for (opt of agencyOptions; track opt.value) {
-              <option [value]="opt.value" [disabled]="!opt.value">{{ opt.label }}</option>
-            }
-          </select>
+          <app-select
+            id="host-agency"
+            formControlName="agency"
+            placeholder="Select agency"
+            [options]="agencyOptions"
+          />
         </div>
 
         <div class="form-group">
@@ -124,7 +123,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn-submit-full">Submit</button>
+      <app-button preset="submit-full" type="submit">Submit</app-button>
     </form>
   } @else {
     <form class="dialog-body" [formGroup]="multipleForm" (ngSubmit)="submit()">
@@ -165,11 +164,12 @@
       <div class="form-row form-row--2">
         <div class="form-group">
           <label class="form-label" for="host-multi-agency">Agency</label>
-          <select id="host-multi-agency" class="form-control" formControlName="agency">
-            @for (opt of agencyOptions; track opt.value) {
-              <option [value]="opt.value" [disabled]="!opt.value">{{ opt.label }}</option>
-            }
-          </select>
+          <app-select
+            id="host-multi-agency"
+            formControlName="agency"
+            placeholder="Select agency"
+            [options]="agencyOptions"
+          />
         </div>
 
         <div class="form-group">
@@ -186,7 +186,7 @@
 
       <p class="form-hint">Upload multiple image and video files for bulk fake host creation.</p>
 
-      <button type="submit" class="btn-submit-full">Submit</button>
+      <app-button preset="submit-full" type="submit">Submit</app-button>
     </form>
   }
 </div>

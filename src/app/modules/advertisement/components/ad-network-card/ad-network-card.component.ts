@@ -1,10 +1,12 @@
 import { Component, input, output, signal, effect } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AdNetworkConfig, AdNetworkType } from '../../models/ad-network-config.model';
+import { AppButtonComponent } from '../../../../layout/components/button/button.component';
+import { AppBadgeComponent } from '../../../../layout/components/badge/badge.component';
 
 @Component({
   selector: 'app-ad-network-card',
-  imports: [FormsModule],
+  imports: [FormsModule, AppButtonComponent, AppBadgeComponent],
   templateUrl: './ad-network-card.component.html',
   styleUrl: './ad-network-card.component.scss',
 })

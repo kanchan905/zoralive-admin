@@ -1,16 +1,19 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../../core/services/auth.service';
+import { ToastService } from '../../../../core/services/toast.service';
+import { AppButtonComponent } from '../../../../layout/components/button/button.component';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AppButtonComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
   private readonly fb = inject(FormBuilder);
   private readonly auth = inject(AuthService);
+  private readonly toast = inject(ToastService);
 
   readonly loading = signal(false);
   readonly errorMessage = signal<string | null>(null);
@@ -33,7 +36,9 @@ export class LoginComponent {
     try {
       const result = await this.auth.loginAndNavigate(this.form.getRawValue());
       if (!result.success) {
-        this.errorMessage.set(result.message ?? 'Login failed.');
+        const message = result.message ?? 'Login failed.';
+        this.errorMessage.set(message);
+        this.toast.error(message);
       }
     } finally {
       this.loading.set(false);

@@ -1,4 +1,3 @@
-@use '../../../../styles/variables' as *;
 
 .data-table-wrap {
   display: flex;
@@ -15,16 +14,16 @@
     position: sticky;
     top: 0;
     z-index: 2;
-    background: #f3f0ff;
-    box-shadow: 0 1px 0 $border;
+    background: var(--card);
+    box-shadow: 0 1px 0 var(--border);
   }
 
   &--zebra tbody tr:not(.table-state-row):nth-child(even) td {
-    background: #f9fafb;
+    background: var(--card);
   }
 
   &--zebra tbody tr:not(.table-state-row):nth-child(odd) td {
-    background: #fff;
+    background: var(--card);
   }
 }
 
@@ -40,16 +39,16 @@
   }
 
   &::-webkit-scrollbar-track {
-    background: $border-light;
+    background: var(--border-light);
     border-radius: 4px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #c4c9d4;
+    background: rgba(255, 77, 157, 0.4);
     border-radius: 4px;
 
     &:hover {
-      background: #a8b0bd;
+      background: rgba(255, 77, 157, 0.6);
     }
   }
 }
@@ -62,28 +61,27 @@
   table-layout: auto;
 
   thead tr {
-    background: rgba($primary, 0.06);
+    background: rgba(255, 77, 157, 0.06);
   }
 
   th {
     padding: 14px 16px;
     text-align: left;
-    font-weight: 600;
-    color: $text;
+    color: var(--purple);
     white-space: nowrap;
-    border-bottom: 1px solid $border;
+    border-bottom: 1px solid var(--border);
   }
 
   td {
     padding: 14px 16px;
-    color: $text;
-    border-bottom: 1px solid $border-light;
+    color: var(--purple);
+    border-bottom: 1px solid var(--border-light);
     vertical-align: middle;
     white-space: nowrap;
   }
 
   tbody tr:not(.table-state-row):hover td {
-    background: rgba($primary, 0.02);
+    background: rgba(255, 77, 157, 0.02);
   }
 }
 
@@ -103,15 +101,15 @@
   justify-content: center;
   gap: 12px;
   padding: 48px 24px;
-  color: $text-muted;
+  color: var(--text-muted);
   font-size: 0.9rem;
 }
 
 .table-loading-spinner {
   width: 22px;
   height: 22px;
-  border: 2px solid $border;
-  border-top-color: $primary;
+  border: 2px solid var(--border);
+  border-top-color: var(--pink);
   border-radius: 50%;
   animation: table-spin 0.7s linear infinite;
 }
@@ -126,7 +124,7 @@
   margin: 0;
   padding: 32px 16px;
   text-align: center;
-  color: $text-muted;
+  color: var(--text-muted);
   font-size: 0.9rem;
 }
 
@@ -140,8 +138,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: rgba($primary, 0.1);
-    color: $primary;
+    background: rgba(255, 77, 157, 0.1);
+    color: var(--pink);
     font-size: 1.1rem;
   }
 }
@@ -151,90 +149,11 @@
   gap: 8px;
 }
 
-.table-action-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border: 1px solid $border;
-  border-radius: $radius-sm;
-  background: #fff;
-  color: $text-muted;
-  cursor: pointer;
-  transition: all $transition;
-
-  &:hover {
-    border-color: $primary;
-    color: $primary;
-  }
-
-  &--danger:hover {
-    border-color: $danger;
-    color: $danger;
-  }
-}
-
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 4px 12px 4px 8px;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  white-space: nowrap;
-
-  &[data-status='online'] {
-    background: rgba($success, 0.12);
-    color: #047857;
-  }
-
-  &[data-status='live'] {
-    background: rgba($primary, 0.12);
-    color: $primary-dark;
-  }
-
-  &[data-status='offline'] {
-    background: #f3f4f6;
-    color: $text-muted;
-  }
-
-  &[data-status='default'] {
-    background: $border-light;
-    color: $text-muted;
-  }
-}
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-
-  .status-badge[data-status='online'] & {
-    background: $success;
-  }
-
-  .status-badge[data-status='live'] & {
-    background: $primary;
-  }
-
-  .status-badge[data-status='offline'] & {
-    background: #9ca3af;
-  }
-
-  .status-badge[data-status='default'] & {
-    background: $text-light;
-  }
-}
-
 .table-link-btn {
   border: none;
   background: none;
   padding: 0;
-  color: $primary;
-  font-weight: 500;
+  color: var(--pink);
   font-size: inherit;
   cursor: pointer;
 
@@ -246,14 +165,14 @@
 .table-row-checkbox {
   width: 16px;
   height: 16px;
-  accent-color: $primary;
+  accent-color: var(--pink);
   cursor: pointer;
 }
 
 .table-header-checkbox {
   width: 16px;
   height: 16px;
-  accent-color: $primary;
+  accent-color: var(--pink);
   cursor: pointer;
 }
 
@@ -273,10 +192,10 @@
 .table-toggle-slider {
   position: absolute;
   inset: 0;
-  background: $border;
+  background: var(--border);
   border-radius: 999px;
   cursor: default;
-  transition: $transition;
+  transition: var(--transition);
 
   &::before {
     content: '';
@@ -285,14 +204,14 @@
     width: 18px;
     left: 3px;
     bottom: 3px;
-    background: #fff;
+    background: var(--purple);
     border-radius: 50%;
-    transition: $transition;
+    transition: var(--transition);
   }
 }
 
 .table-toggle input:checked + .table-toggle-slider {
-  background: $primary;
+  background: var(--pink);
 
   &::before {
     transform: translateX(20px);
@@ -317,33 +236,13 @@
 .empty-state-title {
   margin: 0 0 8px;
   font-size: 1.125rem;
-  font-weight: 700;
-  color: $text;
+  color: var(--purple);
 }
 
 .empty-state-message {
   margin: 0 0 20px;
   font-size: 0.9rem;
-  color: $text-muted;
-}
-
-.btn-empty-action {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  border: 1px solid $primary;
-  border-radius: $radius-md;
-  background: #fff;
-  color: $primary;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all $transition;
-
-  &:hover {
-    background: rgba($primary, 0.06);
-  }
+  color: var(--text-muted);
 }
 
 .table-pagination {
@@ -353,8 +252,11 @@
   gap: 16px;
   padding: 16px 0 4px;
   flex-wrap: wrap;
-  border-top: 1px solid $border-light;
+  border-top: 1px solid var(--border-light);
   margin-top: 8px;
+  position: relative;
+  z-index: 2;
+  overflow: visible;
 }
 
 .pagination-left,
@@ -362,27 +264,51 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
 }
 
 .pagination-label,
 .pagination-range {
   font-size: 0.875rem;
-  color: $text-muted;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.pagination-label {
+  flex-shrink: 0;
+}
+
+.pagination-left app-select,
+.pagination-left .app-select-host {
+  width: auto;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 3;
+}
+
+.pagination-left .app-select {
+  width: auto;
 }
 
 .pagination-select {
-  padding: 6px 28px 6px 10px;
-  border: 1px solid $border;
-  border-radius: $radius-sm;
-  background: #fff;
+  width: auto;
+  min-width: 52px;
+  padding: 6px 22px 6px 10px;
+  border-radius: var(--radius-sm);
   font-size: 0.875rem;
-  color: $text;
-  cursor: pointer;
-  outline: none;
+  flex-shrink: 0;
+}
 
-  &:focus {
-    border-color: $primary;
-  }
+.pagination-left .app-select__panel {
+  left: 0;
+  right: auto;
+  width: 100%;
+  min-width: 100%;
+}
+
+.pagination-left .app-select__option {
+  padding: 8px 10px;
+  text-align: center;
 }
 
 .pagination-nav {
@@ -390,26 +316,3 @@
   gap: 4px;
 }
 
-.pagination-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border: 1px solid $border;
-  border-radius: $radius-sm;
-  background: #fff;
-  color: $text-muted;
-  cursor: pointer;
-  transition: all $transition;
-
-  &:hover:not(:disabled) {
-    border-color: $primary;
-    color: $primary;
-  }
-
-  &:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
-}

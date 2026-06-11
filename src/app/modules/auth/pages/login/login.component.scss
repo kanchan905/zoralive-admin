@@ -1,22 +1,22 @@
-@use '../../../../../styles/variables' as *;
-
 .login-page {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background: linear-gradient(135deg, rgba($primary, 0.08) 0%, $bg 50%, rgba($secondary, 0.1) 100%);
+  background: radial-gradient(circle at 20% 20%, rgba(255, 77, 157, 0.12), transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(201, 75, 255, 0.1), transparent 50%),
+    var(--navy);
 }
 
 .login-card {
   width: 100%;
   max-width: 420px;
   padding: 40px 36px;
-  border-radius: $radius-lg;
-  background: #fff;
-  border: 1px solid $border-light;
-  box-shadow: $shadow-lg;
+  border-radius: var(--radius-xl);
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
 }
 
 .login-brand {
@@ -31,7 +31,7 @@
   width: 56px;
   height: 56px;
   margin-bottom: 16px;
-  border-radius: $radius-md;
+  border-radius: var(--radius-md);
   overflow: hidden;
 }
 
@@ -44,15 +44,12 @@
 
 .brand-title {
   margin: 0 0 8px;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: $text;
+  color: var(--pink);
 }
 
 .brand-subtitle {
   margin: 0;
-  font-size: 0.9rem;
-  color: $text-muted;
+  color: var(--text-muted);
 }
 
 .login-form {
@@ -66,9 +63,9 @@
   align-items: center;
   gap: 8px;
   padding: 12px 14px;
-  border-radius: $radius-md;
-  background: rgba($danger, 0.08);
-  color: $danger;
+  border-radius: var(--radius-md);
+  background: rgba(255, 92, 122, 0.08);
+  color: var(--red);
   font-size: 0.875rem;
 }
 
@@ -76,12 +73,6 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-}
-
-.form-label {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: $text;
 }
 
 .input-wrap {
@@ -93,65 +84,25 @@
   left: 14px;
   top: 50%;
   transform: translateY(-50%);
-  color: $text-light;
+  color: var(--text-light);
   font-size: 1rem;
   pointer-events: none;
 }
 
-.form-control {
-  width: 100%;
+.login-form .form-control {
   padding: 12px 14px 12px 42px;
-  border: 1px solid $border;
-  border-radius: $radius-md;
-  font-size: 0.9rem;
-  color: $text;
-  outline: none;
-  transition: border-color $transition;
-
-  &:focus {
-    border-color: $primary;
-    box-shadow: 0 0 0 3px rgba($primary, 0.12);
-  }
 }
 
 .field-error {
   font-size: 0.8rem;
-  color: $danger;
-}
-
-.btn-login {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  padding: 14px;
-  margin-top: 4px;
-  border: none;
-  border-radius: $radius-md;
-  background: linear-gradient(135deg, $primary, $secondary);
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: opacity $transition, transform $transition;
-
-  &:hover:not(:disabled) {
-    transform: translateY(-1px);
-    opacity: 0.95;
-  }
-
-  &:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
+  color: var(--red);
 }
 
 .spinner {
   width: 18px;
   height: 18px;
-  border: 2px solid rgba(255, 255, 255, 0.35);
-  border-top-color: #fff;
+  border: 2px solid rgba(201, 75, 255, 0.35);
+  border-top-color: var(--pink);
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
 }
@@ -165,9 +116,9 @@
 .demo-hint {
   margin-top: 28px;
   padding-top: 20px;
-  border-top: 1px solid $border-light;
+  border-top: 1px solid var(--border-light);
   font-size: 0.8rem;
-  color: $text-muted;
+  color: var(--text-muted);
   line-height: 1.6;
 
   p {
@@ -176,7 +127,6 @@
 }
 
 .demo-title {
-  font-weight: 600;
-  color: $text;
+  color: var(--purple);
   margin-bottom: 8px !important;
 }

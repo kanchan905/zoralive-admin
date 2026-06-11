@@ -1,11 +1,11 @@
 <aside class="sidebar" [class.collapsed]="collapsed">
   <div class="sidebar-brand">
     <div class="brand-icon">
-      <img src="assets/logo.fb24ee40.png" alt="ZoraLive" class="brand-logo" />
+      <img src="assets/logo.fb24ee40.png" alt="BolNet" class="brand-logo" />
     </div>
     @if (!collapsed) {
       <div class="brand-text-wrap">
-        <span class="brand-text">ZoraLive</span>
+        <span class="brand-text">BolNet</span>
         @if (user()?.role === 'agency' && user()?.agencyCode) {
           <span class="agency-code">{{ user()!.agencyCode }}</span>
         }

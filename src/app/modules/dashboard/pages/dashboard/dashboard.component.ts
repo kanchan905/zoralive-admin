@@ -1,13 +1,16 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { AuthService } from '../../../../core/services/auth.service';
 import { StatCard } from '../../models/stat-card.model';
 import { DashboardService } from '../../services/dashboard.service';
+import { AppButtonComponent } from '../../../../layout/components/button/button.component';
+import { AppDatePickerComponent } from '../../../../layout/components/date-picker/date-picker.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, AppButtonComponent, AppDatePickerComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
@@ -15,11 +18,22 @@ export class DashboardComponent implements OnInit {
   private readonly dashboardService = inject(DashboardService);
   private readonly auth = inject(AuthService);
 
-  readonly dateRange = 'May 21 - Jun 21, 2024';
+  fromDate = '';
+  toDate = '';
+
+  private readonly appliedFromDate = signal('');
+  private readonly appliedToDate = signal('');
+
   readonly statCards = signal<StatCard[]>([]);
   readonly loading = signal(true);
 
   ngOnInit(): void {
+    this.loadStats();
+  }
+
+  applyFilters(): void {
+    this.appliedFromDate.set(this.fromDate);
+    this.appliedToDate.set(this.toDate);
     this.loadStats();
   }
 
@@ -45,7 +59,10 @@ export class DashboardComponent implements OnInit {
     this.loading.set(true);
 
     this.dashboardService
-      .getStats()
+      .getStats({
+        fromDate: this.appliedFromDate() || undefined,
+        toDate: this.appliedToDate() || undefined,
+      })
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe((cards) => this.statCards.set(cards));
   }

@@ -18,16 +18,14 @@
     </div>
 
     <div class="ad-network-card__header-actions">
-      <span class="status-badge" [class.status-badge--active]="isActive()">
-        <span class="status-dot" aria-hidden="true"></span>
+      <app-badge size="chip" [variant]="isActive() ? 'active' : 'disabled'">
         {{ isActive() ? 'Active' : 'Disabled' }}
-      </span>
+      </app-badge>
 
       @if (!editing()) {
-        <button type="button" class="btn-edit-config" (click)="editStart.emit()">
-          <i class="bi bi-pencil"></i>
+        <app-button preset="edit" icon="bi bi-pencil" (clicked)="editStart.emit()">
           Edit Configuration
-        </button>
+        </app-button>
       }
     </div>
   </header>
@@ -95,8 +93,8 @@
       </div>
 
       <div class="edit-actions">
-        <button type="button" class="btn-save-card" (click)="saveDraft()">Save</button>
-        <button type="button" class="btn-cancel-card" (click)="editCancel.emit()">Cancel</button>
+        <app-button preset="save-card" (clicked)="saveDraft()">Save</app-button>
+        <app-button preset="cancel-card" (clicked)="editCancel.emit()">Cancel</app-button>
       </div>
     } @else {
       <div class="id-field">

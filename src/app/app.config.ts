@@ -3,6 +3,8 @@ import { provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { agencyScopeInterceptor } from './core/interceptors/agency-scope.interceptor';
+import { apiToastInterceptor } from './core/interceptors/api-toast.interceptor';
+import { AppToastComponent } from './layout/components/toast/toast.component';
 import { provideToastr } from 'ngx-toastr';
 
 import { routes } from './app.routes';
@@ -12,7 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimations(),
-    provideHttpClient(withInterceptors([agencyScopeInterceptor])),
+    provideHttpClient(withInterceptors([agencyScopeInterceptor, apiToastInterceptor])),
     provideToastr({
       timeOut: 4000,
       positionClass: 'toast-bottom-right',
@@ -21,9 +23,8 @@ export const appConfig: ApplicationConfig = {
       tapToDismiss: true,
       newestOnTop: true,
       preventDuplicates: true,
-      toastClass: 'zora-toast',
-      titleClass: 'zora-toast-title',
-      messageClass: 'zora-toast-message',
+      toastComponent: AppToastComponent,
+      toastClass: 'app-toast',
     }),
   ],
 };

@@ -11,46 +11,35 @@
       <div class="host-filters-left">
         <div class="filter-field">
           <label class="filter-label" for="host-status">Status</label>
-          <select id="host-status" class="filter-select" [(ngModel)]="statusFilter">
-            @for (opt of statusOptions; track opt.value) {
-              <option [value]="opt.value">{{ opt.label }}</option>
-            }
-          </select>
+          <app-select
+            id="host-status"
+            triggerClass="filter-select"
+            placeholder="Select status"
+            [options]="statusOptions"
+            [(ngModel)]="statusFilter"
+          />
         </div>
 
         <div class="filter-field">
           <label class="filter-label" for="host-from-date">From Date</label>
-          <input
-            id="host-from-date"
-            type="date"
-            class="filter-date"
-            [(ngModel)]="fromDate"
-          />
+          <app-date-picker id="host-from-date" [(ngModel)]="fromDate" />
         </div>
 
         <span class="filter-date-sep" aria-hidden="true">→</span>
 
         <div class="filter-field">
           <label class="filter-label" for="host-to-date">To Date</label>
-          <input
-            id="host-to-date"
-            type="date"
-            class="filter-date"
-            [(ngModel)]="toDate"
-            [min]="fromDate || null"
-          />
+          <app-date-picker id="host-to-date" [(ngModel)]="toDate" [min]="fromDate" />
         </div>
 
-        <button type="button" class="btn-filter-apply" (click)="applyFilters()">
-          <i class="bi bi-funnel"></i>
+        <app-button preset="filter-apply" icon="bi bi-funnel" (clicked)="applyFilters()">
           Filter
-        </button>
+        </app-button>
       </div>
 
-      <button type="button" class="btn-export" (click)="exportToExcel()">
-        <i class="bi bi-download"></i>
+      <app-button preset="export" icon="bi bi-download" (clicked)="exportToExcel()">
         Export To Excel
-      </button>
+      </app-button>
     </div>
 
     <app-data-table

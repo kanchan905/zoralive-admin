@@ -1,15 +1,16 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NotificationService } from '../../../../core/services/notification.service';
+import { ToastService } from '../../../../core/services/toast.service';
 import { finalize } from 'rxjs';
-import { BreadcrumbComponent } from '../../../../shared/components/breadcrumb/breadcrumb.component';
-import { PageHeaderComponent } from '../../../../shared/components/page-header/page-header.component';
-import { SearchBoxComponent } from '../../../../shared/components/search-box/search-box.component';
-import { DataTableComponent } from '../../../../shared/components/data-table/data-table.component';
-import { BreadcrumbItem } from '../../../../shared/models/breadcrumb.model';
+import { BreadcrumbComponent } from '../../../../layout/components/breadcrumb/breadcrumb.component';
+import { PageHeaderComponent } from '../../../../layout/components/page-header/page-header.component';
+import { SearchBoxComponent } from '../../../../layout/components/search-box/search-box.component';
+import { DataTableComponent } from '../../../../layout/components/data-table/data-table.component';
+import { BreadcrumbItem } from '../../../../core/models/breadcrumb.model';
 import { AgencyDialogComponent } from '../../components/agency-dialog/agency-dialog.component';
 import { AGENCY_TABLE_COLUMNS } from '../../constants/agency-table.columns';
 import { AgencyService } from '../../services/agency.service';
+import { AppButtonComponent } from '../../../../layout/components/button/button.component';
 
 @Component({
   selector: 'app-agency-detail',
@@ -18,6 +19,7 @@ import { AgencyService } from '../../services/agency.service';
     PageHeaderComponent,
     SearchBoxComponent,
     DataTableComponent,
+    AppButtonComponent,
   ],
   templateUrl: './agency-detail.component.html',
   styleUrl: './agency-detail.component.scss',
@@ -25,7 +27,7 @@ import { AgencyService } from '../../services/agency.service';
 export class AgencyDetailComponent implements OnInit {
   private readonly dialog = inject(MatDialog);
   private readonly agencyService = inject(AgencyService);
-  private readonly notify = inject(NotificationService);
+  private readonly toast = inject(ToastService);
 
   readonly breadcrumbs: BreadcrumbItem[] = [
     { label: 'Home', route: '/dashboard' },
@@ -65,7 +67,6 @@ export class AgencyDetailComponent implements OnInit {
         error: () => {
           this.rows.set([]);
           this.total.set(0);
-          this.notify.error('Failed to load agencies');
         },
       });
   }

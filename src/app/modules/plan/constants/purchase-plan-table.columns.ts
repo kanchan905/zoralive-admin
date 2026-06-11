@@ -1,4 +1,4 @@
-import { TableColumn } from '../../../shared/models/table-column.model';
+import { TableColumn } from '../../../core/models/table-column.model';
 
 export const PURCHASE_PLAN_TABLE_COLUMNS: TableColumn[] = [
   { key: 'coin', label: 'Coin' },

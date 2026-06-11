@@ -1,11 +1,11 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { finalize } from 'rxjs';
-import { BreadcrumbComponent } from '../../../../shared/components/breadcrumb/breadcrumb.component';
-import { PageHeaderComponent } from '../../../../shared/components/page-header/page-header.component';
-import { SearchBoxComponent } from '../../../../shared/components/search-box/search-box.component';
-import { DataTableComponent } from '../../../../shared/components/data-table/data-table.component';
-import { BreadcrumbItem } from '../../../../shared/models/breadcrumb.model';
-import { NotificationService } from '../../../../core/services/notification.service';
+import { BreadcrumbComponent } from '../../../../layout/components/breadcrumb/breadcrumb.component';
+import { PageHeaderComponent } from '../../../../layout/components/page-header/page-header.component';
+import { SearchBoxComponent } from '../../../../layout/components/search-box/search-box.component';
+import { DataTableComponent } from '../../../../layout/components/data-table/data-table.component';
+import { BreadcrumbItem } from '../../../../core/models/breadcrumb.model';
+import { ToastService } from '../../../../core/services/toast.service';
 import { SOLVED_COMPLAIN_TABLE_COLUMNS } from '../../constants/solved-complain-table.columns';
 import { SolvedComplainService } from '../../services/solved-complain.service';
 
@@ -22,7 +22,7 @@ import { SolvedComplainService } from '../../services/solved-complain.service';
 })
 export class SolvedComplainComponent implements OnInit {
   private readonly solvedComplainService = inject(SolvedComplainService);
-  private readonly notify = inject(NotificationService);
+  private readonly toast = inject(ToastService);
 
   readonly breadcrumbs: BreadcrumbItem[] = [
     { label: 'Home', route: '/dashboard' },
@@ -61,7 +61,6 @@ export class SolvedComplainComponent implements OnInit {
         error: () => {
           this.rows.set([]);
           this.total.set(0);
-          this.notify.error('Failed to load solved complaints');
         },
       });
   }

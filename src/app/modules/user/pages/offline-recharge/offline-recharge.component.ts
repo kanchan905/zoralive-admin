@@ -1,21 +1,22 @@
 import { Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
-import { BreadcrumbComponent } from '../../../../shared/components/breadcrumb/breadcrumb.component';
-import { PageHeaderComponent } from '../../../../shared/components/page-header/page-header.component';
-import { BreadcrumbItem } from '../../../../shared/models/breadcrumb.model';
-import { NotificationService } from '../../../../core/services/notification.service';
+import { BreadcrumbComponent } from '../../../../layout/components/breadcrumb/breadcrumb.component';
+import { PageHeaderComponent } from '../../../../layout/components/page-header/page-header.component';
+import { BreadcrumbItem } from '../../../../core/models/breadcrumb.model';
+import { ToastService } from '../../../../core/services/toast.service';
 import { OfflineRechargeService } from '../../services/offline-recharge.service';
+import { AppButtonComponent } from '../../../../layout/components/button/button.component';
 
 @Component({
   selector: 'app-offline-recharge',
-  imports: [ReactiveFormsModule, BreadcrumbComponent, PageHeaderComponent],
+  imports: [ReactiveFormsModule, BreadcrumbComponent, PageHeaderComponent, AppButtonComponent],
   templateUrl: './offline-recharge.component.html',
   styleUrl: './offline-recharge.component.scss',
 })
 export class OfflineRechargeComponent {
   private readonly fb = inject(FormBuilder);
-  private readonly notify = inject(NotificationService);
+  private readonly toast = inject(ToastService);
   private readonly offlineRechargeService = inject(OfflineRechargeService);
 
   readonly submitting = signal(false);
@@ -34,7 +35,7 @@ export class OfflineRechargeComponent {
   submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      this.notify.warning('Please fill all required fields');
+      this.toast.warning('Please fill all required fields');
       return;
     }
 
@@ -48,12 +49,9 @@ export class OfflineRechargeComponent {
       })
       .pipe(finalize(() => this.submitting.set(false)))
       .subscribe({
-        next: () => {
-          this.notify.success('Offline recharge submitted successfully');
+        next: (res) => {
+          this.toast.apiSuccess(res, 'Offline recharge submitted successfully');
           this.form.reset({ userName: '', coin: null });
-        },
-        error: () => {
-          this.notify.error('Failed to submit offline recharge');
         },
       });
   }

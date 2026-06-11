@@ -1,4 +1,5 @@
 import { Component, input, output } from '@angular/core';
+import { AppButtonComponent } from '../../../../layout/components/button/button.component';
 
 export type SettingCardTheme =
   | 'purple'
@@ -12,6 +13,7 @@ export type SettingCardTheme =
 
 @Component({
   selector: 'app-setting-card',
+  imports: [AppButtonComponent],
   templateUrl: './setting-card.component.html',
   styleUrl: './setting-card.component.scss',
 })

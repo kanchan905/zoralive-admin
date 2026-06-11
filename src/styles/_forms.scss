@@ -1,0 +1,509 @@
+// --- Form fields (single source) ---------------------------
+
+@mixin field-label {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: var(--text-label-size);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  display: block;
+}
+
+@mixin field-input-core {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--pink);
+  background: transparent;
+  color: var(--purple);
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: var(--text-body-size);
+  line-height: 1.6;
+  outline: none;
+  transition:
+    border-color var(--transition),
+    background var(--transition),
+    color var(--transition),
+    box-shadow var(--transition);
+
+  &::placeholder {
+    color: var(--text-light);
+  }
+
+  &:focus {
+    border-color: var(--white);
+    background-color: transparent;
+    color: var(--white);
+    box-shadow: none;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.45);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  &[readonly]:focus {
+    background-color: var(--navy);
+    color: var(--purple);
+    border-color: var(--pink);
+  }
+
+  &.ng-touched.ng-invalid,
+  &.is-invalid {
+    border-color: var(--red);
+  }
+
+  &.ng-touched.ng-invalid:focus,
+  &.is-invalid:focus {
+    border-color: var(--red);
+    background-color: transparent;
+    color: var(--white);
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--white);
+    -webkit-box-shadow: 0 0 0 1000px var(--card) inset;
+    box-shadow: 0 0 0 1000px var(--card) inset;
+    transition: background-color 9999s ease-out 0s;
+  }
+}
+
+@mixin select-chevron {
+  appearance: none;
+  cursor: pointer;
+  padding-right: 36px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 16 16'%3E%3Cpath fill='%23C94BFF' d='M4.427 6.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 6H4.604a.25.25 0 00-.177.427z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+
+@mixin global-forms {
+  .form-label,
+  .field-label,
+  .field__label,
+  .filter-label {
+    @include field-label;
+  }
+
+  .form-control,
+  .field-input,
+  .field__input,
+  .field__textarea,
+  .field__select,
+  .id-field__input,
+  .filter-select,
+  .filter-date,
+  .search-input,
+  .search-box-input,
+  .list-field__input,
+  .pagination-select,
+  .form-select {
+    @include field-input-core;
+  }
+
+  select.form-control,
+  select.filter-select,
+  select.field__select,
+  select.form-select,
+  select.pagination-select {
+    @include select-chevron;
+
+    &:focus {
+      background-color: transparent;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 16 16'%3E%3Cpath fill='%23ffffff' d='M4.427 6.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 6H4.604a.25.25 0 00-.177.427z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+    }
+  }
+
+  .app-select__trigger {
+    background-image: none !important;
+  }
+
+  .filter-date,
+  .app-date-picker__trigger.filter-date {
+    min-width: 150px;
+    cursor: pointer;
+  }
+
+  textarea.form-control,
+  textarea.field-input,
+  .field__textarea {
+    min-height: 100px;
+    resize: vertical;
+    height: auto;
+  }
+
+  .search-box-input {
+    padding: 10px 14px 10px 40px;
+  }
+
+  .field__input--password {
+    padding-left: 42px;
+    padding-right: 42px;
+  }
+
+  .field__input[readonly] {
+    background: var(--navy);
+    cursor: default;
+  }
+
+  .list-field__input {
+    max-width: 140px;
+    height: 38px;
+    padding: 0 12px;
+  }
+
+  .form-control--with-prefix {
+    padding-left: 44px;
+  }
+
+  .field-focus-wrap {
+    display: block;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+
+    .form-group {
+      flex: 1;
+      min-width: 200px;
+    }
+  }
+
+  .app-select-host {
+    display: block;
+    width: 100%;
+  }
+
+  // Custom select (replaces native dropdown)
+  .app-select {
+    position: relative;
+    width: 100%;
+
+    &__trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    &__value {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      &--placeholder {
+        color: var(--text-light);
+      }
+    }
+
+    &__chevron {
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      transition: transform var(--transition);
+    }
+
+    &--open &__chevron {
+      transform: rotate(180deg);
+    }
+
+    &--open &__trigger {
+      border-color: var(--white);
+      color: var(--white);
+
+      .app-select__value--placeholder {
+        color: rgba(255, 255, 255, 0.45);
+      }
+    }
+
+    &--disabled {
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    &--drop-up &__panel {
+      top: auto;
+      bottom: calc(100% + 6px);
+    }
+
+    &__panel {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      z-index: 400;
+      margin: 0;
+      padding: 6px;
+      list-style: none;
+      border: 1px solid var(--pink);
+      border-radius: var(--radius-md);
+      background: var(--card);
+      max-height: 220px;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+
+      &--fixed {
+        position: fixed;
+        top: auto;
+        bottom: auto;
+        right: auto;
+        z-index: 1300;
+      }
+    }
+
+    &__option {
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      color: var(--purple);
+      cursor: pointer;
+      font-family: var(--font-inter);
+      font-size: var(--text-body-size);
+      line-height: 1.4;
+      transition: background var(--transition), color var(--transition);
+
+      &:hover:not(&--disabled) {
+        background: rgba(255, 77, 157, 0.14);
+        color: var(--white);
+      }
+
+      &--selected {
+        color: var(--pink);
+      }
+
+      &--disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .input-wrap > app-select {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .input-wrap .app-select .app-select__trigger {
+    padding: 12px 14px 12px 42px;
+  }
+
+  .app-date-picker-host {
+    display: block;
+    width: 100%;
+  }
+
+  .app-date-picker {
+    position: relative;
+    width: 100%;
+
+    &__trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    &__value {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      &--placeholder {
+        color: var(--text-light);
+      }
+    }
+
+    &__icon {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    &--open &__trigger {
+      border-color: var(--white);
+      color: var(--white);
+
+      .app-date-picker__value--placeholder {
+        color: rgba(255, 255, 255, 0.45);
+      }
+
+      .app-date-picker__icon {
+        color: var(--white);
+      }
+    }
+
+    &--disabled {
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    &__panel {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      z-index: 500;
+      width: 280px;
+      padding: 12px;
+      border: 1px solid var(--pink);
+      border-radius: var(--radius-md);
+      background: var(--card);
+      box-shadow: var(--shadow-lg);
+
+      &--fixed {
+        position: fixed;
+        top: auto;
+        bottom: auto;
+        right: auto;
+        z-index: 1300;
+      }
+    }
+
+    &__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    &__month {
+      flex: 1;
+      text-align: center;
+      font-family: var(--font-inter);
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--purple);
+    }
+
+    &__nav {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      background: transparent;
+      color: var(--purple);
+      cursor: pointer;
+      transition: border-color var(--transition), color var(--transition);
+
+      &:hover {
+        border-color: var(--pink);
+        color: var(--pink);
+      }
+    }
+
+    &__weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      margin-bottom: 6px;
+
+      span {
+        text-align: center;
+        font-family: var(--font-inter);
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: var(--text-muted);
+      }
+    }
+
+    &__grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    &__day {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      aspect-ratio: 1;
+      border: none;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      color: var(--purple);
+      font-family: var(--font-inter);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition);
+
+      &:hover:not(:disabled) {
+        background: rgba(255, 77, 157, 0.14);
+        color: var(--white);
+      }
+
+      &--muted {
+        color: var(--text-light);
+      }
+
+      &--selected {
+        background: var(--pink);
+        color: var(--navy);
+      }
+
+      &--today:not(&--selected) {
+        border: 1px solid var(--pink);
+      }
+
+      &:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+      }
+    }
+
+    &__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-light);
+    }
+
+    &__action {
+      border: none;
+      background: transparent;
+      color: var(--pink);
+      font-family: var(--font-inter);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0;
+
+      &:hover {
+        color: var(--purple);
+      }
+    }
+  }
+}

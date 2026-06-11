@@ -11,8 +11,8 @@
   </div>
 
   <footer class="setting-card__footer">
-    <button type="button" class="setting-card__save" [disabled]="saving()" (click)="save.emit()">
+    <app-button preset="setting-save" [disabled]="saving()" (clicked)="save.emit()">
       Save
-    </button>
+    </app-button>
   </footer>
 </article>

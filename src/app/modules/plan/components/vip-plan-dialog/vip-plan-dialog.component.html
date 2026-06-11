@@ -1,9 +1,7 @@
 <div class="agency-dialog">
   <div class="dialog-header">
     <h2 class="dialog-title">VIP Plan</h2>
-    <button type="button" class="dialog-close" (click)="close()" aria-label="Close">
-      <i class="bi bi-x-lg"></i>
-    </button>
+    <app-button preset="close" icon="bi bi-x-lg" ariaLabel="Close" (clicked)="close()" />
   </div>
 
   <form class="dialog-body" [formGroup]="form" (ngSubmit)="submit()">
@@ -22,11 +20,12 @@
 
       <div class="form-group">
         <label class="form-label" for="vip-plan-option">Select Option</label>
-        <select id="vip-plan-option" class="form-control" formControlName="option">
-          @for (opt of optionList; track opt.value) {
-            <option [value]="opt.value" [disabled]="!opt.value">{{ opt.label }}</option>
-          }
-        </select>
+        <app-select
+          id="vip-plan-option"
+          formControlName="option"
+          placeholder="Select option"
+          [options]="optionList"
+        />
       </div>
     </div>
 
@@ -67,6 +66,6 @@
       />
     </div>
 
-    <button type="submit" class="btn-submit-full">Submit</button>
+    <app-button preset="submit-full" type="submit">Submit</app-button>
   </form>
 </div>

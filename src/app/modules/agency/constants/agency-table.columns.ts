@@ -1,4 +1,4 @@
-import { TableColumn } from '../../../shared/models/table-column.model';
+import { TableColumn } from '../../../core/models/table-column.model';
 
 /** Agency page columns — other pages define their own column arrays */
 export const AGENCY_TABLE_COLUMNS: TableColumn[] = [

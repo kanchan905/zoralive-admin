@@ -1,18 +1,19 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { NotificationService } from '../../../../core/services/notification.service';
+import { ToastService } from '../../../../core/services/toast.service';
+import { AppButtonComponent } from '../../../../layout/components/button/button.component';
 
 @Component({
   selector: 'app-category-dialog',
-  imports: [ReactiveFormsModule, MatDialogModule],
+  imports: [ReactiveFormsModule, MatDialogModule, AppButtonComponent],
   templateUrl: './category-dialog.component.html',
   styleUrl: './category-dialog.component.scss',
 })
 export class CategoryDialogComponent {
   private readonly dialogRef = inject(MatDialogRef<CategoryDialogComponent>);
   private readonly fb = inject(FormBuilder);
-  private readonly notify = inject(NotificationService);
+  private readonly toast = inject(ToastService);
 
   readonly imageName = signal('No file chosen');
 
@@ -34,11 +35,11 @@ export class CategoryDialogComponent {
   submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      this.notify.warning('Please fill out all required fields');
+      this.toast.warning('Please fill out all required fields');
       return;
     }
 
-    this.notify.success('Category added successfully');
+    this.toast.success('Category added successfully');
     this.dialogRef.close(this.form.getRawValue());
   }
 }

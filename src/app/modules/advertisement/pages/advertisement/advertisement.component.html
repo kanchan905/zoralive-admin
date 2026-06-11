@@ -5,16 +5,15 @@
     title="Advertisement Settings"
     subtitle="Manage ad networks and monetization IDs."
   >
-    <button
+    <app-button
       actions
-      type="button"
-      class="btn-save-all"
+      preset="save-all"
+      icon="bi bi-save"
       [disabled]="saving() || loading()"
-      (click)="saveAll()"
+      (clicked)="saveAll()"
     >
-      <i class="bi bi-save"></i>
       Save Changes
-    </button>
+    </app-button>
   </app-page-header>
 
   <div class="ad-network-grid">

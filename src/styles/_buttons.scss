@@ -1,0 +1,328 @@
+// --- Admin button system (single source) -------------------
+
+@mixin btn-text {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--text-subheading-size);
+  line-height: 1.4;
+}
+
+@mixin btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  @include btn-text;
+  text-transform: none;
+  letter-spacing: normal;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition);
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
+@mixin btn-primary {
+  @include btn-base;
+  background: var(--grad);
+  color: var(--navy);
+  box-shadow: 0 6px 18px rgba(255, 77, 157, 0.35);
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255, 77, 157, 0.45);
+  }
+}
+
+@mixin btn-live {
+  @include btn-base;
+  background: var(--grad-reverse);
+  color: var(--navy);
+  box-shadow: 0 6px 18px rgba(201, 75, 255, 0.35);
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(201, 75, 255, 0.45);
+  }
+}
+
+@mixin btn-gold {
+  @include btn-base;
+  font-family: var(--font-nunito);
+  font-weight: 800;
+  font-size: var(--text-subheading-size);
+  background: linear-gradient(135deg, var(--gold), rgba(255, 209, 102, 0.75));
+  color: var(--navy);
+  box-shadow: 0 6px 18px rgba(255, 209, 102, 0.4);
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255, 209, 102, 0.5);
+  }
+}
+
+@mixin btn-outline {
+  @include btn-base;
+  background: transparent;
+  border: 1px solid var(--pink);
+  color: var(--pink);
+
+  &:hover:not(:disabled) {
+    background: rgba(255, 77, 157, 0.08);
+    transform: translateY(-1px);
+  }
+}
+
+@mixin btn-ghost {
+  @include btn-base;
+  background: var(--card);
+  color: var(--text-muted);
+  border: 1px solid var(--border-light);
+
+  &:hover:not(:disabled) {
+    background: var(--navy);
+    color: var(--purple);
+    transform: translateY(-1px);
+  }
+}
+
+@mixin btn-danger {
+  @include btn-base;
+  background: linear-gradient(135deg, var(--red), rgba(255, 77, 157, 0.85));
+  color: var(--navy);
+  box-shadow: 0 6px 18px rgba(255, 92, 122, 0.4);
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255, 92, 122, 0.5);
+  }
+}
+
+@mixin btn-icon-square($size: 42px, $font-size: 1rem) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: $size;
+  height: $size;
+  padding: 0;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  background: var(--card);
+  color: var(--text-muted);
+  font-size: $font-size;
+  cursor: pointer;
+  transition: all var(--transition);
+  flex-shrink: 0;
+
+  &:hover:not(:disabled) {
+    border-color: var(--pink);
+    color: var(--pink);
+    background: var(--navy);
+  }
+}
+
+@mixin global-buttons {
+  // Pill variants
+  .btn-primary { @include btn-primary; }
+  .btn-live { @include btn-live; }
+  .btn-gold { @include btn-gold; }
+  .btn-outline { @include btn-outline; }
+  .btn-ghost { @include btn-ghost; }
+  .btn-danger { @include btn-danger; }
+
+  .btn-sm {
+    padding: 9px 18px;
+  }
+
+  .btn-full {
+    width: 100%;
+    justify-content: center;
+  }
+
+  // Semantic action buttons
+  .btn-new {
+    @include btn-primary;
+    padding: 9px 18px;
+  }
+
+  .btn-delete {
+    @include btn-danger;
+    padding: 9px 18px;
+  }
+
+  .btn-export,
+  .btn-submit,
+  .btn-submit-full,
+  .btn-save-all,
+  .btn-save-card,
+  .btn-primary-inline,
+  .btn-update-password,
+  .btn-send,
+  .btn-filter-apply,
+  .btn-login,
+  .setting-card__save {
+    @include btn-primary;
+  }
+
+  .btn-submit-full,
+  .btn-login {
+    width: 100%;
+  }
+
+  .btn-cancel,
+  .btn-cancel-card,
+  .btn-edit,
+  .btn-edit-config,
+  .btn-edit-profile,
+  .btn-empty-action,
+  .btn-auto {
+    @include btn-outline;
+  }
+
+  .btn-save-card,
+  .btn-cancel-card {
+    flex: 1;
+  }
+
+  .btn-filter-labeled,
+  .date-filter-btn {
+    @include btn-ghost;
+  }
+
+  .btn-filter {
+    @include btn-icon-square(42px, 1rem);
+  }
+
+  .btn-menu {
+    @include btn-icon-square(42px, 1.35rem);
+    color: var(--purple);
+    border-color: var(--border);
+  }
+
+  .icon-btn {
+    @include btn-icon-square(42px, 1.15rem);
+  }
+
+  .btn-table-action,
+  .table-action-btn {
+    @include btn-icon-square(32px, 0.9rem);
+    border-color: var(--border);
+    border-radius: var(--radius-sm);
+  }
+
+  .btn-table-action--danger:hover:not(:disabled),
+  .table-action-btn--danger:hover:not(:disabled) {
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  .btn-pagination,
+  .pagination-btn {
+    @include btn-icon-square(32px, 0.85rem);
+    border-color: var(--border);
+    border-radius: var(--radius-sm);
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  .dialog-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: var(--pink);
+    color: var(--navy);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: background var(--transition);
+    flex-shrink: 0;
+
+    &:hover:not(:disabled) {
+      background: var(--purple);
+    }
+  }
+
+  .btn-outline-primary {
+    @include btn-outline;
+  }
+
+  .host-image-tab {
+    @include btn-ghost;
+
+    &.active {
+      @include btn-primary;
+      box-shadow: 0 4px 12px rgba(255, 77, 157, 0.35);
+    }
+  }
+
+  .btn-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+
+    .btn-primary,
+    .btn-live,
+    .btn-gold,
+    .btn-outline,
+    .btn-ghost,
+    .btn-danger {
+      width: 100%;
+    }
+  }
+
+  // Legacy aliases (same design, old class names)
+  .btn-gifts-new,
+  .btn-category-new,
+  .btn-sticker-new,
+  .btn-emoji-new,
+  .btn-country-new,
+  .btn-banner-new,
+  .btn-vip-plan-new,
+  .btn-purchase-plan-new,
+  .btn-new-level,
+  .btn-gifts-delete,
+  .btn-category-delete,
+  .btn-sticker-delete,
+  .btn-emoji-delete,
+  .btn-country-delete-all {
+    padding: 9px 18px;
+  }
+
+  .btn-gifts-new,
+  .btn-category-new,
+  .btn-sticker-new,
+  .btn-emoji-new,
+  .btn-country-new,
+  .btn-banner-new,
+  .btn-vip-plan-new,
+  .btn-purchase-plan-new,
+  .btn-new-level {
+    @include btn-primary;
+  }
+
+  .btn-gifts-delete,
+  .btn-category-delete,
+  .btn-sticker-delete,
+  .btn-emoji-delete,
+  .btn-country-delete-all {
+    @include btn-danger;
+  }
+}

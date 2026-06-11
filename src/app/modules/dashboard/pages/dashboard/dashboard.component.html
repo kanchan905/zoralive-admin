@@ -5,11 +5,23 @@
       <p class="page-subtitle">{{ welcomeSubtitle() }}</p>
     </div>
     @if (!isAgency()) {
-      <button type="button" class="date-filter-btn">
-        <i class="bi bi-calendar3"></i>
-        <span>{{ dateRange }}</span>
-        <i class="bi bi-chevron-down"></i>
-      </button>
+      <div class="dashboard-filters">
+        <div class="filter-field">
+          <label class="filter-label" for="dashboard-from-date">From Date</label>
+          <app-date-picker id="dashboard-from-date" [(ngModel)]="fromDate" />
+        </div>
+
+        <span class="filter-date-sep" aria-hidden="true">→</span>
+
+        <div class="filter-field">
+          <label class="filter-label" for="dashboard-to-date">To Date</label>
+          <app-date-picker id="dashboard-to-date" [(ngModel)]="toDate" [min]="fromDate" />
+        </div>
+
+        <app-button preset="filter-apply" icon="bi bi-funnel" (clicked)="applyFilters()">
+          Filter
+        </app-button>
+      </div>
     }
   </div>
 

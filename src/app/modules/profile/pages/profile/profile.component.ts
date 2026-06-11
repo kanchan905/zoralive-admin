@@ -1,19 +1,20 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BreadcrumbComponent } from '../../../../shared/components/breadcrumb/breadcrumb.component';
-import { BreadcrumbItem } from '../../../../shared/models/breadcrumb.model';
+import { BreadcrumbComponent } from '../../../../layout/components/breadcrumb/breadcrumb.component';
+import { BreadcrumbItem } from '../../../../core/models/breadcrumb.model';
 import { AuthService } from '../../../../core/services/auth.service';
-import { NotificationService } from '../../../../core/services/notification.service';
+import { ToastService } from '../../../../core/services/toast.service';
+import { AppButtonComponent } from '../../../../layout/components/button/button.component';
 
 @Component({
   selector: 'app-profile',
-  imports: [ReactiveFormsModule, BreadcrumbComponent],
+  imports: [ReactiveFormsModule, BreadcrumbComponent, AppButtonComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })
 export class ProfileComponent {
   private readonly fb = inject(FormBuilder);
-  private readonly notify = inject(NotificationService);
+  private readonly toast = inject(ToastService);
   private readonly auth = inject(AuthService);
 
   readonly breadcrumbs: BreadcrumbItem[] = [
@@ -35,7 +36,7 @@ export class ProfileComponent {
 
   readonly profileForm = this.fb.nonNullable.group({
     fullName: ['Admin User', [Validators.required, Validators.maxLength(120)]],
-    email: ['admin@zoralive.com', [Validators.required, Validators.email]],
+    email: ['admin@bolnet.com', [Validators.required, Validators.email]],
   });
 
   readonly passwordForm = this.fb.nonNullable.group({
@@ -58,12 +59,12 @@ export class ProfileComponent {
   saveProfile(): void {
     if (this.profileForm.invalid) {
       this.profileForm.markAllAsTouched();
-      this.notify.warning('Please fill out all required fields');
+      this.toast.warning('Please fill out all required fields');
       return;
     }
 
     this.editingProfile.set(false);
-    this.notify.success('Profile updated successfully');
+    this.toast.success('Profile updated successfully');
   }
 
   updatePassword(): void {
@@ -71,17 +72,17 @@ export class ProfileComponent {
 
     if (this.passwordForm.invalid) {
       this.passwordForm.markAllAsTouched();
-      this.notify.warning('Please fill out all password fields');
+      this.toast.warning('Please fill out all password fields');
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      this.notify.error('New password and confirm password do not match');
+      this.toast.error('New password and confirm password do not match');
       return;
     }
 
     this.passwordForm.reset();
-    this.notify.success('Password updated successfully');
+    this.toast.success('Password updated successfully');
   }
 
   onAccountOption(action: 'edit' | 'password' | 'activity' | 'logout'): void {
@@ -97,7 +98,7 @@ export class ProfileComponent {
     }
 
     if (action === 'activity') {
-      this.notify.info('Account activity will be available soon');
+      this.toast.info('Account activity will be available soon');
       return;
     }
 
@@ -112,7 +113,7 @@ export class ProfileComponent {
     reader.onload = () => {
       if (typeof reader.result === 'string') {
         this.avatarUrl.set(reader.result);
-        this.notify.success('Profile photo updated');
+        this.toast.success('Profile photo updated');
       }
     };
     reader.readAsDataURL(file);

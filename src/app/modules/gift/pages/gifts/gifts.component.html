@@ -5,15 +5,11 @@
 
   <div class="page-card gifts-card">
     <div class="gifts-actions-top">
-      <button type="button" class="btn-gifts-delete" (click)="deleteSelected()">
-        <i class="bi bi-trash3-fill"></i>
+      <app-button preset="delete" icon="bi bi-trash3-fill" (clicked)="deleteSelected()">
         Delete Selected ({{ selectedIds().length }})
-      </button>
+      </app-button>
 
-      <button type="button" class="btn-primary btn-gifts-new" (click)="openNew()">
-        <i class="bi bi-plus-lg"></i>
-        New
-      </button>
+      <app-button preset="new" icon="bi bi-plus-lg" (clicked)="openNew()">New</app-button>
     </div>
 
     <div class="table-toolbar table-toolbar--search-end">

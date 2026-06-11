@@ -1,11 +1,11 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { finalize } from 'rxjs';
-import { BreadcrumbComponent } from '../../../../shared/components/breadcrumb/breadcrumb.component';
-import { PageHeaderComponent } from '../../../../shared/components/page-header/page-header.component';
-import { SearchBoxComponent } from '../../../../shared/components/search-box/search-box.component';
-import { DataTableComponent } from '../../../../shared/components/data-table/data-table.component';
-import { BreadcrumbItem } from '../../../../shared/models/breadcrumb.model';
-import { NotificationService } from '../../../../core/services/notification.service';
+import { BreadcrumbComponent } from '../../../../layout/components/breadcrumb/breadcrumb.component';
+import { PageHeaderComponent } from '../../../../layout/components/page-header/page-header.component';
+import { SearchBoxComponent } from '../../../../layout/components/search-box/search-box.component';
+import { DataTableComponent } from '../../../../layout/components/data-table/data-table.component';
+import { BreadcrumbItem } from '../../../../core/models/breadcrumb.model';
+import { ToastService } from '../../../../core/services/toast.service';
 import { OFFLINE_HISTORY_TABLE_COLUMNS } from '../../constants/offline-history-table.columns';
 import { OfflineHistoryService } from '../../services/offline-history.service';
 
@@ -22,7 +22,7 @@ import { OfflineHistoryService } from '../../services/offline-history.service';
 })
 export class OfflineHistoryComponent implements OnInit {
   private readonly offlineHistoryService = inject(OfflineHistoryService);
-  private readonly notify = inject(NotificationService);
+  private readonly toast = inject(ToastService);
 
   readonly columns = OFFLINE_HISTORY_TABLE_COLUMNS;
 
@@ -61,7 +61,6 @@ export class OfflineHistoryComponent implements OnInit {
         error: () => {
           this.rows.set([]);
           this.total.set(0);
-          this.notify.error('Failed to load offline recharge history');
         },
       });
   }

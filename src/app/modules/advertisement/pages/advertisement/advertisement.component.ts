@@ -1,12 +1,13 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { finalize } from 'rxjs';
-import { BreadcrumbComponent } from '../../../../shared/components/breadcrumb/breadcrumb.component';
-import { PageHeaderComponent } from '../../../../shared/components/page-header/page-header.component';
-import { BreadcrumbItem } from '../../../../shared/models/breadcrumb.model';
-import { NotificationService } from '../../../../core/services/notification.service';
+import { BreadcrumbComponent } from '../../../../layout/components/breadcrumb/breadcrumb.component';
+import { PageHeaderComponent } from '../../../../layout/components/page-header/page-header.component';
+import { BreadcrumbItem } from '../../../../core/models/breadcrumb.model';
+import { ToastService } from '../../../../core/services/toast.service';
 import { AdNetworkCardComponent } from '../../components/ad-network-card/ad-network-card.component';
 import { AdNetworkConfig } from '../../models/ad-network-config.model';
 import { AdvertisementService } from '../../services/advertisement.service';
+import { AppButtonComponent } from '../../../../layout/components/button/button.component';
 
 const DEFAULT_GOOGLE: AdNetworkConfig = {
   enabled: true,
@@ -24,13 +25,13 @@ const DEFAULT_FACEBOOK: AdNetworkConfig = {
 
 @Component({
   selector: 'app-advertisement',
-  imports: [BreadcrumbComponent, PageHeaderComponent, AdNetworkCardComponent],
+  imports: [BreadcrumbComponent, PageHeaderComponent, AdNetworkCardComponent, AppButtonComponent],
   templateUrl: './advertisement.component.html',
   styleUrl: './advertisement.component.scss',
 })
 export class AdvertisementComponent implements OnInit {
   private readonly advertisementService = inject(AdvertisementService);
-  private readonly notify = inject(NotificationService);
+  private readonly toast = inject(ToastService);
 
   readonly breadcrumbs: BreadcrumbItem[] = [
     { label: 'Home', route: '/dashboard' },
@@ -81,10 +82,10 @@ export class AdvertisementComponent implements OnInit {
           this.facebookConfig.set(settings.facebook);
           this.googleEditing.set(false);
           this.facebookEditing.set(false);
-          this.notify.success('Advertisement settings saved successfully');
+          this.toast.apiSuccess(settings, 'Advertisement settings saved successfully');
         },
         error: () => {
-          this.notify.warning('Save will be available when API is connected');
+          this.toast.warning('Save will be available when API is connected');
         },
       });
   }
@@ -100,24 +101,23 @@ export class AdvertisementComponent implements OnInit {
   onGoogleSave(config: AdNetworkConfig): void {
     this.googleConfig.set(config);
     this.googleEditing.set(false);
-    this.notify.success('Google AdMob configuration updated');
+    this.toast.success('Google AdMob configuration updated');
   }
 
   onFacebookSave(config: AdNetworkConfig): void {
     this.facebookConfig.set(config);
     this.facebookEditing.set(false);
-    this.notify.success('Facebook configuration updated');
+    this.toast.success('Facebook configuration updated');
   }
 
   copyId(value: string): void {
     if (!value?.trim()) {
-      this.notify.info('Nothing to copy');
+      this.toast.info('Nothing to copy');
       return;
     }
 
     navigator.clipboard.writeText(value).then(
-      () => this.notify.success('Copied to clipboard'),
-      () => this.notify.error('Failed to copy')
+      () => this.toast.success('Copied to clipboard'),
     );
   }
 }

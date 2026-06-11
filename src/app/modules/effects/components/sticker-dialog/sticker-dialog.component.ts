@@ -1,18 +1,19 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { NotificationService } from '../../../../core/services/notification.service';
+import { ToastService } from '../../../../core/services/toast.service';
+import { AppButtonComponent } from '../../../../layout/components/button/button.component';
 
 @Component({
   selector: 'app-sticker-dialog',
-  imports: [ReactiveFormsModule, MatDialogModule],
+  imports: [ReactiveFormsModule, MatDialogModule, AppButtonComponent],
   templateUrl: './sticker-dialog.component.html',
   styleUrl: './sticker-dialog.component.scss',
 })
 export class StickerDialogComponent {
   private readonly dialogRef = inject(MatDialogRef<StickerDialogComponent>);
   private readonly fb = inject(FormBuilder);
-  private readonly notify = inject(NotificationService);
+  private readonly toast = inject(ToastService);
 
   readonly fileName = signal('No file chosen');
   readonly form = this.fb.nonNullable.group({
@@ -33,11 +34,11 @@ export class StickerDialogComponent {
   submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      this.notify.warning('Please upload sticker icon');
+      this.toast.warning('Please upload sticker icon');
       return;
     }
 
-    this.notify.success('Sticker added successfully');
+    this.toast.success('Sticker added successfully');
     this.dialogRef.close(this.form.getRawValue());
   }
 }

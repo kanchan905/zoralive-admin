@@ -1,13 +1,16 @@
 import { Component, computed, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TableColumn } from '../../models/table-column.model';
+import { TableColumn } from '../../../core/models/table-column.model';
 import {
   TableRowActionEvent,
   TableRowLinkEvent,
   TableRowSelectEvent,
   TableRowToggleEvent,
-} from '../../models/table-events.model';
+} from '../../../core/models/table-events.model';
+import { AppButtonComponent } from '../button/button.component';
+import { AppBadgeComponent, BadgeVariant, resolveBadgeVariant } from '../badge/badge.component';
+import { AppSelectComponent } from '../select/select.component';
 
 /**
  * Presentational table — no API calls, no static rows.
@@ -15,7 +18,7 @@ import {
  */
 @Component({
   selector: 'app-data-table',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, AppButtonComponent, AppBadgeComponent, AppSelectComponent],
   templateUrl: './data-table.component.html',
   styleUrl: './data-table.component.scss',
 })
@@ -60,6 +63,7 @@ export class DataTableComponent {
   readonly totalPages = computed(() =>
     Math.max(1, Math.ceil(this.total() / this.pageSize()) || 1)
   );
+  readonly pageSizeString = computed(() => String(this.pageSize()));
 
   trackRow(index: number, row: Record<string, unknown>): unknown {
     return row[this.rowTrackKey()] ?? index;
@@ -69,14 +73,8 @@ export class DataTableComponent {
     return row[key];
   }
 
-  statusVariant(value: unknown): string {
-    const raw = String(value ?? '')
-      .trim()
-      .toLowerCase();
-    if (raw === 'online' || raw === 'live' || raw === 'offline') {
-      return raw;
-    }
-    return 'default';
+  statusVariant(value: unknown): BadgeVariant {
+    return resolveBadgeVariant(value);
   }
 
   statusLabel(value: unknown): string {

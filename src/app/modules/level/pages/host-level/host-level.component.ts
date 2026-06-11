@@ -1,15 +1,16 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { finalize } from 'rxjs';
-import { BreadcrumbComponent } from '../../../../shared/components/breadcrumb/breadcrumb.component';
-import { PageHeaderComponent } from '../../../../shared/components/page-header/page-header.component';
-import { SearchBoxComponent } from '../../../../shared/components/search-box/search-box.component';
-import { DataTableComponent } from '../../../../shared/components/data-table/data-table.component';
-import { BreadcrumbItem } from '../../../../shared/models/breadcrumb.model';
-import { NotificationService } from '../../../../core/services/notification.service';
+import { BreadcrumbComponent } from '../../../../layout/components/breadcrumb/breadcrumb.component';
+import { PageHeaderComponent } from '../../../../layout/components/page-header/page-header.component';
+import { SearchBoxComponent } from '../../../../layout/components/search-box/search-box.component';
+import { DataTableComponent } from '../../../../layout/components/data-table/data-table.component';
+import { BreadcrumbItem } from '../../../../core/models/breadcrumb.model';
+import { ToastService } from '../../../../core/services/toast.service';
 import { HOST_LEVEL_TABLE_COLUMNS } from '../../constants/host-level-table.columns';
 import { HostLevelService } from '../../services/host-level.service';
 import { HostLevelDialogComponent } from '../../components/host-level-dialog/host-level-dialog.component';
+import { AppButtonComponent } from '../../../../layout/components/button/button.component';
 
 @Component({
   selector: 'app-host-level',
@@ -18,13 +19,14 @@ import { HostLevelDialogComponent } from '../../components/host-level-dialog/hos
     PageHeaderComponent,
     SearchBoxComponent,
     DataTableComponent,
+    AppButtonComponent,
   ],
   templateUrl: './host-level.component.html',
   styleUrl: './host-level.component.scss',
 })
 export class HostLevelComponent implements OnInit {
   private readonly hostLevelService = inject(HostLevelService);
-  private readonly notify = inject(NotificationService);
+  private readonly toast = inject(ToastService);
   private readonly dialog = inject(MatDialog);
 
   readonly columns = HOST_LEVEL_TABLE_COLUMNS;
@@ -62,7 +64,6 @@ export class HostLevelComponent implements OnInit {
         error: () => {
           this.rows.set([]);
           this.total.set(0);
-          this.notify.error('Failed to load host levels');
         },
       });
   }

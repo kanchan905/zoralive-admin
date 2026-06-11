@@ -1,18 +1,19 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { NotificationService } from '../../../../core/services/notification.service';
+import { ToastService } from '../../../../core/services/toast.service';
+import { AppButtonComponent } from '../../../../layout/components/button/button.component';
 
 @Component({
   selector: 'app-emoji-dialog',
-  imports: [ReactiveFormsModule, MatDialogModule],
+  imports: [ReactiveFormsModule, MatDialogModule, AppButtonComponent],
   templateUrl: './emoji-dialog.component.html',
   styleUrl: './emoji-dialog.component.scss',
 })
 export class EmojiDialogComponent {
   private readonly dialogRef = inject(MatDialogRef<EmojiDialogComponent>);
   private readonly fb = inject(FormBuilder);
-  private readonly notify = inject(NotificationService);
+  private readonly toast = inject(ToastService);
 
   readonly fileName = signal('No file chosen');
   readonly form = this.fb.nonNullable.group({
@@ -33,11 +34,11 @@ export class EmojiDialogComponent {
   submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      this.notify.warning('Please upload emoji icon');
+      this.toast.warning('Please upload emoji icon');
       return;
     }
 
-    this.notify.success('Emoji added successfully');
+    this.toast.success('Emoji added successfully');
     this.dialogRef.close(this.form.getRawValue());
   }
 }

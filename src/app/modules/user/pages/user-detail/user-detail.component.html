@@ -2,10 +2,9 @@
   <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
 
   <app-page-header title="User" subtitle="View and manage all users on the platform.">
-    <button actions type="button" class="btn-export" (click)="exportToExcel()">
-      <i class="bi bi-download"></i>
+    <app-button actions preset="export" icon="bi bi-download" (clicked)="exportToExcel()">
       Export To Excel
-    </button>
+    </app-button>
   </app-page-header>
 
   <div class="page-card">

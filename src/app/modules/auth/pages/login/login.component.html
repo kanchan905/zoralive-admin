@@ -2,9 +2,9 @@
   <div class="login-card">
     <div class="login-brand">
       <div class="brand-icon">
-        <img src="assets/logo.fb24ee40.png" alt="ZoraLive" class="brand-logo" />
+        <img src="assets/logo.fb24ee40.png" alt="BolNet" class="brand-logo" />
       </div>
-      <h1 class="brand-title">ZoraLive</h1>
+      <h1 class="brand-title">BolNet</h1>
       <p class="brand-subtitle">Sign in to your account</p>
     </div>
 
@@ -55,20 +55,20 @@
         }
       </div>
 
-      <button type="submit" class="btn-login" [disabled]="loading()">
+      <app-button preset="login" type="submit" [fullWidth]="true" [disabled]="loading()">
         @if (loading()) {
           <span class="spinner"></span>
           Signing in...
         } @else {
           Sign In
         }
-      </button>
+      </app-button>
     </form>
 
     <div class="demo-hint">
       <p class="demo-title">Demo credentials</p>
-      <p><strong>Admin:</strong> admin&#64;zoralive.com / admin123</p>
-      <p><strong>Agency:</strong> agency&#64;zora.com / agency123</p>
+      <p><strong>Admin:</strong> admin&#64;bolnet.com / admin123</p>
+      <p><strong>Agency:</strong> agency&#64;bolnet.com / agency123</p>
     </div>
   </div>
 </div>

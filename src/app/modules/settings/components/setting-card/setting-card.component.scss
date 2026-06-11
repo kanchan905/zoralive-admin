@@ -1,12 +1,11 @@
-@use '../../../../../styles/variables' as *;
 
 .setting-card {
   display: flex;
   flex-direction: column;
-  background: #fff;
+  background: var(--card);
   border-radius: 16px;
-  border: 1px solid $border-light;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
   height: 100%;
 }
@@ -31,9 +30,7 @@
 
 .setting-card__title {
   margin: 0;
-  font-size: 1rem;
-  font-weight: 700;
-  color: $text;
+  color: var(--purple);
 }
 
 .setting-card__body {
@@ -47,104 +44,47 @@
   padding: 0 20px 20px;
 }
 
-.setting-card__save {
-  padding: 8px 22px;
-  border: none;
-  border-radius: $radius-md;
-  color: #fff;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: opacity $transition, transform $transition;
-
-  &:hover:not(:disabled) {
-    opacity: 0.92;
-    transform: translateY(-1px);
-  }
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-}
-
 .setting-card[data-theme='purple'] {
   .setting-card__icon {
-    background: rgba($primary, 0.12);
-    color: $primary;
-  }
-  .setting-card__save {
-    background: $primary;
+    background: rgba(255, 77, 157, 0.12);
+    color: var(--pink);
   }
 }
 
-.setting-card[data-theme='orange'] {
+.setting-card[data-theme='orange'],
+.setting-card[data-theme='yellow'] {
   .setting-card__icon {
-    background: rgba(#f97316, 0.12);
-    color: #f97316;
-  }
-  .setting-card__save {
-    background: #f97316;
+    background: rgba(255, 209, 102, 0.12);
+    color: var(--gold);
   }
 }
 
 .setting-card[data-theme='pink'] {
   .setting-card__icon {
-    background: rgba(#ec4899, 0.12);
-    color: #ec4899;
-  }
-  .setting-card__save {
-    background: #ec4899;
+    background: rgba(255, 77, 157, 0.12);
+    color: var(--pink);
   }
 }
 
 .setting-card[data-theme='green'] {
   .setting-card__icon {
-    background: rgba($success, 0.12);
-    color: $success;
-  }
-  .setting-card__save {
-    background: $success;
+    background: rgba(79, 255, 176, 0.12);
+    color: var(--green);
   }
 }
 
-.setting-card[data-theme='cyan'] {
-  .setting-card__icon {
-    background: rgba(#06b6d4, 0.12);
-    color: #06b6d4;
-  }
-  .setting-card__save {
-    background: #06b6d4;
-  }
-}
-
+.setting-card[data-theme='cyan'],
 .setting-card[data-theme='blue'] {
   .setting-card__icon {
-    background: rgba(#3b82f6, 0.12);
-    color: #3b82f6;
-  }
-  .setting-card__save {
-    background: #3b82f6;
-  }
-}
-
-.setting-card[data-theme='yellow'] {
-  .setting-card__icon {
-    background: rgba(#eab308, 0.15);
-    color: #ca8a04;
-  }
-  .setting-card__save {
-    background: #eab308;
-    color: #422006;
+    background: rgba(201, 75, 255, 0.12);
+    color: var(--purple);
   }
 }
 
 .setting-card[data-theme='navy'] {
   .setting-card__icon {
-    background: rgba(#1e3a5f, 0.12);
-    color: #1e3a5f;
-  }
-  .setting-card__save {
-    background: #1e3a5f;
+    background: rgba(19, 21, 43, 0.4);
+    color: var(--purple);
+    border: 1px solid var(--border-light);
   }
 }

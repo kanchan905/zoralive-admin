@@ -1,11 +1,10 @@
-@use '../../../../../styles/variables' as *;
 
 .ad-network-card {
-  background: #fff;
+  background: var(--card);
   border-radius: 20px;
   padding: 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  border: 1px solid $border-light;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-light);
 }
 
 .ad-network-card__header {
@@ -32,39 +31,35 @@
   height: 48px;
   border-radius: 12px;
   font-size: 1.35rem;
-  font-weight: 700;
   flex-shrink: 0;
 
   &--google span {
-    background: linear-gradient(135deg, #4285f4, #ea4335, #fbbc05, #34a853);
+    background: var(--grad);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
   &--google {
-    background: #fff;
-    border: 1px solid $border;
+    background: var(--card);
+    border: 1px solid var(--border);
   }
 
   &--facebook {
-    background: #1877f2;
-    color: #fff;
-    font-family: Georgia, serif;
+    background: var(--purple);
+    color: var(--navy);
   }
 }
 
 .ad-network-card__title {
   margin: 0 0 4px;
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: $text;
+  color: var(--purple);
 }
 
 .ad-network-card__subtitle {
   margin: 0;
   font-size: 0.8rem;
-  color: $text-muted;
+  color: var(--text-muted);
 }
 
 .ad-network-card__header-actions {
@@ -74,54 +69,6 @@
   flex-wrap: wrap;
 }
 
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  background: #f3f4f6;
-  color: $text-muted;
-
-  &--active {
-    background: rgba($success, 0.12);
-    color: #047857;
-  }
-}
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #9ca3af;
-
-  .status-badge--active & {
-    background: $success;
-  }
-}
-
-.btn-edit-config {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  border: 1px solid $primary;
-  border-radius: $radius-md;
-  background: #fff;
-  color: $primary;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background $transition;
-  white-space: nowrap;
-
-  &:hover {
-    background: rgba($primary, 0.06);
-  }
-}
-
 .status-row {
   display: flex;
   align-items: center;
@@ -129,13 +76,12 @@
   gap: 12px;
   padding-bottom: 20px;
   margin-bottom: 8px;
-  border-bottom: 1px solid $border-light;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .status-row__label {
   font-size: 0.9rem;
-  font-weight: 600;
-  color: $text;
+  color: var(--purple);
 }
 
 .status-row__control {
@@ -146,11 +92,10 @@
 
 .status-row__state {
   font-size: 0.875rem;
-  font-weight: 600;
-  color: $text-muted;
+  color: var(--text-muted);
 
   &--on {
-    color: $success;
+    color: var(--green);
   }
 }
 
@@ -170,10 +115,10 @@
 .ad-toggle__slider {
   position: absolute;
   inset: 0;
-  background: #d1d5db;
+  background: rgba(201, 75, 255, 0.25);
   border-radius: 999px;
   cursor: pointer;
-  transition: background $transition;
+  transition: background var(--transition);
 
   &::before {
     content: '';
@@ -182,15 +127,15 @@
     width: 22px;
     left: 3px;
     bottom: 3px;
-    background: #fff;
+    background: var(--purple);
     border-radius: 50%;
-    transition: transform $transition;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    transition: transform var(--transition);
+    box-shadow: 0 1px 3px rgba(19, 21, 43, 0.25);
   }
 }
 
 .ad-toggle input:checked + .ad-toggle__slider {
-  background: $primary;
+  background: var(--pink);
 
   &::before {
     transform: translateX(24px);
@@ -202,7 +147,7 @@
   align-items: center;
   gap: 14px;
   padding: 16px 0;
-  border-bottom: 1px solid $border-light;
+  border-bottom: 1px solid var(--border-light);
 
   &:last-child {
     border-bottom: none;
@@ -224,8 +169,8 @@
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  background: rgba($primary, 0.1);
-  color: $primary;
+  background: rgba(255, 77, 157, 0.1);
+  color: var(--pink);
   font-size: 1.1rem;
   flex-shrink: 0;
 }
@@ -240,33 +185,15 @@
 
 .id-field__label {
   font-size: 0.75rem;
-  font-weight: 600;
-  color: $text-muted;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
 
 .id-field__value {
   font-size: 0.9rem;
-  color: $text;
+  color: var(--purple);
   word-break: break-all;
-}
-
-.id-field__input {
-  width: 100%;
-  height: 42px;
-  padding: 0 14px;
-  border: 1px solid $border;
-  border-radius: $radius-md;
-  font-size: 0.875rem;
-  color: $text;
-  outline: none;
-  font-family: inherit;
-
-  &:focus {
-    border-color: $primary;
-    box-shadow: 0 0 0 3px rgba($primary, 0.12);
-  }
 }
 
 .id-field__copy {
@@ -276,16 +203,16 @@
   width: 36px;
   height: 36px;
   border: none;
-  border-radius: $radius-sm;
+  border-radius: var(--radius-sm);
   background: transparent;
-  color: $text-light;
+  color: var(--text-light);
   cursor: pointer;
-  transition: color $transition, background $transition;
+  transition: color var(--transition), background var(--transition);
   flex-shrink: 0;
 
   &:hover {
-    color: $primary;
-    background: rgba($primary, 0.08);
+    color: var(--pink);
+    background: rgba(255, 77, 157, 0.08);
   }
 }
 
@@ -294,41 +221,7 @@
   gap: 12px;
   margin-top: 20px;
   padding-top: 16px;
-  border-top: 1px solid $border-light;
-}
-
-.btn-save-card {
-  flex: 1;
-  height: 42px;
-  border: none;
-  border-radius: $radius-md;
-  background: $primary;
-  color: #fff;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background $transition;
-
-  &:hover {
-    background: $primary-dark;
-  }
-}
-
-.btn-cancel-card {
-  flex: 1;
-  height: 42px;
-  border: 1px solid $border;
-  border-radius: $radius-md;
-  background: #fff;
-  color: $text-muted;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background $transition;
-
-  &:hover {
-    background: $border-light;
-  }
+  border-top: 1px solid var(--border-light);
 }
 
 @media (max-width: 640px) {

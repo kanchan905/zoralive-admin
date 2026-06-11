@@ -58,10 +58,9 @@
             <span class="profile-card__accent"></span>
             User Information
           </h2>
-          <button type="button" class="btn-edit-profile" (click)="toggleEditProfile()">
-            <i class="bi bi-pencil"></i>
+          <app-button preset="edit" icon="bi bi-pencil" (clicked)="toggleEditProfile()">
             {{ editingProfile() ? 'Cancel' : 'Edit Profile' }}
-          </button>
+          </app-button>
         </header>
 
         <form class="profile-card__body" [formGroup]="profileForm" (ngSubmit)="saveProfile()">
@@ -90,7 +89,7 @@
 
           @if (editingProfile()) {
             <div class="profile-card__actions">
-              <button type="submit" class="btn-primary-inline">Save Changes</button>
+              <app-button preset="primary-inline" type="submit">Save Changes</app-button>
             </div>
           }
         </form>
@@ -172,10 +171,9 @@
           </div>
 
           <div class="profile-card__actions profile-card__actions--end">
-            <button type="submit" class="btn-update-password">
-              <i class="bi bi-lock-fill"></i>
+            <app-button preset="update-password" type="submit" icon="bi bi-lock-fill">
               Update Password
-            </button>
+            </app-button>
           </div>
         </form>
       </article>

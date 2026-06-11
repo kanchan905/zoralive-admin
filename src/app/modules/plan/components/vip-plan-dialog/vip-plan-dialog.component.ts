@@ -1,18 +1,20 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { NotificationService } from '../../../../core/services/notification.service';
+import { ToastService } from '../../../../core/services/toast.service';
+import { AppButtonComponent } from '../../../../layout/components/button/button.component';
+import { AppSelectComponent } from '../../../../layout/components/select/select.component';
 
 @Component({
   selector: 'app-vip-plan-dialog',
-  imports: [ReactiveFormsModule, MatDialogModule],
+  imports: [ReactiveFormsModule, MatDialogModule, AppButtonComponent, AppSelectComponent],
   templateUrl: './vip-plan-dialog.component.html',
   styleUrl: './vip-plan-dialog.component.scss',
 })
 export class VipPlanDialogComponent {
   private readonly dialogRef = inject(MatDialogRef<VipPlanDialogComponent>);
   private readonly fb = inject(FormBuilder);
-  private readonly notify = inject(NotificationService);
+  private readonly toast = inject(ToastService);
 
   readonly optionList = [
     { value: '', label: 'Select' },
@@ -35,11 +37,11 @@ export class VipPlanDialogComponent {
   submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      this.notify.warning('Please fill out all required fields');
+      this.toast.warning('Please fill out all required fields');
       return;
     }
 
-    this.notify.success('VIP plan added successfully');
+    this.toast.success('VIP plan added successfully');
     this.dialogRef.close(this.form.getRawValue());
   }
 }

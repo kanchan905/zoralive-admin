@@ -1,18 +1,20 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { NotificationService } from '../../../../core/services/notification.service';
+import { ToastService } from '../../../../core/services/toast.service';
+import { AppButtonComponent } from '../../../../layout/components/button/button.component';
+import { AppSelectComponent } from '../../../../layout/components/select/select.component';
 
 @Component({
   selector: 'app-gift-dialog',
-  imports: [ReactiveFormsModule, MatDialogModule],
+  imports: [ReactiveFormsModule, MatDialogModule, AppButtonComponent, AppSelectComponent],
   templateUrl: './gift-dialog.component.html',
   styleUrl: './gift-dialog.component.scss',
 })
 export class GiftDialogComponent {
   private readonly dialogRef = inject(MatDialogRef<GiftDialogComponent>);
   private readonly fb = inject(FormBuilder);
-  private readonly notify = inject(NotificationService);
+  private readonly toast = inject(ToastService);
 
   readonly iconName = signal('No file chosen');
   readonly categoryOptions = [
@@ -39,11 +41,11 @@ export class GiftDialogComponent {
   submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      this.notify.warning('Please fill out all required fields');
+      this.toast.warning('Please fill out all required fields');
       return;
     }
 
-    this.notify.success('Gift added successfully');
+    this.toast.success('Gift added successfully');
     this.dialogRef.close(this.form.getRawValue());
   }
 }

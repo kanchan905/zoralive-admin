@@ -1,4 +1,4 @@
-import { TableColumn } from '../../../shared/models/table-column.model';
+import { TableColumn } from '../../../core/models/table-column.model';
 
 export const CATEGORY_TABLE_COLUMNS: TableColumn[] = [
   { key: 'select', label: 'Select', type: 'checkbox',},
