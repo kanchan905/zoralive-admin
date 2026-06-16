@@ -7,6 +7,23 @@ function mockResponseBody(url: string, method: string, params: HttpParams): unkn
     return { success: true, message: 'OK' };
   }
 
+  if (/\/advertisement\/?$/i.test(url)) {
+    return {
+      google: {
+        enabled: true,
+        interstitialId: 'ca-app-pub-3940256099942544/1033173712',
+        rewardId: 'ca-app-pub-3940256099942544/5224354917',
+        nativeId: 'ca-app-pub-3940256099942544/2247696110',
+      },
+      facebook: {
+        enabled: true,
+        interstitialId: 'IMG_16_9_APP_INSTALL#1234567890',
+        rewardId: 'IMG_16_9_APP_INSTALL#0987654321',
+        nativeId: 'IMG_16_9_APP_INSTALL#1122334455',
+      },
+    };
+  }
+
   const isPaginated =
     params.has('page') ||
     params.has('pageSize') ||

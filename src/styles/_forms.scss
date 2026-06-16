@@ -160,8 +160,9 @@
 
   .list-field__input {
     max-width: 140px;
-    height: 38px;
-    padding: 0 12px;
+    min-height: 44px;
+    height: auto;
+    padding: 12px 16px;
   }
 
   .form-control--with-prefix {

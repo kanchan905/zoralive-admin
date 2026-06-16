@@ -12,4 +12,19 @@
   gap: 16px;
   margin-bottom: 12px;
   flex-wrap: wrap;
+
+  app-search-box {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-header {
+    justify-content: flex-start;
+
+    app-search-box {
+      max-width: none;
+    }
+  }
 }

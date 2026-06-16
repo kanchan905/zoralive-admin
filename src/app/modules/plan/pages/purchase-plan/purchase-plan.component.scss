@@ -1,6 +1,20 @@
 
-.plan-actions-top {
+.purchase-plan-actions-top {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 12px;
+}
+
+.table-toolbar--search-end {
+  margin-bottom: 12px;
+}
+
+@media (max-width: 768px) {
+  .purchase-plan-actions-top {
+    margin-bottom: 12px;
+  }
+
+  .table-toolbar--search-end {
+    margin-bottom: 16px;
+  }
 }

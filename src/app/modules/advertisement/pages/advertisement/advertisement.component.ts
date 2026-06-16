@@ -57,8 +57,8 @@ export class AdvertisementComponent implements OnInit {
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (settings) => {
-          this.googleConfig.set(settings.google);
-          this.facebookConfig.set(settings.facebook);
+          this.googleConfig.set(this.mergeConfig(DEFAULT_GOOGLE, settings?.google));
+          this.facebookConfig.set(this.mergeConfig(DEFAULT_FACEBOOK, settings?.facebook));
         },
         error: () => {
           this.googleConfig.set({ ...DEFAULT_GOOGLE });
@@ -78,8 +78,8 @@ export class AdvertisementComponent implements OnInit {
       .pipe(finalize(() => this.saving.set(false)))
       .subscribe({
         next: (settings) => {
-          this.googleConfig.set(settings.google);
-          this.facebookConfig.set(settings.facebook);
+          this.googleConfig.set(this.mergeConfig(DEFAULT_GOOGLE, settings?.google));
+          this.facebookConfig.set(this.mergeConfig(DEFAULT_FACEBOOK, settings?.facebook));
           this.googleEditing.set(false);
           this.facebookEditing.set(false);
           this.toast.apiSuccess(settings, 'Advertisement settings saved successfully');
@@ -119,5 +119,12 @@ export class AdvertisementComponent implements OnInit {
     navigator.clipboard.writeText(value).then(
       () => this.toast.success('Copied to clipboard'),
     );
+  }
+
+  private mergeConfig(
+    defaults: AdNetworkConfig,
+    partial?: Partial<AdNetworkConfig> | null
+  ): AdNetworkConfig {
+    return { ...defaults, ...(partial ?? {}) };
   }
 }
