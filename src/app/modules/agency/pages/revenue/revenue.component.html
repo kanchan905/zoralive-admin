@@ -1,0 +1,44 @@
+<div class="page-container">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+
+  <app-page-header
+    title="Revenue"
+    subtitle="View and manage agency revenue records."
+  >
+    <app-button actions preset="export" icon="bi bi-download" (clicked)="exportToExcel()">
+      Export To Excel
+    </app-button>
+  </app-page-header>
+
+  <div class="page-card">
+    <div class="table-toolbar">
+      <div class="table-toolbar-left">
+        <app-button preset="filter-apply" icon="bi bi-funnel" (clicked)="openFilter()">
+          Filter
+        </app-button>
+      </div>
+
+      <div class="table-toolbar-right">
+        <app-search-box
+          placeholder="Search by agency name or code..."
+          (searchChange)="onSearch($event)"
+        ></app-search-box>
+      </div>
+    </div>
+
+    <app-data-table
+      [columns]="columns"
+      [rows]="rows()"
+      [loading]="loading()"
+      [page]="page()"
+      [pageSize]="pageSize()"
+      [total]="total()"
+      rowTrackKey="id"
+      emptyTitle="No revenue records found"
+      emptyMessage="There are no agency revenue records to display."
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+      (rowAction)="onRowAction($event)"
+    ></app-data-table>
+  </div>
+</div>

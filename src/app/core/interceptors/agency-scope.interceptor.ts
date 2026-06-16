@@ -1,13 +1,12 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { environment } from '../../../environments/environment';
-
+import { isApiRequest } from '../utils/api-config.util';
 
 export const agencyScopeInterceptor: HttpInterceptorFn = (req, next) => {
   const auth = inject(AuthService);
 
-  if (!auth.isAgency() || !req.url.startsWith(environment.apiUrl)) {
+  if (!auth.isAgency() || !isApiRequest(req.url)) {
     return next(req);
   }
 

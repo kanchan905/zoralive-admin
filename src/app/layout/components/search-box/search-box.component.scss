@@ -20,3 +20,11 @@
   width: 100%;
   font-size: 0.875rem;
 }
+
+@media (max-width: 768px) {
+  .search-box {
+    min-width: 0;
+    max-width: none;
+    width: 100%;
+  }
+}

@@ -150,6 +150,11 @@
 }
 
 @media (max-width: 768px) {
+  .admin-header {
+    padding: 0 16px;
+    gap: 12px;
+  }
+
   .search-kbd,
   .user-info,
   .profile-chevron {
@@ -158,5 +163,21 @@
 
   .search-wrap {
     max-width: none;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .admin-header {
+    padding: 0 12px;
+    gap: 8px;
+  }
+
+  .search-wrap {
+    display: none;
+  }
+
+  .header-actions {
+    gap: 8px;
   }
 }

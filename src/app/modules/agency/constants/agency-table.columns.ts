@@ -12,6 +12,4 @@ export const AGENCY_TABLE_COLUMNS: TableColumn[] = [
   { key: 'actions', label: 'Action', type: 'actions', width: '100px' },
   { key: 'isDisabled', label: 'Is Disable', type: 'toggle', width: '100px' },
   { key: 'hostDetail', label: 'Host Detail', type: 'link' },
-  { key: 'settlementReport', label: 'Settlement Report', type: 'link' },
-  { key: 'settlementReportHistory', label: 'Settlement Report History', type: 'link' },
 ];

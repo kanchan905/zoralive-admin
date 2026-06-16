@@ -377,6 +377,8 @@ thead th,
 // Page layout
 .page-container {
   max-width: 1400px;
+  width: 100%;
+  min-width: 0;
 }
 
 .page-card {
@@ -766,4 +768,132 @@ thead th,
 
 ::-webkit-scrollbar-track {
   background: var(--card);
+}
+
+// --- Responsive (all views) --------------------------------
+@media (max-width: 992px) {
+  :root {
+    --text-display-size: 24px;
+    --text-heading-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --text-display-size: 22px;
+    --header-height: 64px;
+  }
+
+  .page-card {
+    padding: 16px 14px 12px;
+    border-radius: var(--radius-lg);
+  }
+
+  .page-header {
+    margin-bottom: 16px;
+  }
+
+  .page-header-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .table-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .table-toolbar-left,
+  .table-toolbar-right {
+    width: 100%;
+    margin-left: 0;
+    flex-wrap: wrap;
+  }
+
+  .table-toolbar-right {
+    app-search-box,
+    .search-box {
+      max-width: none;
+      min-width: 0;
+      width: 100%;
+    }
+  }
+
+  .table-toolbar--search-end {
+    justify-content: stretch;
+
+    app-search-box {
+      max-width: none;
+      width: 100%;
+    }
+  }
+
+  .gifts-actions-top,
+  .category-actions-top,
+  .country-actions-top,
+  .sticker-actions-top,
+  .emoji-actions-top,
+  .banner-actions-top,
+  .level-actions-top,
+  .plan-actions-top,
+  .purchase-plan-actions-top,
+  .vip-plan-actions-top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  [class$='-filters-bar'] {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  [class$='-filters-left'] {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  [class$='-actions-top'] {
+    align-items: stretch;
+  }
+
+  .filter-field {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .filter-date-sep {
+    display: none;
+  }
+
+  .glass-card,
+  .design-card {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  :root {
+    --text-display-size: 20px;
+    --text-body-size: 13px;
+  }
+
+  .breadcrumb {
+    font-size: 0.8rem;
+    margin-bottom: 14px;
+    gap: 4px;
+  }
+
+  .page-header-title {
+    font-size: clamp(18px, 5vw, 22px);
+  }
+
+  .page-header-actions app-button {
+    width: 100%;
+  }
+
+  .admin-footer {
+    padding: 16px 12px;
+  }
 }

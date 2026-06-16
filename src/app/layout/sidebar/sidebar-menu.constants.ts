@@ -9,6 +9,8 @@ export const SIDEBAR_MENU: SidebarMenuItem[] = [
       { label: 'Agency Detail', route: '/agency/list' },
       { label: 'Accepted', route: '/agency/accepted' },
       { label: 'Pending Redeem', route: '/agency/pending' },
+      { label: 'Settlement', route: '/agency/settlement' },
+      { label: 'Revenue', route: '/agency/revenue' },
     ],
   },
   {

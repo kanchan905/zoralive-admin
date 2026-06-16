@@ -10,7 +10,7 @@
   height: 100vh;
   background: var(--card);
   border-right: 1px solid var(--border);
-  transition: width var(--transition);
+  transition: width var(--transition), transform var(--transition), box-shadow var(--transition);
 
   &.collapsed {
     width: var(--sidebar-collapsed-width);
@@ -173,5 +173,34 @@
   border-radius: 50%;
   background: var(--text-light);
   flex-shrink: 0;
+}
+
+@media (max-width: 992px) {
+  .sidebar {
+    transform: translateX(-100%);
+    width: var(--sidebar-width) !important;
+    box-shadow: none;
+
+    &.mobile-open {
+      transform: translateX(0);
+      box-shadow: 8px 0 32px rgba(19, 21, 43, 0.45);
+    }
+
+    &.collapsed {
+      width: var(--sidebar-width) !important;
+
+      .brand-text,
+      .nav-label,
+      .nav-chevron {
+        display: inline;
+      }
+
+      .nav-parent,
+      .nav-item:not(.nav-parent) {
+        justify-content: flex-start;
+        padding-inline: 14px;
+      }
+    }
+  }
 }
 

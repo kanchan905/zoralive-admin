@@ -11,5 +11,18 @@ export interface Host {
   liveDuration?: string;
   answerRate?: string;
   unqualifiedRate?: string;
-  hangupRate?: string;
+  hangedCall?: string | number;
+  rejectedCall?: string | number;
+  missCalled?: string | number;
+  callBonus?: string | number;
+  callIncome?: string | number;
+  receiveGift?: string | number;
+  coin?: string | number;
+  callDuration?: string;
+  approvedDate?: string;
+  country?: string;
+  agencyName?: string;
+  extraBonus?: string | number;
+  block?: boolean;
+  hostInfo?: string;
 }

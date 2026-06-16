@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, catchError, of } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { isLiveApiEnabled } from '../../../core/utils/api-config.util';
 import { AuthService } from '../../../core/services/auth.service';
 import { StatCard } from '../models/stat-card.model';
 
@@ -43,6 +44,11 @@ export class DashboardService {
 
   getStats(params: DashboardStatsParams = {}): Observable<StatCard[]> {
     const fallback = this.auth.isAgency() ? AGENCY_STATS : ADMIN_STATS;
+
+    if (!isLiveApiEnabled()) {
+      return of(fallback);
+    }
+
     let httpParams = new HttpParams();
 
     if (params.fromDate) {

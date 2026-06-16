@@ -45,6 +45,20 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'agency/settlement',
+        loadComponent: () =>
+          import('./modules/agency/pages/settlement/settlement.component').then(
+            (m) => m.SettlementComponent
+          ),
+      },
+      {
+        path: 'agency/revenue',
+        loadComponent: () =>
+          import('./modules/agency/pages/revenue/revenue.component').then(
+            (m) => m.RevenueComponent
+          ),
+      },
+      {
         path: 'host/detail',
         loadComponent: () =>
           import('./modules/host/pages/host-detail/host-detail.component').then(

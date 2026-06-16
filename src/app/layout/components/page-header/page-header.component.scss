@@ -23,4 +23,19 @@
   align-items: center;
   gap: 12px;
   flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    gap: 14px;
+  }
+
+  .page-header-text {
+    width: 100%;
+  }
+
+  .page-header-actions {
+    width: 100%;
+  }
 }

@@ -15,6 +15,7 @@ import { SidebarMenuItem } from './sidebar-menu.model';
 })
 export class SidebarComponent implements OnInit {
   @Input() collapsed = false;
+  @Input() mobileOpen = false;
 
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
